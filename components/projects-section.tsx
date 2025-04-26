@@ -48,7 +48,7 @@ const projects = [
       "A collection of simple, includes multiplayer games like Tic Tac Toe and Rock Paper Scissors, as well as solo games like Snake and Memory Match.",
     image: "/games.png",
     tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    liveUrl: "https:/nxr-deen.github.io/fun-games-hub/",
+    liveUrl: "https://nxr-deen.github.io/fun-games-hub/",
     githubUrl: "https://github.com/nxr-deen/fun-games-hub",
   },
 ];
