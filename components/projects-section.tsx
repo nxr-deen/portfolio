@@ -15,59 +15,62 @@ import Link from "next/link";
 const projects = [
   {
     id: 1,
-    title: "Fun Games Hub",
+    title: "LandCo - Business Platform",
     description:
-      "A collection of simple, engaging browser games built with HTML, CSS, and vanilla JavaScript. Includes multiplayer games like Tic Tac Toe and Rock Paper Scissors, as well as solo games like Snake and Memory Match.",
-    image: "/images/homepage.png", // Make sure to add this image to your public folder
-    tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    liveUrl: "#", // Replace with your actual live URL when available
-    githubUrl: "https://github.com/nxr-deen/fun-games-hub", // Replace with your actual GitHub URL if different
-    features: [
-      "Responsive design works on mobile and desktop",
-      "Score tracking in multiplayer games",
-      "Clean, modern UI with smooth animations",
-    ],
+      "A modern business platform built with Next.js, Prisma, and PostgreSQL. Features user authentication, subscriptions, customer management, support system, and a sleek UI.",
+    image: "/business.png", // Replace with a real image path
+    tags: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL", "Authentication"],
+    liveUrl: "#", // Add your live deployment link when available
+    githubUrl: "https://github.com/nxr-deen/landco", // Replace with your GitHub repo URL
   },
+
   {
     id: 2,
-    title: "Project Two",
+    title: "Athar Baqi - Quranic Recitations and Education",
     description:
-      "A brief description of your second project. What was your role? What were the challenges?",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["TypeScript", "Node.js", "MongoDB"],
-    liveUrl: "#",
-    githubUrl: "#",
+      "An Islamic educational platform providing high-quality Quranic recitations, Tajweed lessons, Islamic articles, and a modern responsive design.",
+    image: "/athar.png", // Replace with your real project image
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "CSS Modules",
+      "Font Awesome",
+      "Google Fonts",
+    ],
+    liveUrl: "https://athar-baqi.vercel.app", // if you have a live version
+    githubUrl: "https://github.com/nxr-deen/athar-baqi",
   },
+
   {
     id: 3,
-    title: "Project Three",
+    title: "Fun Games Hub",
     description:
-      "A brief description of your third project. What did you learn? What are you proud of?",
-    image: "/placeholder.svg?height=400&width=600",
-    tags: ["React", "Firebase", "CSS"],
-    liveUrl: "#",
-    githubUrl: "#",
+      "A collection of simple, includes multiplayer games like Tic Tac Toe and Rock Paper Scissors, as well as solo games like Snake and Memory Match.",
+    image: "/games.png",
+    tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+    liveUrl: "https:/nxr-deen.github.io/fun-games-hub/",
+    githubUrl: "https://github.com/nxr-deen/fun-games-hub",
   },
 ];
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-16 md:py-24 bg-muted/50">
+    <section id="projects" className="py-12 sm:py-16 md:py-24 bg-muted/50">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           My Projects
         </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project represents a unique
           challenge and solution.
         </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project) => (
             <Card
               key={project.id}
               className="overflow-hidden flex flex-col h-full group hover:shadow-lg transition-all duration-300"
             >
-              <div className="relative h-48 w-full overflow-hidden">
+              <div className="relative w-full h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
                 <Image
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
@@ -76,7 +79,9 @@ export default function ProjectsSection() {
                 />
               </div>
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
+                <CardTitle className="text-xl md:text-2xl">
+                  {project.title}
+                </CardTitle>
                 <CardDescription>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {project.tags.map((tag) => (
@@ -91,12 +96,11 @@ export default function ProjectsSection() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
-                <p>{project.description}</p>
-
+                <p className="text-sm md:text-base">{project.description}</p>
                 {project.features && (
                   <div className="mt-4">
                     <h4 className="text-sm font-medium mb-2">Key Features:</h4>
-                    <ul className="text-sm list-disc pl-5 space-y-1">
+                    <ul className="text-xs md:text-sm list-disc pl-5 space-y-1">
                       {project.features.map((feature, index) => (
                         <li key={index}>{feature}</li>
                       ))}
@@ -104,7 +108,7 @@ export default function ProjectsSection() {
                   </div>
                 )}
               </CardContent>
-              <CardFooter className="flex gap-4">
+              <CardFooter className="flex flex-wrap gap-3">
                 <Button
                   asChild
                   variant="outline"
