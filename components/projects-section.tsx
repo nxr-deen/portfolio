@@ -37,7 +37,7 @@ const projects = [
       "Font Awesome",
       "Google Fonts",
     ],
-    liveUrl: "https://athar-baqi.vercel.app", // if you have a live version
+    liveUrl: "athar-baqi.vercel.app", // if you have a live version
     githubUrl: "https://github.com/nxr-deen/athar-baqi",
   },
 
