@@ -4,16 +4,23 @@ import ProjectsSection from "@/components/projects-section";
 import SkillsSection from "@/components/skills-section";
 import ExperienceSection from "@/components/experience-section";
 import TestimonialsSection from "@/components/testimonials-section";
+import ContactSection from "@/components/contact-section";
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4">
+    <main className="relative overflow-hidden">
+      {/* Full-width hero section */}
       <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <TestimonialsSection />
-    </div>
+
+      {/* Content sections with container */}
+      <div className="container mx-auto px-4">
+        <AboutSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </div>
+    </main>
   );
 }

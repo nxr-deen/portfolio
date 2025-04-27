@@ -3,7 +3,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import {
   Code,
   Globe,
@@ -15,20 +14,13 @@ import {
   Clock,
   RefreshCcw,
   Lightbulb,
-  FileCode2,
   Github,
   Figma,
-  Palette,
   Trello,
-  MessageCircle,
-  FileText,
-  Send,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 import {
   HoverCard,
   HoverCardContent,
@@ -41,7 +33,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 
 // Custom SVG icons for Next.js and Tailwind CSS
 const NextJsIcon = () => (
@@ -287,12 +278,14 @@ function SkillItem({
   icon,
   iconPath,
   animate = false,
+  index = 0,
 }: {
   name: string;
   proficiency: number;
   icon?: React.ReactNode;
   iconPath?: string;
   animate?: boolean;
+  index?: number;
 }) {
   const [showProgress, setShowProgress] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -302,12 +295,12 @@ function SkillItem({
     if (animate) {
       const timer = setTimeout(() => {
         setShowProgress(true);
-      }, 200);
+      }, 200 + index * 50);
       return () => clearTimeout(timer);
     } else {
       setShowProgress(false);
     }
-  }, [animate]);
+  }, [animate, index]);
 
   // Get proficiency level description
   const getProficiencyLevel = (value: number) => {
@@ -319,10 +312,14 @@ function SkillItem({
   };
 
   return (
-    <div
+    <motion.div
       className="group hover:bg-muted/50 rounded-lg p-3 transition-all duration-300 border border-transparent hover:border-primary/10"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
+      viewport={{ once: true }}
     >
       <div className="flex items-center gap-3">
         <div className="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 p-2.5">
@@ -370,7 +367,7 @@ function SkillItem({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -380,28 +377,49 @@ function FeaturedSkill({
   icon,
   description,
   details,
+  index = 0,
 }: {
   name: string;
   icon: React.ReactNode;
   description: string;
   details: string;
+  index?: number;
 }) {
   return (
     <HoverCard openDelay={100} closeDelay={100}>
       <HoverCardTrigger>
-        <Card className="w-full transition-all duration-300 hover:shadow-md hover:shadow-primary/10 cursor-pointer border-primary/10">
-          <CardContent className="p-6">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-4 p-3 rounded-full bg-primary/10 ring-1 ring-primary/20">
-                {icon}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+          viewport={{ once: true }}
+        >
+          <Card
+            className={`w-full transition-all duration-300 hover:shadow-md ${
+              index % 2 === 0
+                ? "hover:shadow-primary/10 border-primary/10"
+                : "hover:shadow-blue-500/10 border-blue-500/10"
+            } cursor-pointer bg-background/80 backdrop-blur-sm`}
+          >
+            <CardContent className="p-6">
+              <div className="flex flex-col items-center text-center">
+                <div
+                  className={`mb-4 p-3 rounded-full ${
+                    index % 2 === 0
+                      ? "bg-primary/10 ring-1 ring-primary/20"
+                      : "bg-blue-500/10 ring-1 ring-blue-500/20"
+                  }`}
+                >
+                  {icon}
+                </div>
+                <h3 className="text-xl font-medium mb-2">{name}</h3>
+                <p className="text-sm text-muted-foreground">{description}</p>
               </div>
-              <h3 className="text-xl font-medium mb-2">{name}</h3>
-              <p className="text-sm text-muted-foreground">{description}</p>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
       </HoverCardTrigger>
-      <HoverCardContent side="top" align="center" className="w-80 p-4">
+      <HoverCardContent side="top" align="center" className="w-80 p-4 z-50">
         <div className="space-y-2">
           <h4 className="text-sm font-medium">{name}</h4>
           <p className="text-sm text-muted-foreground">{details}</p>
@@ -413,55 +431,47 @@ function FeaturedSkill({
 
 export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState("technical");
-  const [visibleSection, setVisibleSection] = useState<string | null>(null);
-  const featuredRef = useRef<HTMLDivElement>(null);
-  const technicalRef = useRef<HTMLDivElement>(null);
-
-  // Set up intersection observer to trigger animations when sections come into view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (featuredRef.current) observer.observe(featuredRef.current);
-    if (technicalRef.current) observer.observe(technicalRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   return (
     <section id="skills" className="py-16 md:py-24 relative">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
-      <div className="absolute right-0 bottom-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute left-0 top-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background effects */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/4 top-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute right-1/4 bottom-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute left-1/3 top-2/3 w-64 h-64 lg:w-96 lg:h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <Badge
-            variant="outline"
-            className="mb-4 px-3 py-1 border-primary/30 bg-primary/5"
-          >
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
             EXPERTISE
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+              My Skills
+            </span>
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             A comprehensive set of skills and tools that I've mastered to
             deliver exceptional digital experiences.
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured skills carousel */}
-        <div id="featured-skills" ref={featuredRef} className="mb-16">
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
           <h3 className="text-2xl font-semibold mb-6 text-center">
             Featured Expertise
           </h3>
@@ -483,6 +493,7 @@ export default function SkillsSection() {
                     icon={skill.icon}
                     description={skill.description}
                     details={skill.details}
+                    index={index}
                   />
                 </CarouselItem>
               ))}
@@ -490,9 +501,15 @@ export default function SkillsSection() {
             <CarouselPrevious className="left-0" />
             <CarouselNext className="right-0" />
           </Carousel>
-        </div>
+        </motion.div>
 
-        <div id="skills-tabs" ref={technicalRef} className="max-w-3xl mx-auto">
+        <motion.div
+          className="max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <Tabs
             defaultValue="technical"
             className="mb-8"
@@ -508,10 +525,10 @@ export default function SkillsSection() {
               value="technical"
               className="animate-in fade-in-50 duration-300"
             >
-              <Card className="border border-muted-foreground/20 overflow-hidden">
+              <Card className="border border-border/40 bg-background/80 backdrop-blur-sm overflow-hidden">
                 <CardContent className="pt-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {skills.technical.map((skill) => (
+                    {skills.technical.map((skill, idx) => (
                       <SkillItem
                         key={skill.name}
                         name={skill.name}
@@ -519,6 +536,7 @@ export default function SkillsSection() {
                         iconPath={skill.iconPath}
                         icon={skill.icon}
                         animate={activeTab === "technical"}
+                        index={idx}
                       />
                     ))}
                   </div>
@@ -530,16 +548,17 @@ export default function SkillsSection() {
               value="soft"
               className="animate-in fade-in-50 duration-300"
             >
-              <Card className="border border-muted-foreground/20 overflow-hidden">
+              <Card className="border border-border/40 bg-background/80 backdrop-blur-sm overflow-hidden">
                 <CardContent className="pt-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {skills.soft.map((skill) => (
+                    {skills.soft.map((skill, idx) => (
                       <SkillItem
                         key={skill.name}
                         name={skill.name}
                         proficiency={skill.proficiency}
                         icon={skill.icon}
                         animate={activeTab === "soft"}
+                        index={idx}
                       />
                     ))}
                   </div>
@@ -551,10 +570,10 @@ export default function SkillsSection() {
               value="tools"
               className="animate-in fade-in-50 duration-300"
             >
-              <Card className="border border-muted-foreground/20 overflow-hidden">
+              <Card className="border border-border/40 bg-background/80 backdrop-blur-sm overflow-hidden">
                 <CardContent className="pt-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {skills.tools.map((skill) => (
+                    {skills.tools.map((skill, idx) => (
                       <SkillItem
                         key={skill.name}
                         name={skill.name}
@@ -562,6 +581,7 @@ export default function SkillsSection() {
                         iconPath={skill.iconPath}
                         icon={skill.icon}
                         animate={activeTab === "tools"}
+                        index={idx}
                       />
                     ))}
                   </div>
@@ -569,7 +589,7 @@ export default function SkillsSection() {
               </Card>
             </TabsContent>
           </Tabs>
-        </div>
+        </motion.div>
       </div>
 
       <style jsx>{`
@@ -585,6 +605,33 @@ export default function SkillsSection() {
               transparent 1px
             );
           background-size: 24px 24px;
+        }
+
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+
+        .animate-blob {
+          animation: blob 15s infinite;
+        }
+
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+          animation-delay: 4s;
         }
       `}</style>
     </section>
