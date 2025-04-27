@@ -1,62 +1,592 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle2 } from "lucide-react"
+"use client";
 
-// You can edit this data later
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import {
+  Code,
+  Globe,
+  Server,
+  GitBranch,
+  Brain,
+  MessageSquare,
+  Users,
+  Clock,
+  RefreshCcw,
+  Lightbulb,
+  FileCode2,
+  Github,
+  Figma,
+  Palette,
+  Trello,
+  MessageCircle,
+  FileText,
+  Send,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+
+// Custom SVG icons for Next.js and Tailwind CSS
+const NextJsIcon = () => (
+  <svg
+    viewBox="0 0 180 180"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-full h-full"
+  >
+    <mask
+      id="mask0_408_134"
+      style={{ maskType: "alpha" }}
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="180"
+      height="180"
+    >
+      <circle cx="90" cy="90" r="90" fill="black" />
+    </mask>
+    <g mask="url(#mask0_408_134)">
+      <circle
+        cx="90"
+        cy="90"
+        r="87"
+        fill="black"
+        stroke="white"
+        strokeWidth="6"
+      />
+      <path
+        d="M149.508 157.52L69.142 54H54V125.97H66.1136V69.3836L139.999 164.845C143.333 162.614 146.509 160.165 149.508 157.52Z"
+        fill="url(#paint0_linear_408_134)"
+      />
+      <rect
+        x="115"
+        y="54"
+        width="12"
+        height="72"
+        fill="url(#paint1_linear_408_134)"
+      />
+    </g>
+    <defs>
+      <linearGradient
+        id="paint0_linear_408_134"
+        x1="109"
+        y1="116.5"
+        x2="144.5"
+        y2="160.5"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="white" stopOpacity="0" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_408_134"
+        x1="121"
+        y1="54"
+        x2="120.799"
+        y2="106.875"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="white" stopOpacity="0" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const TailwindIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+    className="w-full h-full"
+  >
+    <title>Tailwind CSS</title>
+    <path
+      d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z"
+      fill="#38bdf8"
+    />
+  </svg>
+);
+
+// Skill data with icons and proficiency levels
 const skills = {
-  technical: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "HTML/CSS", "Tailwind CSS", "Git"],
-  soft: ["Problem Solving", "Communication", "Teamwork", "Time Management", "Adaptability", "Creativity"],
-  tools: ["VS Code", "GitHub", "Figma", "Adobe XD", "Jira", "Slack", "Notion", "Postman"],
+  featured: [
+    {
+      name: "Full-Stack Development",
+      icon: <Code className="h-6 w-6 text-primary" />,
+      description:
+        "Building web applications with client and server side expertise",
+      details:
+        "Specializing in building scalable and maintainable applications from frontend to backend, employing best practices like clean architecture and test-driven development.",
+    },
+    {
+      name: "Frontend Excellence",
+      icon: <Globe className="h-6 w-6 text-primary" />,
+      description:
+        "Creating responsive, accessible, and interactive user interfaces",
+      details:
+        "Crafting pixel-perfect interfaces with a focus on performance, accessibility, and user experience. Experienced in modern frontend frameworks and design systems.",
+    },
+    {
+      name: "Backend Architecture",
+      icon: <Server className="h-6 w-6 text-primary" />,
+      description: "Designing robust backend systems with scalability in mind",
+      details:
+        "Building secure, scalable APIs and services using modern backend technologies. Experienced with microservices, serverless architecture, and database optimization.",
+    },
+    {
+      name: "DevOps & CI/CD",
+      icon: <GitBranch className="h-6 w-6 text-primary" />,
+      description:
+        "Automating deployment pipelines and infrastructure management",
+      details:
+        "Setting up efficient CI/CD pipelines, implementing infrastructure as code, and ensuring smooth development workflows for teams of all sizes.",
+    },
+  ],
+  technical: [
+    {
+      name: "JavaScript",
+      proficiency: 95,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    },
+    {
+      name: "TypeScript",
+      proficiency: 90,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    },
+    {
+      name: "React",
+      proficiency: 95,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    },
+    { name: "Next.js", proficiency: 85, icon: <NextJsIcon /> },
+    {
+      name: "Node.js",
+      proficiency: 80,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    },
+    {
+      name: "HTML5",
+      proficiency: 95,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    },
+    {
+      name: "CSS3",
+      proficiency: 90,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    },
+    { name: "Tailwind CSS", proficiency: 90, icon: <TailwindIcon /> },
+  ],
+  soft: [
+    {
+      name: "Problem Solving",
+      proficiency: 95,
+      icon: <Brain className="h-6 w-6 text-indigo-500" />,
+    },
+    {
+      name: "Communication",
+      proficiency: 90,
+      icon: <MessageSquare className="h-6 w-6 text-blue-500" />,
+    },
+    {
+      name: "Teamwork",
+      proficiency: 95,
+      icon: <Users className="h-6 w-6 text-green-500" />,
+    },
+    {
+      name: "Time Management",
+      proficiency: 85,
+      icon: <Clock className="h-6 w-6 text-amber-500" />,
+    },
+    {
+      name: "Adaptability",
+      proficiency: 90,
+      icon: <RefreshCcw className="h-6 w-6 text-purple-500" />,
+    },
+    {
+      name: "Creativity",
+      proficiency: 95,
+      icon: <Lightbulb className="h-6 w-6 text-yellow-500" />,
+    },
+  ],
+  tools: [
+    {
+      name: "VS Code",
+      proficiency: 95,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    },
+    {
+      name: "GitHub",
+      proficiency: 90,
+      icon: <Github className="h-6 w-6 text-gray-700 dark:text-gray-300" />,
+    },
+    {
+      name: "Git",
+      proficiency: 85,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    },
+    {
+      name: "Figma",
+      proficiency: 80,
+      icon: <Figma className="h-6 w-6 text-purple-500" />,
+    },
+    {
+      name: "Docker",
+      proficiency: 75,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    },
+    {
+      name: "MongoDB",
+      proficiency: 85,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    },
+    {
+      name: "PostgreSQL",
+      proficiency: 80,
+      iconPath:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    },
+    {
+      name: "Jira",
+      proficiency: 85,
+      icon: <Trello className="h-6 w-6 text-blue-600" />,
+    },
+  ],
+};
+
+// Component for showing a skill with icon and proficiency bar
+function SkillItem({
+  name,
+  proficiency,
+  icon,
+  iconPath,
+  animate = false,
+}: {
+  name: string;
+  proficiency: number;
+  icon?: React.ReactNode;
+  iconPath?: string;
+  animate?: boolean;
+}) {
+  const [showProgress, setShowProgress] = useState(false);
+  const [hovering, setHovering] = useState(false);
+
+  useEffect(() => {
+    // Only start animation when the tab becomes active or when animate prop changes
+    if (animate) {
+      const timer = setTimeout(() => {
+        setShowProgress(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    } else {
+      setShowProgress(false);
+    }
+  }, [animate]);
+
+  // Get proficiency level description
+  const getProficiencyLevel = (value: number) => {
+    if (value >= 90) return "Expert";
+    if (value >= 80) return "Advanced";
+    if (value >= 70) return "Proficient";
+    if (value >= 50) return "Intermediate";
+    return "Beginner";
+  };
+
+  return (
+    <div
+      className="group hover:bg-muted/50 rounded-lg p-3 transition-all duration-300 border border-transparent hover:border-primary/10"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 flex items-center justify-center rounded-md bg-primary/10 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 p-2.5">
+          {icon ? (
+            icon
+          ) : iconPath ? (
+            <div className="relative w-8 h-8">
+              <Image
+                src={iconPath}
+                alt={`${name} icon`}
+                fill
+                className="object-contain"
+              />
+            </div>
+          ) : null}
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-1">
+            <span className="font-medium group-hover:text-primary transition-colors duration-300">
+              {name}
+            </span>
+            <span
+              className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                proficiency >= 90
+                  ? "bg-green-500/20 text-green-600 dark:text-green-400"
+                  : proficiency >= 80
+                  ? "bg-blue-500/20 text-blue-600 dark:text-blue-400"
+                  : proficiency >= 70
+                  ? "bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                  : "bg-amber-500/20 text-amber-600 dark:text-amber-400"
+              } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+            >
+              {getProficiencyLevel(proficiency)}
+            </span>
+          </div>
+          <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
+            <div
+              className={`h-full bg-primary rounded-full transition-all duration-1000 ease-out ${
+                showProgress ? "w-full" : "w-0"
+              }`}
+              style={{
+                width: showProgress ? `${proficiency}%` : "0%",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Featured skill card component
+function FeaturedSkill({
+  name,
+  icon,
+  description,
+  details,
+}: {
+  name: string;
+  icon: React.ReactNode;
+  description: string;
+  details: string;
+}) {
+  return (
+    <HoverCard openDelay={100} closeDelay={100}>
+      <HoverCardTrigger>
+        <Card className="w-full transition-all duration-300 hover:shadow-md hover:shadow-primary/10 cursor-pointer border-primary/10">
+          <CardContent className="p-6">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4 p-3 rounded-full bg-primary/10 ring-1 ring-primary/20">
+                {icon}
+              </div>
+              <h3 className="text-xl font-medium mb-2">{name}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </HoverCardTrigger>
+      <HoverCardContent side="top" align="center" className="w-80 p-4">
+        <div className="space-y-2">
+          <h4 className="text-sm font-medium">{name}</h4>
+          <p className="text-sm text-muted-foreground">{details}</p>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
+  );
 }
 
 export default function SkillsSection() {
+  const [activeTab, setActiveTab] = useState("technical");
+  const [visibleSection, setVisibleSection] = useState<string | null>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const technicalRef = useRef<HTMLDivElement>(null);
+
+  // Set up intersection observer to trigger animations when sections come into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (featuredRef.current) observer.observe(featuredRef.current);
+    if (technicalRef.current) observer.observe(technicalRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section id="skills" className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">My Skills</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          <Card className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <CardContent className="pt-6">
-              <h3 className="text-xl font-bold mb-4">Technical Skills</h3>
-              <ul className="space-y-2">
-                {skills.technical.map((skill) => (
-                  <li key={skill} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span>{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+    <section id="skills" className="py-16 md:py-24 relative">
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
+      <div className="absolute right-0 bottom-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute left-0 top-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-          <Card className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <CardContent className="pt-6">
-              <h3 className="text-xl font-bold mb-4">Soft Skills</h3>
-              <ul className="space-y-2">
-                {skills.soft.map((skill) => (
-                  <li key={skill} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span>{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <Badge
+            variant="outline"
+            className="mb-4 px-3 py-1 border-primary/30 bg-primary/5"
+          >
+            EXPERTISE
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A comprehensive set of skills and tools that I've mastered to
+            deliver exceptional digital experiences.
+          </p>
+        </div>
 
-          <Card className="animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <CardContent className="pt-6">
-              <h3 className="text-xl font-bold mb-4">Tools & Software</h3>
-              <ul className="space-y-2">
-                {skills.tools.map((skill) => (
-                  <li key={skill} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span>{skill}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+        {/* Featured skills carousel */}
+        <div id="featured-skills" ref={featuredRef} className="mb-16">
+          <h3 className="text-2xl font-semibold mb-6 text-center">
+            Featured Expertise
+          </h3>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-4xl mx-auto"
+          >
+            <CarouselContent>
+              {skills.featured.map((skill, index) => (
+                <CarouselItem
+                  key={index}
+                  className="md:basis-1/2 lg:basis-1/3 pl-4"
+                >
+                  <FeaturedSkill
+                    name={skill.name}
+                    icon={skill.icon}
+                    description={skill.description}
+                    details={skill.details}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-0" />
+            <CarouselNext className="right-0" />
+          </Carousel>
+        </div>
+
+        <div id="skills-tabs" ref={technicalRef} className="max-w-3xl mx-auto">
+          <Tabs
+            defaultValue="technical"
+            className="mb-8"
+            onValueChange={setActiveTab}
+          >
+            <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsTrigger value="technical">Technical</TabsTrigger>
+              <TabsTrigger value="soft">Soft Skills</TabsTrigger>
+              <TabsTrigger value="tools">Tools & Software</TabsTrigger>
+            </TabsList>
+
+            <TabsContent
+              value="technical"
+              className="animate-in fade-in-50 duration-300"
+            >
+              <Card className="border border-muted-foreground/20 overflow-hidden">
+                <CardContent className="pt-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {skills.technical.map((skill) => (
+                      <SkillItem
+                        key={skill.name}
+                        name={skill.name}
+                        proficiency={skill.proficiency}
+                        iconPath={skill.iconPath}
+                        icon={skill.icon}
+                        animate={activeTab === "technical"}
+                      />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent
+              value="soft"
+              className="animate-in fade-in-50 duration-300"
+            >
+              <Card className="border border-muted-foreground/20 overflow-hidden">
+                <CardContent className="pt-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {skills.soft.map((skill) => (
+                      <SkillItem
+                        key={skill.name}
+                        name={skill.name}
+                        proficiency={skill.proficiency}
+                        icon={skill.icon}
+                        animate={activeTab === "soft"}
+                      />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent
+              value="tools"
+              className="animate-in fade-in-50 duration-300"
+            >
+              <Card className="border border-muted-foreground/20 overflow-hidden">
+                <CardContent className="pt-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {skills.tools.map((skill) => (
+                      <SkillItem
+                        key={skill.name}
+                        name={skill.name}
+                        proficiency={skill.proficiency}
+                        iconPath={skill.iconPath}
+                        icon={skill.icon}
+                        animate={activeTab === "tools"}
+                      />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
+
+      <style jsx>{`
+        .bg-grid-pattern {
+          background-image: linear-gradient(
+              to right,
+              rgba(var(--foreground-rgb), 0.05) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              to bottom,
+              rgba(var(--foreground-rgb), 0.05) 1px,
+              transparent 1px
+            );
+          background-size: 24px 24px;
+        }
+      `}</style>
     </section>
-  )
+  );
 }
