@@ -488,7 +488,7 @@ function SkillItem({
   // DESKTOP VERSION - simplified without numbers and stars
   return (
     <motion.div
-      className="group relative overflow-hidden hover:bg-muted/50 rounded-xl p-5 transition-all duration-500 border border-transparent hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10 backdrop-blur-sm"
+      className="group relative overflow-hidden hover:bg-muted/50 rounded-xl p-5 transition-all duration-500 border border-transparent hover:border-primary/20 hover:shadow-md hover:shadow-primary/5 backdrop-blur-sm"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       initial={{ opacity: 0, y: 20 }}
@@ -672,12 +672,12 @@ function FeaturedSkill({
             whileHover={{ scale: 1.05, y: -10 }}
           >
             <Card
-              className={`w-full h-full transition-all duration-300 hover:shadow-2xl backdrop-blur-sm group overflow-hidden relative bg-background/90 ${
+              className={`w-full h-full transition-all duration-300 hover:shadow-md backdrop-blur-sm group overflow-hidden relative bg-background/90 ${
                 index % 2 === 0
-                  ? "hover:shadow-primary/20 border-primary/10"
+                  ? "hover:shadow-primary/10 border-primary/10"
                   : index % 3 === 0
-                  ? "hover:shadow-purple-500/20 border-purple-500/10"
-                  : "hover:shadow-blue-500/20 border-blue-500/10"
+                  ? "hover:shadow-purple-500/10 border-purple-500/10"
+                  : "hover:shadow-blue-500/10 border-blue-500/10"
               }`}
             >
               {/* Background gradient effect */}

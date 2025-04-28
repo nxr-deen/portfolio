@@ -295,14 +295,14 @@ export default function ProjectsSection() {
                 className="absolute -inset-1 md:-inset-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-600 opacity-0 
                   -z-10 blur-md transition-opacity duration-300"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: isHovering === project.id ? 0.4 : 0 }}
+                animate={{ opacity: isHovering === project.id ? 0.1 : 0 }}
                 transition={{ duration: 0.3 }}
               />
 
               <Card
                 className="overflow-hidden h-full group transition-all duration-300 border-border/50 bg-background/80 backdrop-blur-sm
-                hover:shadow-[0_10px_40px_-15px_rgba(var(--green-rgb),0.6),0_4px_25px_-5px_rgba(var(--primary-rgb),0.4)]
-                dark:hover:shadow-[0_10px_40px_-15px_rgba(var(--green-rgb),0.5),0_4px_25px_-5px_rgba(var(--primary-rgb),0.5)]
+                hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.3),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
+                dark:hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.25),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
                 hover:border-green-500/30"
               >
                 <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
@@ -315,13 +315,13 @@ export default function ProjectsSection() {
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-t from-primary/30 to-blue-500/10 opacity-0 group-hover:opacity-30"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovering === project.id ? 0.3 : 0 }}
+                    animate={{ opacity: isHovering === project.id ? 0.15 : 0 }}
                     transition={{ duration: 0.4 }}
                   />
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/50 opacity-0"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovering === project.id ? 0.4 : 0 }}
+                    animate={{ opacity: isHovering === project.id ? 0.2 : 0 }}
                     transition={{ duration: 0.6 }}
                   />
                 </div>
