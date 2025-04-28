@@ -111,3 +111,28 @@
 .animate-slide-in-right {
   animation: slideInFromRight 0.5s ease-out forwards;
 }
+
+/* Animated gradient text effect - transitions between different gradients */
+@keyframes gradient-color-change {
+  0% {
+    background-image: linear-gradient(to right, #3b82f6, #22c55e);
+  }
+  33% {
+    background-image: linear-gradient(to right, #22c55e, #3b82f6);
+  }
+  66% {
+    background-image: linear-gradient(to right, #0ea5e9, #15803d);
+  }
+  100% {
+    background-image: linear-gradient(to right, #3b82f6, #22c55e);
+  }
+}
+
+.animate-gradient-text {
+  background-image: linear-gradient(to right, #3b82f6, #22c55e);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: gradient-color-change 8s ease infinite;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}

@@ -43,8 +43,16 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        {/* Mobile menu button */}
-        <div className="md:hidden">
+        {/* Mobile controls: theme toggle + menu button */}
+        <div className="md:hidden flex items-center gap-2">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ModeToggle />
+          </motion.div>
+
           <Button
             variant="ghost"
             size="icon"
@@ -136,14 +144,6 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div
-                  className="px-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <ModeToggle />
-                </motion.div>
               </div>
             </motion.div>
           )}

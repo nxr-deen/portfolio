@@ -55,8 +55,8 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center text-sm group"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-gray-900 dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-gray-900 transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
-                  <Github className="h-4 w-4" />
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-gray-900 dark:group-hover:bg-white dark:group-hover:text-gray-900 transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
+                  <Github className="h-4 w-4 group-hover:text-white dark:group-hover:text-gray-900 transition-colors" />
                 </div>
                 <span className="group-hover:text-primary transition-colors">
                   GitHub
