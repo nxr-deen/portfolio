@@ -11,52 +11,59 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
-import { motion, useAnimationControls, Variants } from "framer-motion";
+import {
+  motion,
+  useAnimationControls,
+  Variants,
+  MotionProps,
+  isValidMotionProp,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback, memo } from "react";
 
-// Animation variants
-const cardVariants: Variants = {
-  offscreen: {
-    y: 100,
-    opacity: 0,
-    scale: 0.9,
-  },
-  onscreen: (i) => ({
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.4,
-      duration: 0.8,
-      delay: i * 0.2,
+// Animation variants moved to separate object for better maintainability
+const animations = {
+  cardVariants: {
+    offscreen: {
+      y: 100,
+      opacity: 0,
+      scale: 0.9,
     },
-  }),
-};
+    onscreen: (i) => ({
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 0.8,
+        delay: i * 0.2,
+      },
+    }),
+  },
 
-const tagVariants: Variants = {
-  initial: { scale: 0.8, opacity: 0 },
-  animate: (i) => ({
-    scale: 1,
-    opacity: 1,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.3,
+  tagVariants: {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: (i) => ({
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.3,
+      },
+    }),
+  },
+
+  shimmerEffect: {
+    hidden: { backgroundPosition: "200% 0" },
+    visible: {
+      backgroundPosition: "-200% 0",
+      transition: { repeat: Infinity, duration: 3, ease: "linear" },
     },
-  }),
-};
-
-const shimmerEffect = {
-  hidden: { backgroundPosition: "200% 0" },
-  visible: {
-    backgroundPosition: "-200% 0",
-    transition: { repeat: Infinity, duration: 3, ease: "linear" },
   },
 };
 
-// You can edit this data later
 const projects = [
   {
     id: 1,
@@ -99,9 +106,225 @@ const projects = [
   },
 ];
 
+const ProjectCard = memo(
+  ({ project, index, isHovering, handleHoverStart, handleHoverEnd }) => {
+    return (
+      <motion.div
+        key={project.id}
+        custom={index}
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={animations.cardVariants}
+        whileHover={{
+          y: -12,
+          scale: 1.02,
+          transition: {
+            type: "spring",
+            stiffness: 300,
+            damping: 15,
+          },
+        }}
+        onHoverStart={() => handleHoverStart(project.id)}
+        onHoverEnd={handleHoverEnd}
+        className="relative"
+      >
+        {/* Animated border effect outside card on hover */}
+        <motion.div
+          className="absolute -inset-1 md:-inset-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-600 opacity-0 
+          -z-10 blur-md transition-opacity duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovering === project.id ? 0.1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+
+        <Card
+          className="overflow-hidden h-full group transition-all duration-300 border-border/50 bg-background/80 backdrop-blur-sm
+        hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.3),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
+        dark:hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.25),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
+        hover:border-green-500/30"
+          style={{ willChange: "transform, opacity" }}
+        >
+          <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
+            <Image
+              src={project.image || "/placeholder.svg"}
+              alt={project.title}
+              fill
+              loading={index <= 1 ? "eager" : "lazy"}
+              priority={index === 0}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-primary/30 to-blue-500/10 opacity-0 group-hover:opacity-30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isHovering === project.id ? 0.15 : 0 }}
+              transition={{ duration: 0.4 }}
+            />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/50 opacity-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isHovering === project.id ? 0.2 : 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          </div>
+
+          <CardHeader className="border-b border-primary/10">
+            <CardTitle
+              className="text-xl md:text-2xl group-hover:text-primary transition-colors duration-300
+            group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 
+            group-hover:bg-clip-text group-hover:text-transparent"
+            >
+              {project.title}
+            </CardTitle>
+            <CardDescription>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {project.tags.map((tag, idx) => (
+                  <motion.span
+                    key={tag}
+                    variants={animations.tagVariants}
+                    initial="initial"
+                    animate="animate"
+                    custom={idx}
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { type: "spring", stiffness: 300 },
+                    }}
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      idx % 2 === 0
+                        ? "bg-primary/10 text-primary"
+                        : "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                    }`}
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="flex-grow">
+            <motion.p
+              className="text-sm md:text-base text-muted-foreground"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              {project.description}
+            </motion.p>
+            {project.features && (
+              <div className="mt-4">
+                <h4 className="text-sm font-medium mb-2">Key Features:</h4>
+                <ul className="text-xs md:text-sm list-disc pl-5 space-y-1 text-muted-foreground">
+                  {project.features.map((feature, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + idx * 0.1 }}
+                    >
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CardContent>
+
+          <CardFooter className="flex flex-wrap gap-3">
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                WebkitFontSmoothing: "subpixel-antialiased",
+              }}
+            >
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="rounded-full border-primary/30 group-hover:border-primary group-hover:text-primary 
+                transition-all duration-300 hover:bg-primary/5"
+              >
+                <Link
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="mr-2 h-4 w-4" />
+                  Source Code
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.15)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                WebkitFontSmoothing: "subpixel-antialiased",
+              }}
+            >
+              <Button
+                asChild
+                size="sm"
+                className="rounded-full relative overflow-hidden group/button"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(45deg, var(--primary), #4a9fff 50%, var(--primary))",
+                  backgroundSize: "200% 100%",
+                  animation: "none",
+                }}
+              >
+                <Link
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-10 flex items-center"
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  Live Demo
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-primary to-blue-500"
+                    initial={{ x: "-100%" }}
+                    whileHover={{
+                      x: "0%",
+                      transition: { duration: 0.4, ease: "easeOut" },
+                    }}
+                  />
+                </Link>
+              </Button>
+            </motion.div>
+          </CardFooter>
+        </Card>
+      </motion.div>
+    );
+  }
+);
+
 export default function ProjectsSection() {
   const [isHovering, setIsHovering] = useState<number | null>(null);
   const controls = useAnimationControls();
+
+  // Memoize projects data to prevent re-renders
+  const projectsData = useMemo(() => projects, []);
+
+  // Use callbacks for hover handlers to prevent recreation on each render
+  const handleHoverStart = useCallback((id: number) => {
+    setIsHovering(id);
+  }, []);
+
+  const handleHoverEnd = useCallback(() => {
+    setIsHovering(null);
+  }, []);
 
   useEffect(() => {
     controls.start({
@@ -159,21 +382,27 @@ export default function ProjectsSection() {
         }}
       />
 
-      {/* Green animated elements outside project cards */}
+      {/* Green animated elements outside project cards - optimized to use transform instead of opacity/filter where possible */}
       <motion.div
         className="absolute hidden md:block left-[40%] top-[45%] w-32 h-32 bg-green-500/20 rounded-full 
           mix-blend-screen filter blur-xl z-0 pointer-events-none"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.2, 0.5, 0.2],
-          transition: {
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          },
         }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+          times: [0, 0.5, 1],
+          // Using reducedMotion settings for better performance
+          restDelta: 0.01,
+          restSpeed: 0.01,
+        }}
+        style={{ willChange: "transform" }}
       />
+
       <motion.div
         className="absolute hidden lg:block right-[25%] top-[35%] w-40 h-40 bg-gradient-to-br from-green-300 to-green-600 
           rounded-full mix-blend-screen filter blur-xl opacity-30 z-0 pointer-events-none"
@@ -245,7 +474,7 @@ export default function ProjectsSection() {
               className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent inline-block"
               initial="hidden"
               whileInView="visible"
-              variants={shimmerEffect}
+              variants={animations.shimmerEffect}
               style={{
                 backgroundSize: "200% 100%",
                 backgroundImage:
@@ -269,192 +498,15 @@ export default function ProjectsSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {projects.map((project, index) => (
-            <motion.div
+          {projectsData.map((project, index) => (
+            <ProjectCard
               key={project.id}
-              custom={index}
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={cardVariants}
-              whileHover={{
-                y: -12,
-                scale: 1.02,
-                transition: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 15,
-                },
-              }}
-              onHoverStart={() => setIsHovering(project.id)}
-              onHoverEnd={() => setIsHovering(null)}
-              className="relative"
-            >
-              {/* Animated border effect outside card on hover */}
-              <motion.div
-                className="absolute -inset-1 md:-inset-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-600 opacity-0 
-                  -z-10 blur-md transition-opacity duration-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isHovering === project.id ? 0.1 : 0 }}
-                transition={{ duration: 0.3 }}
-              />
-
-              <Card
-                className="overflow-hidden h-full group transition-all duration-300 border-border/50 bg-background/80 backdrop-blur-sm
-                hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.3),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
-                dark:hover:shadow-[0_5px_15px_-10px_rgba(var(--green-rgb),0.25),0_2px_10px_-5px_rgba(var(--primary-rgb),0.2)]
-                hover:border-green-500/30"
-              >
-                <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-primary/30 to-blue-500/10 opacity-0 group-hover:opacity-30"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovering === project.id ? 0.15 : 0 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/50 opacity-0"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovering === project.id ? 0.2 : 0 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                </div>
-
-                <CardHeader className="border-b border-primary/10">
-                  <CardTitle
-                    className="text-xl md:text-2xl group-hover:text-primary transition-colors duration-300
-                    group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 
-                    group-hover:bg-clip-text group-hover:text-transparent"
-                  >
-                    {project.title}
-                  </CardTitle>
-                  <CardDescription>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {project.tags.map((tag, idx) => (
-                        <motion.span
-                          key={tag}
-                          variants={tagVariants}
-                          initial="initial"
-                          animate="animate"
-                          custom={idx}
-                          whileHover={{
-                            scale: 1.1,
-                            transition: { type: "spring", stiffness: 300 },
-                          }}
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            idx % 2 === 0
-                              ? "bg-primary/10 text-primary"
-                              : "bg-blue-500/10 text-blue-600 dark:text-blue-400"
-                          }`}
-                        >
-                          {tag}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="flex-grow">
-                  <motion.p
-                    className="text-sm md:text-base text-muted-foreground"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    {project.description}
-                  </motion.p>
-                  {project.features && (
-                    <div className="mt-4">
-                      <h4 className="text-sm font-medium mb-2">
-                        Key Features:
-                      </h4>
-                      <ul className="text-xs md:text-sm list-disc pl-5 space-y-1 text-muted-foreground">
-                        {project.features.map((feature, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3 + idx * 0.1 }}
-                          >
-                            {feature}
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </CardContent>
-
-                <CardFooter className="flex flex-wrap gap-3">
-                  <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.1)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="rounded-full border-primary/30 group-hover:border-primary group-hover:text-primary 
-                        transition-all duration-300 hover:bg-primary/5"
-                    >
-                      <Link
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="mr-2 h-4 w-4" />
-                        Source Code
-                      </Link>
-                    </Button>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.15)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      asChild
-                      size="sm"
-                      className="rounded-full relative overflow-hidden group/button"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(45deg, var(--primary), #4a9fff 50%, var(--primary))",
-                        backgroundSize: "200% 100%",
-                        animation: "none",
-                      }}
-                    >
-                      <Link
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="relative z-10 flex items-center"
-                      >
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Live Demo
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-primary to-blue-500"
-                          initial={{ x: "-100%" }}
-                          whileHover={{
-                            x: "0%",
-                            transition: { duration: 0.4, ease: "easeOut" },
-                          }}
-                        />
-                      </Link>
-                    </Button>
-                  </motion.div>
-                </CardFooter>
-              </Card>
-            </motion.div>
+              project={project}
+              index={index}
+              isHovering={isHovering}
+              handleHoverStart={handleHoverStart}
+              handleHoverEnd={handleHoverEnd}
+            />
           ))}
         </div>
       </div>

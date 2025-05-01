@@ -27,7 +27,7 @@ import { motion } from "framer-motion";
 const socialLinks = {
   github: "https://github.com/nxr-deen",
   linkedin: "https://www.linkedin.com/in/n-bouderbala/",
-  leetcode: "https://leetcode.com/nxr-deen/",
+  leetcode: "https://leetcode.com/u/nxr_deen/",
   instagram: "https://instagram.com/nxr.deen",
   email: "mailto:n_bouderbala@estin.dz",
 };

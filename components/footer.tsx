@@ -76,7 +76,7 @@ export default function Footer() {
                 </span>
               </a>
               <a
-                href="https://leetcode.com/nxr-deen/"
+                href="https://leetcode.com/u/nxr_deen/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-sm group"
