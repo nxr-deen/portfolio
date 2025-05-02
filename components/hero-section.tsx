@@ -7,13 +7,11 @@ import { useEffect, useState } from "react";
 import {
   ArrowDown,
   Download,
-  Github,
-  Code2,
   Linkedin,
   Mail,
   Instagram,
   ExternalLink,
-  Code,
+  Phone,
   Layout,
   Server,
   Database,
@@ -25,10 +23,9 @@ import { motion } from "framer-motion";
 
 // Social media links configuration
 const socialLinks = {
-  github: "https://github.com/nxr-deen",
-  linkedin: "https://www.linkedin.com/in/n-bouderbala/",
-  leetcode: "https://leetcode.com/u/nxr_deen/",
   instagram: "https://instagram.com/nxr.deen",
+  linkedin: "https://www.linkedin.com/in/n-bouderbala/",
+  whatsapp: "https://wa.me/213540194210",
   email: "mailto:n_bouderbala@estin.dz",
 };
 
@@ -108,73 +105,18 @@ const TechStack = () => {
   );
 };
 
-// Social link component with animation
-const SocialLink = ({
-  href,
-  ariaLabel,
-  icon,
-  hoverIcon,
-  hoverClass,
-  index,
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Get proper classes based on social platform
-  const getBgColorClass = () => {
-    if (href === socialLinks.github) {
-      return "bg-white text-gray-900";
-    } else if (href === socialLinks.linkedin) {
-      return "bg-[#0077B5] text-white";
-    } else if (href === socialLinks.leetcode) {
-      return "bg-[#FFA116] text-white";
-    } else if (href === socialLinks.instagram) {
-      return "bg-gradient-to-tr from-[#FD5949] via-[#D6249F] to-[#285AEB] text-white";
-    }
-    return "";
-  };
-
+// Social link component with simple styling (no animations)
+const SocialLink = ({ href, ariaLabel, icon, index }) => {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="p-2 rounded-full bg-background transition-all border border-border relative overflow-hidden group"
+      className="p-2 rounded-full bg-background border border-border"
       aria-label={ariaLabel}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.9 + index * 0.1, duration: 0.5 }}
-      whileHover={{ scale: 1.15 }}
-      whileTap={{ scale: 0.95 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      <motion.span
-        className="relative z-10"
-        animate={{
-          rotateY: isHovered ? 180 : 0,
-          opacity: isHovered ? 0 : 1,
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        {icon}
-      </motion.span>
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center z-20"
-        animate={{
-          rotateY: isHovered ? 0 : -180,
-          opacity: isHovered ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        {hoverIcon}
-      </motion.div>
-      <motion.div
-        className={`absolute inset-0 opacity-0 group-hover:opacity-100 ${getBgColorClass()}`}
-        initial={{ scale: 0 }}
-        animate={{ scale: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.a>
+      {icon}
+    </a>
   );
 };
 
@@ -357,49 +299,36 @@ export default function HeroSection() {
               </motion.div>
             </motion.div>
 
-            {/* Social links */}
-            <motion.div
-              className="flex items-center gap-4 mt-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.5 }}
-            >
+            {/* Social links - simplified without animations */}
+            <div className="flex items-center gap-4 mt-10">
               <span className="text-sm text-muted-foreground">Find me on</span>
               <div className="flex gap-3">
                 <SocialLink
-                  href={socialLinks.github}
-                  ariaLabel="GitHub"
-                  icon={<Github className="h-4 w-4" />}
-                  hoverIcon={<FileType className="h-4 w-4 text-gray-900" />}
-                  hoverClass="bg-white text-gray-900 dark:bg-white dark:text-gray-900"
+                  href={socialLinks.instagram}
+                  ariaLabel="Instagram"
+                  icon={<Instagram className="h-4 w-4" />}
                   index={0}
                 />
                 <SocialLink
                   href={socialLinks.linkedin}
                   ariaLabel="LinkedIn"
                   icon={<Linkedin className="h-4 w-4" />}
-                  hoverIcon={<Globe className="h-4 w-4" />}
-                  hoverClass="bg-[#0077B5] text-white"
                   index={1}
                 />
                 <SocialLink
-                  href={socialLinks.leetcode}
-                  ariaLabel="LeetCode"
-                  icon={<Code2 className="h-4 w-4" />}
-                  hoverIcon={<Code className="h-4 w-4" />}
-                  hoverClass="bg-[#FFA116] text-white"
+                  href={socialLinks.whatsapp}
+                  ariaLabel="WhatsApp"
+                  icon={<Phone className="h-4 w-4" />}
                   index={2}
                 />
                 <SocialLink
-                  href={socialLinks.instagram}
-                  ariaLabel="Instagram"
-                  icon={<Instagram className="h-4 w-4" />}
-                  hoverIcon={<Database className="h-4 w-4" />}
-                  hoverClass="bg-gradient-to-tr from-[#FD5949] via-[#D6249F] to-[#285AEB] text-white"
+                  href={socialLinks.email}
+                  ariaLabel="Email"
+                  icon={<Mail className="h-4 w-4" />}
                   index={3}
                 />
               </div>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Right side - Image & Visual Elements */}
@@ -457,7 +386,7 @@ export default function HeroSection() {
                 dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
                 dragElastic={0.1}
               >
-                <Code className="h-6 w-6 text-primary" />
+                <FileType className="h-6 w-6 text-primary" />
               </motion.div>
 
               <motion.div

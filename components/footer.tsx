@@ -2,18 +2,16 @@
 
 import Link from "next/link";
 import {
-  Github,
+  Instagram,
   Linkedin,
-  Code2,
+  Phone,
   ArrowUp,
   FileText,
   Mail,
   MapPin,
-  Phone,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -27,10 +25,8 @@ export default function Footer() {
 
   return (
     <footer className="border-t bg-background py-16 relative z-10">
-      {/* Background effects */}
+      {/* Background pattern */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute right-1/3 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute left-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
@@ -38,66 +34,49 @@ export default function Footer() {
         {/* Main footer content */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           {/* Social links */}
-          <motion.div
-            className="col-span-2 md:col-span-1"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div className="col-span-2 md:col-span-1">
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               Follow Me
             </h4>
             <div className="flex flex-col space-y-3">
               <a
-                href="https://github.com/nxr-deen"
+                href="https://www.instagram.com/nxr_deen/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm group"
+                className="flex items-center text-sm"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-gray-900 dark:group-hover:bg-white dark:group-hover:text-gray-900 transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
-                  <Github className="h-4 w-4 group-hover:text-white dark:group-hover:text-gray-900 transition-colors" />
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+                  <Instagram className="h-4 w-4" />
                 </div>
-                <span className="group-hover:text-primary transition-colors">
-                  GitHub
-                </span>
+                <span>Instagram</span>
               </a>
               <a
                 href="https://www.linkedin.com/in/n-bouderbala/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm group"
+                className="flex items-center text-sm"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-blue-500 group-hover:bg-[#0077B5] group-hover:text-white transition-colors group-hover:shadow-sm group-hover:shadow-blue-500/10">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
                   <Linkedin className="h-4 w-4" />
                 </div>
-                <span className="group-hover:text-blue-500 transition-colors">
-                  LinkedIn
-                </span>
+                <span>LinkedIn</span>
               </a>
               <a
-                href="https://leetcode.com/u/nxr_deen/"
+                href="https://wa.me/213540194210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm group"
+                className="flex items-center text-sm"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-[#FFA116] group-hover:text-white transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
-                  <Code2 className="h-4 w-4" />
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+                  <Phone className="h-4 w-4" />
                 </div>
-                <span className="group-hover:text-primary transition-colors">
-                  LeetCode
-                </span>
+                <span>WhatsApp</span>
               </a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               Navigation
             </h4>
@@ -133,60 +112,42 @@ export default function Footer() {
                 Testimonials
               </Link>
             </nav>
-          </motion.div>
+          </div>
 
           {/* Contact */}
-          <motion.div
-            className="col-span-2 md:col-span-1"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <div className="col-span-2 md:col-span-1">
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               Contact
             </h4>
             <div className="flex flex-col space-y-3">
               <a
                 href="mailto:n_bouderbala@estin.dz"
-                className="flex items-center text-sm group"
+                className="flex items-center text-sm"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:text-primary transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
                   <Mail className="h-4 w-4" />
                 </div>
-                <span className="group-hover:text-primary transition-colors">
-                  n_bouderbala@estin.dz
-                </span>
+                <span>n_bouderbala@estin.dz</span>
               </a>
-              <a
-                href="tel:+213540194210"
-                className="flex items-center text-sm group"
-              >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-blue-500 group-hover:text-blue-500 transition-colors group-hover:shadow-sm group-hover:shadow-blue-500/10">
+              <a href="tel:+213540194210" className="flex items-center text-sm">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
                   <Phone className="h-4 w-4" />
                 </div>
-                <span className="group-hover:text-blue-500 transition-colors">
-                  +213 540 194 210
-                </span>
+                <span>+213 540 194 210</span>
               </a>
-              <div className="flex items-center text-sm group">
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:text-primary transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
+              <div className="flex items-center text-sm">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
                   <MapPin className="h-4 w-4" />
                 </div>
-                <span className="text-muted-foreground group-hover:text-primary transition-colors">
+                <span className="text-muted-foreground">
                   Lakhdaria-Bouira, Algeria
                 </span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Resume */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               Resume
             </h4>
@@ -198,19 +159,13 @@ export default function Footer() {
               <FileText className="h-4 w-4 mr-2" />
               Download CV
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         <Separator className="mb-6" />
 
         {/* Bottom section */}
-        <motion.div
-          className="flex flex-col md:flex-row justify-between items-center"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
+        <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
             © {currentYear} Noureddine Bouderbala. All Rights Reserved.
           </p>
@@ -223,10 +178,10 @@ export default function Footer() {
             <ArrowUp className="h-4 w-4" />
             <span className="sr-only">Back to top</span>
           </Button>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Add CSS for background grid pattern and animations */}
+      {/* Add CSS for background grid pattern */}
       <style jsx>{`
         .bg-grid-pattern {
           background-image: linear-gradient(
@@ -240,33 +195,6 @@ export default function Footer() {
               transparent 1px
             );
           background-size: 24px 24px;
-        }
-
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-
-        .animate-blob {
-          animation: blob 15s infinite;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-          animation-delay: 4s;
         }
       `}</style>
     </footer>

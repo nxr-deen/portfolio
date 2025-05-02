@@ -32,7 +32,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1 relative">
               <VerticalNavigation />
-              {children}
+              <div className="md:pb-0 pb-20">{children}</div>
             </main>
             <Footer />
           </div>
