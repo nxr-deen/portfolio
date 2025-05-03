@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import {
   ArrowDown,
   Download,
+  Github,
+  Code2,
   Linkedin,
   Mail,
   Instagram,
   ExternalLink,
-  Phone,
+  Code,
   Layout,
   Server,
   Database,
@@ -19,17 +21,17 @@ import {
   Globe,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
 
 // Social media links configuration
 const socialLinks = {
-  instagram: "https://instagram.com/nxr.deen",
+  github: "https://github.com/nxr-deen",
   linkedin: "https://www.linkedin.com/in/n-bouderbala/",
-  whatsapp: "https://wa.me/213540194210",
+  leetcode: "https://leetcode.com/u/nxr_deen/",
+  instagram: "https://instagram.com/nxr.deen",
   email: "mailto:n_bouderbala@estin.dz",
 };
 
-// Animated text rotation component
+// Simplified text rotation component
 const AnimatedText = () => {
   const [index, setIndex] = useState(0);
   const phrases = ["Full Stack Developer", "UI Designer", "Problem Solver"];
@@ -44,22 +46,20 @@ const AnimatedText = () => {
   return (
     <div className="h-10 md:h-12 overflow-hidden relative">
       {phrases.map((phrase, i) => (
-        <motion.div
+        <div
           key={phrase}
-          className="absolute w-full"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{
-            y: index === i ? 0 : -50,
-            opacity: index === i ? 1 : 0,
-          }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className={`absolute w-full transition-all duration-500 ease-in-out ${
+            index === i
+              ? "opacity-100 transform translate-y-0"
+              : "opacity-0 transform -translate-y-8"
+          }`}
           style={{
             position: "absolute",
             top: 0,
           }}
         >
           {phrase}
-        </motion.div>
+        </div>
       ))}
     </div>
   );
@@ -86,12 +86,10 @@ const TechStack = () => {
 
   return (
     <div className="flex flex-wrap justify-center gap-2 mt-4">
-      {techs.map((tech, index) => (
-        <motion.div
+      {techs.map((tech) => (
+        <div
           key={tech.name}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
+          className="transition-all duration-300 ease-in-out"
         >
           <Badge
             variant="secondary"
@@ -99,20 +97,34 @@ const TechStack = () => {
           >
             {tech.name}
           </Badge>
-        </motion.div>
+        </div>
       ))}
     </div>
   );
 };
 
-// Social link component with simple styling (no animations)
-const SocialLink = ({ href, ariaLabel, icon, index }) => {
+// Simple social link component without animations
+const SocialLink = ({ href, ariaLabel, icon }) => {
+  // Get proper classes based on social platform
+  const getBgColorClass = () => {
+    if (href === socialLinks.github) {
+      return "hover:bg-white hover:text-gray-900";
+    } else if (href === socialLinks.linkedin) {
+      return "hover:bg-[#0077B5] hover:text-white";
+    } else if (href === socialLinks.leetcode) {
+      return "hover:bg-[#FFA116] hover:text-white";
+    } else if (href === socialLinks.instagram) {
+      return "hover:bg-gradient-to-tr hover:from-[#FD5949] hover:via-[#D6249F] hover:to-[#285AEB] hover:text-white";
+    }
+    return "";
+  };
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="p-2 rounded-full bg-background border border-border"
+      className={`p-2 rounded-full bg-background hover:scale-110 transition-all duration-300 border border-border relative overflow-hidden group ${getBgColorClass()}`}
       aria-label={ariaLabel}
     >
       {icon}
@@ -123,137 +135,59 @@ const SocialLink = ({ href, ariaLabel, icon, index }) => {
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen py-20 flex items-center">
-      {/* Background effects */}
+      {/* Background effects - simplified */}
       <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute left-1/4 top-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.4, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        ></motion.div>
-        <motion.div
-          className="absolute right-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.3, 0.35, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 1,
-          }}
-        ></motion.div>
-        <motion.div
-          className="absolute left-1/3 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.45, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 2,
-          }}
-        ></motion.div>
+        <div className="absolute left-1/4 top-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute right-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute left-1/3 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-left"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
+          <div className="text-left">
+            <div>
               <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
                 Welcome to my portfolio
               </Badge>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
               I'm{" "}
               <span className="animate-gradient-text">
                 Noureddine Bouderbala
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.div
-              className="text-xl md:text-2xl text-muted-foreground mb-6 font-medium"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-            >
+            <div className="text-xl md:text-2xl text-muted-foreground mb-6 font-medium">
               <AnimatedText />
-            </motion.div>
+            </div>
 
-            <motion.p
-              className="text-base md:text-lg text-muted-foreground mb-6 max-w-lg"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
+            <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-lg">
               I build exceptional digital experiences that are fast, accessible,
               visually appealing, and responsive. Specialized in crafting modern
               web applications with cutting-edge technologies.
-            </motion.p>
+            </p>
 
             <TechStack />
 
             {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-wrap gap-3 mt-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+            <div className="flex flex-wrap gap-3 mt-8">
+              <div className="hover:scale-105 transition-transform duration-300">
                 <Button asChild size="lg" className="rounded-full">
                   <Link href="#projects">
-                    <motion.span
-                      className="flex items-center"
-                      initial={{ gap: "0.25rem" }}
-                      whileHover={{ gap: "0.5rem" }}
-                    >
+                    <span className="flex items-center gap-2 group">
                       View My Work
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 4 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </motion.span>
-                    </motion.span>
+                      <span className="ml-1 group-hover:translate-x-1 transition-transform duration-300">
+                        <ExternalLink className="h-4 w-4" />
+                      </span>
+                    </span>
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div className="hover:scale-105 transition-transform duration-300">
                 <Button
                   asChild
                   variant="outline"
@@ -261,23 +195,15 @@ export default function HeroSection() {
                   className="rounded-full bg-gradient-to-r from-primary/10 to-blue-500/10 hover:from-primary/20 hover:to-blue-500/20 border-primary/20"
                 >
                   <Link href="#contact">
-                    <motion.span className="flex items-center">
-                      <motion.span
-                        animate={{ y: [0, -2, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        <Mail className="mr-2 h-4 w-4" />
-                      </motion.span>
+                    <span className="flex items-center">
+                      <Mail className="mr-2 h-4 w-4" />
                       Get in Touch
-                    </motion.span>
+                    </span>
                   </Link>
                 </Button>
-              </motion.div>
+              </div>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div className="hover:scale-105 transition-transform duration-300">
                 <Button
                   asChild
                   variant="secondary"
@@ -285,82 +211,49 @@ export default function HeroSection() {
                   className="rounded-full"
                 >
                   <a href="/resume.pdf" download>
-                    <motion.span className="flex items-center">
-                      <motion.span
-                        animate={{ y: [0, 3, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                      </motion.span>
+                    <span className="flex items-center">
+                      <Download className="mr-2 h-4 w-4" />
                       Resume
-                    </motion.span>
+                    </span>
                   </a>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
-            {/* Social links - simplified without animations */}
+            {/* Social links */}
             <div className="flex items-center gap-4 mt-10">
               <span className="text-sm text-muted-foreground">Find me on</span>
               <div className="flex gap-3">
                 <SocialLink
-                  href={socialLinks.instagram}
-                  ariaLabel="Instagram"
-                  icon={<Instagram className="h-4 w-4" />}
-                  index={0}
+                  href={socialLinks.github}
+                  ariaLabel="GitHub"
+                  icon={<Github className="h-4 w-4" />}
                 />
                 <SocialLink
                   href={socialLinks.linkedin}
                   ariaLabel="LinkedIn"
                   icon={<Linkedin className="h-4 w-4" />}
-                  index={1}
                 />
                 <SocialLink
-                  href={socialLinks.whatsapp}
-                  ariaLabel="WhatsApp"
-                  icon={<Phone className="h-4 w-4" />}
-                  index={2}
+                  href={socialLinks.leetcode}
+                  ariaLabel="LeetCode"
+                  icon={<Code2 className="h-4 w-4" />}
                 />
                 <SocialLink
-                  href={socialLinks.email}
-                  ariaLabel="Email"
-                  icon={<Mail className="h-4 w-4" />}
-                  index={3}
+                  href={socialLinks.instagram}
+                  ariaLabel="Instagram"
+                  icon={<Instagram className="h-4 w-4" />}
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right side - Image & Visual Elements */}
-          <motion.div
-            className="relative flex justify-center lg:justify-end"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
+          <div className="relative flex justify-center lg:justify-end">
             <div className="relative">
-              {/* Main photo with glowing effect */}
-              <motion.div
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 z-10"
-                initial={{ rotateY: 25 }}
-                animate={{ rotateY: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 25px 50px -12px rgba(var(--primary-rgb), 0.35)",
-                  transition: { duration: 0.3 },
-                }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent z-10"
-                  initial={{ opacity: 0.5 }}
-                  animate={{ opacity: 0.7 }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                ></motion.div>
+              {/* Main photo with simplified effect */}
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 z-10 transition-transform duration-300 hover:scale-[1.03]">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent z-10"></div>
                 <Image
                   src="/placeholder.svg"
                   alt="Noureddine Bouderbala"
@@ -369,104 +262,33 @@ export default function HeroSection() {
                   priority
                   quality={95}
                 />
-              </motion.div>
+              </div>
 
-              {/* Decorative elements */}
-              <motion.div
-                className="absolute -left-8 -bottom-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                whileHover={{
-                  scale: 1.1,
-                  rotate: -5,
-                  boxShadow: "0 10px 20px -5px rgba(var(--primary-rgb), 0.25)",
-                }}
-                drag
-                dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
-                dragElastic={0.1}
-              >
-                <FileType className="h-6 w-6 text-primary" />
-              </motion.div>
+              {/* Decorative elements - simplified */}
+              <div className="absolute -left-8 -bottom-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[-5deg] transition-all duration-300">
+                <Code className="h-6 w-6 text-primary" />
+              </div>
 
-              <motion.div
-                className="absolute -right-8 top-1/2 p-4 bg-background rounded-xl shadow-lg border border-border z-20"
-                initial={{ x: 20, opacity: 0 }}
-                animate={{
-                  x: 0,
-                  opacity: 1,
-                  y: [0, -8, 0],
-                  transition: {
-                    y: {
-                      repeat: Infinity,
-                      duration: 3,
-                      repeatType: "reverse",
-                    },
-                  },
-                }}
-                transition={{ delay: 1, duration: 0.5 }}
-                whileHover={{
-                  scale: 1.1,
-                  rotate: 5,
-                  boxShadow: "0 10px 20px -5px rgba(59, 130, 246, 0.3)",
-                }}
-                drag
-                dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
-                dragElastic={0.1}
-              >
+              <div className="absolute -right-8 top-1/2 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[5deg] transition-all duration-300">
                 <Layout className="h-6 w-6 text-blue-500" />
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="absolute -top-8 -right-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20"
-                initial={{ y: -20, opacity: 0 }}
-                animate={{
-                  y: 0,
-                  opacity: 1,
-                  x: [0, 8, 0],
-                  transition: {
-                    x: {
-                      repeat: Infinity,
-                      duration: 4,
-                      repeatType: "reverse",
-                    },
-                  },
-                }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                whileHover={{
-                  scale: 1.1,
-                  rotate: -5,
-                  boxShadow: "0 10px 20px -5px rgba(34, 197, 94, 0.3)",
-                }}
-                drag
-                dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
-                dragElastic={0.1}
-              >
+              <div className="absolute -top-8 -right-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[-5deg] transition-all duration-300">
                 <Server className="h-6 w-6 text-green-500" />
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute left-1/2 bottom-10 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: 1.5,
-            duration: 0.5,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        >
+        {/* Scroll indicator - simplified */}
+        <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2">
           <Link href="#about" className="flex flex-col items-center">
             <span className="text-sm text-muted-foreground mb-2">
               Scroll down
             </span>
-            <ArrowDown className="h-4 w-4 text-muted-foreground" />
+            <ArrowDown className="h-4 w-4 text-muted-foreground animate-bounce" />
           </Link>
-        </motion.div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -482,33 +304,6 @@ export default function HeroSection() {
               transparent 1px
             );
           background-size: 24px 24px;
-        }
-
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-
-        .animate-blob {
-          animation: blob 15s infinite;
-        }
-
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-
-        .animation-delay-4000 {
-          animation-delay: 4s;
         }
       `}</style>
     </section>

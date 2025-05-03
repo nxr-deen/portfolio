@@ -9,6 +9,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+  // Add experimental features to fix the bootstrap script error
+  experimental: {
+    optimisticClientCache: true,
+  },
+};
 
-export default nextConfig
+export default nextConfig;

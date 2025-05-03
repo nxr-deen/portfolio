@@ -22,8 +22,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 
 // Experience data
 const workExperience = [
@@ -33,6 +34,7 @@ const workExperience = [
     company: "Fiverr",
     companyUrl: "https://fiverr.com",
     period: "2022 - Present",
+    rating: 4.8,
     description:
       "Developing custom web applications and websites for clients worldwide. Maintaining a high satisfaction rate with clients through effective communication and quality deliverables.",
     technologies: [
@@ -71,8 +73,14 @@ const education = [
       "Higher School of Computer Science and Digital Technologies (ESTIN)",
     institutionUrl: "https://estin.dz",
     period: "2022 - Present",
-    description:
-      "Coursework includes Data Structures, Algorithms, Database Systems, and Web Development.",
+  },
+  {
+    id: 2,
+    degree: "The Complete Web Developer Bootcamp",
+    institution: "Udemy (Angela Yu)",
+    institutionUrl:
+      "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
+    period: "Jan - Apr 2024",
   },
 ];
 
@@ -80,309 +88,118 @@ const education = [
 const certifications = [
   {
     id: 1,
+    title: "AWS Certified Developer - Associate",
+    organization: "Amazon Web Services",
+    year: "2025",
+    image: "/placeholder-logo.svg",
+    icon: "🏆",
+    color: "green",
+    credentialId: "AWS-CDA-123456",
+    issueDate: "February 2025",
+    expiryDate: "February 2028",
+    skills: ["AWS Lambda", "DynamoDB", "API Gateway", "CloudFormation"],
+  },
+  {
+    id: 2,
     title: "ByteCraft Ideathon Winner - First Place",
     organization: "ByteCraft",
     year: "2024",
     image: "/placeholder-logo.svg",
-  },
-  {
-    id: 2,
-    title: "ByteCraft Competitive Programming",
-    organization: "ByteCraft",
-    year: "2023",
-    image: "/placeholder-logo.svg",
+    icon: "🥇",
+    color: "gold",
+    credentialId: "BC-IDT-2024-01",
+    issueDate: "March 2024",
+    project: "Smart Campus Solution",
   },
   {
     id: 3,
-    title: "Salam Hack Online",
-    organization: "Salam Tech",
+    title: "Meta Frontend Developer Professional Certificate",
+    organization: "Meta (Facebook)",
     year: "2023",
     image: "/placeholder-logo.svg",
+    icon: "🚀",
+    color: "blue",
+    credentialId: "META-FE-789123",
+    issueDate: "November 2023",
+    skills: ["React", "JavaScript", "Responsive Design"],
+  },
+  {
+    id: 4,
+    title: "Competitive Programming - Gold Medal",
+    organization: "ByteCraft",
+    year: "2023",
+    image: "/placeholder-logo.svg",
+    icon: "🏅",
+    color: "purple",
+    issueDate: "August 2023",
   },
 ];
 
-function SectionTitle({
-  icon,
-  title,
-  className,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  className?: string;
-}) {
+// Star rating component
+function StarRating({ rating }: { rating: number }) {
   return (
-    <div
-      className={cn(
-        "flex items-center gap-2 mb-6 group hover:cursor-pointer",
-        className
-      )}
-    >
-      <div className="text-primary group-hover:text-blue-500 transition-colors">
-        {icon}
-      </div>
-      <h2 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-        {title}
-      </h2>
+    <div className="flex items-center">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span key={star} className="text-green-500">
+          ★
+        </span>
+      ))}
+      <span className="ml-2 text-muted-foreground">{rating} on Fiverr</span>
     </div>
   );
 }
 
-function ExperienceItem({
-  item,
-  isLast,
-  index = 0,
-}: {
-  item: (typeof workExperience)[0];
-  isLast: boolean;
-  index?: number;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
+// Technology badge component
+function TechBadge({ tech }: { tech: string }) {
+  // Use a deterministic approach based on the tech name instead of Math.random()
+  // Using the string length modulo 3 to determine the style
+  const styleIndex = tech.length % 3;
 
   return (
-    <div
-      className="relative pb-8"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <span
+      className={`inline-block px-3 py-1 mr-2 mb-2 text-sm rounded-md transition-colors ${
+        styleIndex === 0
+          ? "bg-blue-500/10 text-blue-500 hover:bg-blue-500/20"
+          : styleIndex === 1
+          ? "bg-primary/10 text-primary hover:bg-primary/20"
+          : "bg-green-500/10 text-green-500 hover:bg-green-500/20"
+      }`}
     >
-      {!isLast && (
-        <div className="absolute left-2 top-4 h-full w-0.5 bg-muted-foreground/20"></div>
-      )}
-      <div className="relative flex items-start">
-        <div className="absolute left-0 mt-1.5">
-          <div className="h-4 w-4 rounded-full bg-primary ring-4 ring-background"></div>
-        </div>
-        <div className="ml-10 hover:translate-x-2 transition-transform duration-300">
-          <div className="mb-2">
-            <span className="text-sm text-muted-foreground py-1 px-2 bg-primary/10 text-primary rounded-md">
-              {item.period}
-            </span>
-          </div>
-          <h3
-            className={`text-lg font-semibold ${
-              isHovered ? "text-primary" : ""
-            }`}
-          >
-            {item.title}
-          </h3>
-          {item.company && (
-            <div className="flex items-center gap-1.5 mt-1">
-              {item.companyUrl ? (
-                <Link
-                  href={item.companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline flex items-center"
-                >
-                  {item.company} <ExternalLink className="h-3 w-3 ml-0.5" />
-                </Link>
-              ) : (
-                <span>{item.company}</span>
-              )}
-            </div>
-          )}
-          <p className="mt-2 text-muted-foreground">{item.description}</p>
-
-          {item.technologies && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {item.technologies.map((tech, idx) => (
-                <div key={idx}>
-                  <Badge
-                    variant="secondary"
-                    className={`text-xs ${
-                      idx % 2 === 0
-                        ? "bg-primary/10 text-primary border-primary/20"
-                        : "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
-                    }`}
-                  >
-                    {tech}
-                  </Badge>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function EducationItem({
-  item,
-  isLast,
-  index = 0,
-}: {
-  item: (typeof education)[0];
-  isLast: boolean;
-  index?: number;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="relative pb-8"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {!isLast && (
-        <div className="absolute left-2 top-4 h-full w-0.5 bg-muted-foreground/20"></div>
-      )}
-      <div className="relative flex items-start">
-        <div className="absolute left-0 mt-1.5">
-          <div className="h-4 w-4 rounded-full bg-blue-500 ring-4 ring-background"></div>
-        </div>
-        <div className="ml-10 hover:translate-x-2 transition-transform duration-300">
-          <div className="mb-2">
-            <span className="text-sm text-muted-foreground py-1 px-2 bg-blue-500/10 text-blue-500 rounded-md">
-              {item.period}
-            </span>
-          </div>
-          <h3
-            className={`text-lg font-semibold ${
-              isHovered ? "text-primary" : ""
-            }`}
-          >
-            {item.degree}
-          </h3>
-          {item.institution && (
-            <div className="flex items-center gap-1.5 mt-1">
-              {item.institutionUrl ? (
-                <Link
-                  href={item.institutionUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-600 hover:underline flex items-center transition-colors"
-                >
-                  <span>
-                    {item.institution}{" "}
-                    <ExternalLink className="h-3 w-3 ml-0.5" />
-                  </span>
-                </Link>
-              ) : (
-                <span>{item.institution}</span>
-              )}
-            </div>
-          )}
-          <p className="mt-2 text-muted-foreground">{item.description}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CertificationItem({
-  item,
-  index = 0,
-}: {
-  item: (typeof certifications)[0];
-  index?: number;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div>
-        <Card className="overflow-hidden transition-all hover:border-primary/50 group border-border/50 bg-background/80 backdrop-blur-sm">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <div
-                className={`relative flex-shrink-0 h-12 w-12 rounded-md overflow-hidden bg-primary/10 flex items-center justify-center border border-primary/20 ${
-                  isHovered ? "shadow-md shadow-primary/20" : ""
-                }`}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  width={40}
-                  height={40}
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <h3
-                    className={`font-semibold transition-colors ${
-                      isHovered ? "text-primary" : ""
-                    }`}
-                  >
-                    {item.title}
-                  </h3>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all" />
-                </div>
-                <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
-                  <span>{item.organization}</span>
-                  <span className="text-xs">•</span>
-                  <span
-                    className={`text-blue-500/70 hover:text-primary transition-colors ${
-                      isHovered ? "font-semibold" : ""
-                    }`}
-                  >
-                    {item.year}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+      {tech}
+    </span>
   );
 }
 
 export default function ExperienceSection() {
-  const [activeSection, setActiveSection] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const experienceSectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activePage, setActivePage] = useState(1);
+  const certificationsPerPage = 2;
+  const totalPages = Math.ceil(certifications.length / certificationsPerPage);
 
-  // Basic scroll position tracking for active section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-      experienceSectionRefs.current.forEach((ref, index) => {
-        if (!ref) return;
-
-        const offsetTop = ref.getBoundingClientRect().top + window.scrollY;
-        const offsetBottom = offsetTop + ref.offsetHeight;
-
-        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-          setActiveSection(index);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // Get current certificates based on active page
+  const currentCertifications = useMemo(() => {
+    const startIndex = (activePage - 1) * certificationsPerPage;
+    return certifications.slice(startIndex, startIndex + certificationsPerPage);
+  }, [activePage]);
 
   return (
     <section
       id="experience"
       className="py-16 md:py-24 relative overflow-hidden"
-      ref={sectionRef}
     >
-      {/* Background pattern */}
       <div className="absolute inset-0 -z-10">
+        <div className="absolute left-1/4 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute right-1/3 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section header */}
-        <div className="max-w-xl mx-auto text-center mb-12">
-          <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
+        <div className="text-center mb-12">
+          <Badge className="mb-3 bg-background border-primary text-primary border py-1 px-3">
             MY JOURNEY
           </Badge>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 overflow-hidden">
-            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent inline-block">
+          <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
               Experience & Education
             </span>
           </h2>
@@ -393,92 +210,225 @@ export default function ExperienceSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-6">
-          {/* Work Experience Column */}
-          <div
-            ref={(el) => {
-              experienceSectionRefs.current[0] = el;
-            }}
-            className={`transition-all duration-500 ${
-              activeSection === 0 ? "lg:scale-105" : "lg:scale-100"
-            }`}
-          >
-            <SectionTitle
-              icon={<Briefcase className="h-6 w-6" />}
-              title="Work Experience"
-            />
-            <div className="space-y-2">
-              {workExperience.map((item, index) => (
-                <ExperienceItem
-                  key={item.id}
-                  item={item}
-                  isLast={index === workExperience.length - 1}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Education Column */}
-          <div
-            ref={(el) => {
-              experienceSectionRefs.current[1] = el;
-            }}
-            className={`transition-all duration-500 ${
-              activeSection === 1 ? "lg:scale-105" : "lg:scale-100"
-            }`}
-          >
-            <SectionTitle
-              icon={<GraduationCap className="h-6 w-6" />}
-              title="Education"
-            />
-            <div className="space-y-2">
-              {education.map((item, index) => (
-                <EducationItem
-                  key={item.id}
-                  item={item}
-                  isLast={index === education.length - 1}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Certifications Column */}
-          <div
-            ref={(el) => {
-              experienceSectionRefs.current[2] = el;
-            }}
-            className={`transition-all duration-500 ${
-              activeSection === 2 ? "lg:scale-105" : "lg:scale-100"
-            }`}
-          >
-            <SectionTitle
-              icon={<Award className="h-6 w-6" />}
-              title="Certifications & Achievements"
-            />
-            <div className="space-y-3">
-              {certifications.map((cert, index) => (
-                <CertificationItem key={cert.id} item={cert} index={index} />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Resume button */}
-        <div className="text-center mt-16">
-          <Button
-            asChild
-            className="rounded-full bg-gradient-to-r from-primary/90 to-blue-500/90 hover:from-primary hover:to-blue-600 text-white transition-all"
-            size="lg"
-          >
-            <Link href="/resume.pdf" target="_blank">
-              <span className="flex items-center">
-                View Full Resume
-                <ArrowUpRight className="ml-2 h-4 w-4" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Work Experience Column - Takes 2 columns */}
+          <div className="lg:col-span-2">
+            <h2 className="flex items-center text-2xl font-bold mb-8">
+              <span className="text-primary mr-2">
+                <Briefcase className="h-6 w-6" />
               </span>
-            </Link>
-          </Button>
+              Work Experience
+            </h2>
+
+            <div className="space-y-12">
+              {workExperience.map((item, index) => (
+                <div key={item.id} className="relative">
+                  <div className="flex items-start gap-4">
+                    <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-semibold">{item.title}</h3>
+                        <Badge
+                          variant="outline"
+                          className="bg-primary/5 text-primary border-primary/20"
+                        >
+                          {item.period}
+                        </Badge>
+                      </div>
+
+                      {item.company && (
+                        <div className="mt-1 text-primary">
+                          {item.companyUrl ? (
+                            <Link
+                              href={item.companyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline flex items-center"
+                            >
+                              {item.company}{" "}
+                              <ExternalLink className="h-3 w-3 ml-0.5" />
+                            </Link>
+                          ) : (
+                            <span>{item.company}</span>
+                          )}
+                        </div>
+                      )}
+
+                      {item.rating && (
+                        <div className="mt-2">
+                          <StarRating rating={item.rating} />
+                        </div>
+                      )}
+
+                      <p className="mt-2 text-muted-foreground">
+                        {item.description}
+                      </p>
+
+                      {item.technologies && (
+                        <div className="mt-4 flex flex-wrap">
+                          {item.technologies.map((tech, idx) => (
+                            <TechBadge key={idx} tech={tech} />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education Column - Takes 1 column */}
+          <div>
+            <h2 className="flex items-center text-2xl font-bold mb-8">
+              <span className="text-green-500 mr-2">
+                <GraduationCap className="h-6 w-6" />
+              </span>
+              Education
+            </h2>
+
+            <div className="space-y-4">
+              {education.map((item) => (
+                <div
+                  key={item.id}
+                  className="relative bg-card rounded-lg p-4 border border-border hover:border-green-500/30 transition-colors group"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-sm font-semibold">{item.degree}</h3>
+                    <Badge
+                      variant="outline"
+                      className="bg-green-500/5 text-green-500 border-green-500/20 text-[10px]"
+                    >
+                      {item.period}
+                    </Badge>
+                  </div>
+
+                  {item.institution && (
+                    <div>
+                      <Link
+                        href={item.institutionUrl || "#"}
+                        className="text-green-500 hover:text-green-600 hover:underline transition-colors flex items-center text-xs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.institution}
+                        <ExternalLink className="h-2.5 w-2.5 ml-1" />
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Certifications Section */}
+            <div className="mt-12">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="flex items-center text-lg font-bold">
+                  <span className="text-primary mr-2">
+                    <Award className="h-5 w-5" />
+                  </span>
+                  Certifications
+                </h2>
+
+                <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                  <span>
+                    {activePage} / {totalPages}
+                  </span>
+                  <div className="flex gap-1">
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      className="h-6 w-6 rounded-full bg-primary/5 border-primary/20 hover:bg-primary/10 text-primary"
+                      onClick={() =>
+                        setActivePage((prev) => Math.max(1, prev - 1))
+                      }
+                      disabled={activePage === 1}
+                    >
+                      <ArrowRight className="h-3 w-3 rotate-180" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      className="h-6 w-6 rounded-full bg-primary/5 border-primary/20 hover:bg-primary/10 text-primary"
+                      onClick={() =>
+                        setActivePage((prev) => Math.min(totalPages, prev + 1))
+                      }
+                      disabled={activePage === totalPages}
+                    >
+                      <ArrowRight className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {currentCertifications.map((cert) => (
+                  <motion.div
+                    key={cert.id}
+                    className="block group"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <button
+                      className="w-full text-left bg-card rounded-lg p-3 border border-border hover:border-primary/50 hover:bg-card/80 transition-colors cursor-pointer"
+                      onClick={() =>
+                        window.open(
+                          cert.credentialId
+                            ? `https://www.credly.com/verify/${cert.credentialId}`
+                            : "#",
+                          "_blank"
+                        )
+                      }
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`flex items-center justify-center w-8 h-8 rounded-md ${
+                            cert.color === "gold"
+                              ? "bg-amber-500/10 text-amber-500"
+                              : cert.color === "purple"
+                              ? "bg-purple-500/10 text-purple-500"
+                              : cert.color === "green"
+                              ? "bg-green-500/10 text-green-500"
+                              : cert.color === "blue"
+                              ? "bg-blue-500/10 text-blue-500"
+                              : "bg-primary/10 text-primary"
+                          }`}
+                        >
+                          <span className="text-lg">{cert.icon}</span>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors flex items-center">
+                            {cert.title}
+                            <ExternalLink className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </h3>
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <span>{cert.organization}</span>
+                            <span>•</span>
+                            <span
+                              className={
+                                cert.color === "purple"
+                                  ? "text-purple-500"
+                                  : cert.color === "green"
+                                  ? "text-green-500"
+                                  : cert.color === "gold"
+                                  ? "text-amber-500"
+                                  : cert.color === "blue"
+                                  ? "text-blue-500"
+                                  : "text-primary"
+                              }
+                            >
+                              {cert.year}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

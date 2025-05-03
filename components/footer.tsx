@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import {
-  Instagram,
+  Github,
   Linkedin,
-  Phone,
+  Code2,
   ArrowUp,
   FileText,
   Mail,
   MapPin,
+  Phone,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -25,8 +26,10 @@ export default function Footer() {
 
   return (
     <footer className="border-t bg-background py-16 relative z-10">
-      {/* Background pattern */}
+      {/* Background with static elements */}
       <div className="absolute inset-0 -z-10">
+        <div className="absolute right-1/3 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div className="absolute left-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
@@ -40,37 +43,43 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col space-y-3">
               <a
-                href="https://www.instagram.com/nxr_deen/"
+                href="https://github.com/nxr-deen"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm"
+                className="flex items-center text-sm group"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
-                  <Instagram className="h-4 w-4" />
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-gray-900 dark:group-hover:bg-white dark:group-hover:text-gray-900 transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
+                  <Github className="h-4 w-4 group-hover:text-white dark:group-hover:text-gray-900 transition-colors" />
                 </div>
-                <span>Instagram</span>
+                <span className="group-hover:text-primary transition-colors">
+                  GitHub
+                </span>
               </a>
               <a
                 href="https://www.linkedin.com/in/n-bouderbala/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm"
+                className="flex items-center text-sm group"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-blue-500 group-hover:bg-[#0077B5] group-hover:text-white transition-colors group-hover:shadow-sm group-hover:shadow-blue-500/10">
                   <Linkedin className="h-4 w-4" />
                 </div>
-                <span>LinkedIn</span>
+                <span className="group-hover:text-blue-500 transition-colors">
+                  LinkedIn
+                </span>
               </a>
               <a
-                href="https://wa.me/213540194210"
+                href="https://leetcode.com/u/nxr_deen/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm"
+                className="flex items-center text-sm group"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
-                  <Phone className="h-4 w-4" />
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:bg-[#FFA116] group-hover:text-white transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
+                  <Code2 className="h-4 w-4" />
                 </div>
-                <span>WhatsApp</span>
+                <span className="group-hover:text-primary transition-colors">
+                  LeetCode
+                </span>
               </a>
             </div>
           </div>
@@ -122,24 +131,31 @@ export default function Footer() {
             <div className="flex flex-col space-y-3">
               <a
                 href="mailto:n_bouderbala@estin.dz"
-                className="flex items-center text-sm"
+                className="flex items-center text-sm group"
               >
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:text-primary transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
                   <Mail className="h-4 w-4" />
                 </div>
-                <span>n_bouderbala@estin.dz</span>
+                <span className="group-hover:text-primary transition-colors">
+                  n_bouderbala@estin.dz
+                </span>
               </a>
-              <a href="tel:+213540194210" className="flex items-center text-sm">
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+              <a
+                href="tel:+213540194210"
+                className="flex items-center text-sm group"
+              >
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-blue-500 group-hover:text-blue-500 transition-colors group-hover:shadow-sm group-hover:shadow-blue-500/10">
                   <Phone className="h-4 w-4" />
                 </div>
-                <span>+213 540 194 210</span>
+                <span className="group-hover:text-blue-500 transition-colors">
+                  +213 540 194 210
+                </span>
               </a>
-              <div className="flex items-center text-sm">
-                <div className="bg-background mr-3 border border-muted p-2 rounded-md">
+              <div className="flex items-center text-sm group">
+                <div className="bg-background mr-3 border border-muted p-2 rounded-md group-hover:border-primary group-hover:text-primary transition-colors group-hover:shadow-sm group-hover:shadow-primary/10">
                   <MapPin className="h-4 w-4" />
                 </div>
-                <span className="text-muted-foreground">
+                <span className="text-muted-foreground group-hover:text-primary transition-colors">
                   Lakhdaria-Bouira, Algeria
                 </span>
               </div>
@@ -181,7 +197,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Add CSS for background grid pattern */}
+      {/* Static background grid pattern */}
       <style jsx>{`
         .bg-grid-pattern {
           background-image: linear-gradient(
