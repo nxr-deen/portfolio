@@ -80,7 +80,7 @@ export default function AboutSection() {
 
           {/* Core Values Grid - Right Column */}
           <div className="lg:w-1/2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -88,12 +88,14 @@ export default function AboutSection() {
                 viewport={{ once: true }}
               >
                 <Card className="h-full border border-border/40 bg-background/80 backdrop-blur-sm">
-                  <CardContent className="flex flex-col items-center text-center p-4">
-                    <div className="w-12 h-12 flex items-center justify-center text-primary text-3xl mb-3">
-                      <Code className="w-8 h-8" />
+                  <CardContent className="flex flex-col items-center text-center p-3 sm:p-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-primary text-2xl sm:text-3xl mb-2 sm:mb-3">
+                      <Code className="w-6 h-6 sm:w-8 sm:h-8" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-1">Clean Code</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1">
+                      Clean Code
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       I write maintainable, scalable, and efficient code
                     </p>
                   </CardContent>
@@ -107,14 +109,14 @@ export default function AboutSection() {
                 viewport={{ once: true }}
               >
                 <Card className="h-full border border-border/40 bg-background/80 backdrop-blur-sm">
-                  <CardContent className="flex flex-col items-center text-center p-4">
-                    <div className="w-12 h-12 flex items-center justify-center text-primary text-3xl mb-3">
-                      <Users className="w-8 h-8" />
+                  <CardContent className="flex flex-col items-center text-center p-3 sm:p-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-primary text-2xl sm:text-3xl mb-2 sm:mb-3">
+                      <Users className="w-6 h-6 sm:w-8 sm:h-8" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-1">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1">
                       Collaborative
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       I thrive in team environments and value open communication
                     </p>
                   </CardContent>
@@ -128,14 +130,14 @@ export default function AboutSection() {
                 viewport={{ once: true }}
               >
                 <Card className="h-full border border-border/40 bg-background/80 backdrop-blur-sm">
-                  <CardContent className="flex flex-col items-center text-center p-4">
-                    <div className="w-12 h-12 flex items-center justify-center text-primary text-3xl mb-3">
-                      <LightbulbIcon className="w-8 h-8" />
+                  <CardContent className="flex flex-col items-center text-center p-3 sm:p-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-primary text-2xl sm:text-3xl mb-2 sm:mb-3">
+                      <LightbulbIcon className="w-6 h-6 sm:w-8 sm:h-8" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-1">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1">
                       Problem Solver
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       I approach challenges with creative and effective
                       solutions
                     </p>
@@ -150,12 +152,14 @@ export default function AboutSection() {
                 viewport={{ once: true }}
               >
                 <Card className="h-full border border-border/40 bg-background/80 backdrop-blur-sm">
-                  <CardContent className="flex flex-col items-center text-center p-4">
-                    <div className="w-12 h-12 flex items-center justify-center text-primary text-3xl mb-3">
-                      <Rocket className="w-8 h-8" />
+                  <CardContent className="flex flex-col items-center text-center p-3 sm:p-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-primary text-2xl sm:text-3xl mb-2 sm:mb-3">
+                      <Rocket className="w-6 h-6 sm:w-8 sm:h-8" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-1">Fast Learner</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1">
+                      Fast Learner
+                    </h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       I quickly adapt to new technologies and methodologies
                     </p>
                   </CardContent>

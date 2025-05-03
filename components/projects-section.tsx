@@ -10,17 +10,26 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Globe,
+  Smartphone,
+  PaintBucket,
+  Brain,
+} from "lucide-react";
 import {
   motion,
   useAnimationControls,
   Variants,
   MotionProps,
   isValidMotionProp,
+  AnimatePresence,
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useMemo, useCallback, memo } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Animation variants moved to separate object for better maintainability
 const animations = {
@@ -75,6 +84,7 @@ const projects = [
     liveUrl:
       "https://landco-business-platform-hszu944iq-nxr-deens-projects.vercel.app", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-deen/landco", // Replace with your GitHub repo URL
+    category: "Web",
   },
 
   {
@@ -92,6 +102,7 @@ const projects = [
     ],
     liveUrl: "https://athar-baqi.vercel.app", // if you have a live version
     githubUrl: "https://github.com/nxr-deen/athar-baqi",
+    category: "Web",
   },
 
   {
@@ -103,6 +114,99 @@ const projects = [
     tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
     liveUrl: "https://nxr-deen.github.io/fun-games-hub/",
     githubUrl: "https://github.com/nxr-deen/fun-games-hub",
+    category: "Web",
+  },
+
+  // Mobile Projects
+  {
+    id: 4,
+    title: "TaskMaster - Mobile Task Manager",
+    description:
+      "A cross-platform mobile application for efficient task management with features like categorization, reminders, progress tracking, and cloud sync.",
+    image: "/placeholder.jpg",
+    tags: ["React Native", "Firebase", "Redux", "Push Notifications"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "Mobile",
+  },
+
+  {
+    id: 5,
+    title: "FitTrack - Fitness Companion",
+    description:
+      "A mobile fitness application that tracks workouts, provides personalized fitness plans, and monitors progress with detailed analytics.",
+    image: "/placeholder.jpg",
+    tags: ["Flutter", "Dart", "Firebase", "Health APIs"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "Mobile",
+  },
+
+  // UI/UX Projects
+  {
+    id: 6,
+    title: "Finance Dashboard Redesign",
+    description:
+      "A comprehensive UI/UX redesign for a financial management dashboard, focused on improving data visualization and user experience.",
+    image: "/placeholder.jpg",
+    tags: ["Figma", "UI Design", "UX Research", "Prototyping"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "UI/UX",
+  },
+
+  {
+    id: 7,
+    title: "E-Commerce UX Case Study",
+    description:
+      "An in-depth UX case study for an e-commerce platform, including user research, wireframing, prototyping, and usability testing.",
+    image: "/placeholder.jpg",
+    tags: ["Adobe XD", "User Research", "Wireframing", "Usability"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "UI/UX",
+  },
+
+  // AI Projects
+  {
+    id: 8,
+    title: "Intelligent Document Processing System",
+    description:
+      "An AI-powered document processing system that extracts, classifies, and analyzes text from various document formats using natural language processing and computer vision.",
+    image: "/placeholder.jpg",
+    tags: ["Python", "TensorFlow", "NLP", "OCR", "Machine Learning"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "AI",
+  },
+
+  {
+    id: 9,
+    title: "Sentiment Analysis Dashboard",
+    description:
+      "Real-time sentiment analysis tool for social media and customer feedback, leveraging deep learning models to identify emotions, trends, and customer satisfaction levels.",
+    image: "/placeholder.jpg",
+    tags: ["PyTorch", "NLP", "BERT", "Data Visualization", "APIs"],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "AI",
+  },
+
+  {
+    id: 10,
+    title: "Recommendation Engine",
+    description:
+      "A personalized recommendation system that uses collaborative filtering and deep learning to suggest products, content, and services based on user behavior and preferences.",
+    image: "/placeholder.jpg",
+    tags: [
+      "Python",
+      "Scikit-learn",
+      "Neural Networks",
+      "Collaborative Filtering",
+    ],
+    liveUrl: "#",
+    githubUrl: "#",
+    category: "AI",
   },
 ];
 
@@ -313,6 +417,7 @@ const ProjectCard = memo(
 export default function ProjectsSection() {
   const [isHovering, setIsHovering] = useState<number | null>(null);
   const controls = useAnimationControls();
+  const [activeTab, setActiveTab] = useState("Web");
 
   // Memoize projects data to prevent re-renders
   const projectsData = useMemo(() => projects, []);
@@ -337,6 +442,10 @@ export default function ProjectsSection() {
       },
     });
   }, [controls]);
+
+  const getTabIndex = (tab: string) => {
+    return ["Web", "Mobile", "UI/UX", "AI"].indexOf(tab);
+  };
 
   return (
     <section id="projects" className="py-16 md:py-24 relative overflow-hidden">
@@ -454,36 +563,16 @@ export default function ProjectsSection() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
-              PORTFOLIO
-            </Badge>
-          </motion.div>
+          <Badge className="mb-3 bg-background border-primary text-primary border py-1 px-3">
+            SHOWCASE
+          </Badge>
 
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <motion.span
-              className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent inline-block"
-              initial="hidden"
-              whileInView="visible"
-              variants={animations.shimmerEffect}
-              style={{
-                backgroundSize: "200% 100%",
-                backgroundImage:
-                  "linear-gradient(90deg, var(--primary) 0%, #4a9fff 50%, var(--primary) 100%)",
-              }}
-            >
-              My Latest Projects
-            </motion.span>
-          </motion.h2>
+          {/* Main heading with gradient text */}
+          <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+              Featured Projects
+            </span>
+          </h2>
 
           <motion.p
             className="text-muted-foreground max-w-2xl mx-auto"
@@ -497,18 +586,282 @@ export default function ProjectsSection() {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-          {projectsData.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              isHovering={isHovering}
-              handleHoverStart={handleHoverStart}
-              handleHoverEnd={handleHoverEnd}
+        {/* Project category tabs - with improved desktop design and no scrollbar */}
+        <Tabs
+          defaultValue="Web"
+          className="mb-8"
+          onValueChange={(value) => setActiveTab(value)}
+        >
+          <div className="flex flex-col items-center">
+            <TabsList
+              className="inline-flex h-auto w-full justify-center max-w-2xl
+              bg-gradient-to-br from-muted/70 to-muted/50 backdrop-blur-sm border border-muted/30 shadow-inner
+              relative mb-2 mx-auto rounded-full p-1 h-12 flex-nowrap overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-blue-500/5 rounded-full opacity-50"></div>
+
+              {/* Animated background glow that follows the active tab */}
+              <motion.div
+                className="absolute h-10 top-1 rounded-full backdrop-blur-sm"
+                layoutId="activeTabBackground"
+                initial={false}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                }}
+                style={{
+                  width: "calc(25% - 4px)",
+                  left: "calc(0% + 2px)",
+                  boxShadow: "0 0 20px 0 rgba(var(--primary-rgb), 0.2)",
+                  background: "rgba(var(--primary-rgb), 0.2)",
+                }}
+                animate={{
+                  left: [
+                    "calc(0% + 2px)", // Web
+                    "calc(25% + 2px)", // Mobile
+                    "calc(50% + 2px)", // UI/UX
+                    "calc(75% + 2px)", // AI
+                  ][getTabIndex(activeTab)],
+                }}
+              />
+
+              <TabsTrigger
+                value="Web"
+                className="relative h-10 flex-1 px-3 sm:px-6 rounded-full data-[state=active]:text-primary transition-all duration-300 group overflow-hidden"
+              >
+                <div
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 group-data-[state=active]:opacity-0 transition-opacity"
+                  style={{ backgroundColor: "rgba(var(--primary-rgb), 0.2)" }}
+                ></div>
+
+                <div className="flex items-center justify-center gap-2 z-10 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <Globe className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </motion.div>
+                  <motion.span
+                    className="font-medium tracking-wide text-sm sm:text-base hidden sm:inline-block"
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    Web
+                  </motion.span>
+                  <span className="font-medium tracking-wide text-sm sm:hidden">
+                    Web
+                  </span>
+                </div>
+
+                {/* Active indicator dot */}
+                <motion.div
+                  className="absolute -bottom-[6px] left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full"
+                  style={{
+                    background: "hsl(var(--primary))",
+                    boxShadow: "0 0 10px 0 rgba(var(--primary-rgb), 0.6)",
+                  }}
+                  animate={{
+                    opacity: activeTab === "Web" ? 1 : 0,
+                  }}
+                />
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="Mobile"
+                className="relative h-10 flex-1 px-3 sm:px-6 rounded-full data-[state=active]:text-primary transition-all duration-300 group overflow-hidden"
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 group-data-[state=active]:opacity-0 bg-gradient-to-r from-primary/20 to-blue-500/20 transition-opacity"></div>
+
+                <div className="flex items-center justify-center gap-2 z-10 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <Smartphone className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </motion.div>
+                  <motion.span
+                    className="font-medium tracking-wide text-sm sm:text-base hidden sm:inline-block"
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Mobile
+                  </motion.span>
+                  <span className="font-medium tracking-wide text-sm sm:hidden">
+                    Mobile
+                  </span>
+                </div>
+
+                {/* Active indicator dot */}
+                <motion.div
+                  className="absolute -bottom-[6px] left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-blue-500"
+                  style={{
+                    boxShadow: "0 0 10px 0 rgba(var(--primary-rgb), 0.6)",
+                  }}
+                  animate={{
+                    opacity: activeTab === "Mobile" ? 1 : 0,
+                  }}
+                />
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="UI/UX"
+                className="relative h-10 flex-1 px-3 sm:px-6 rounded-full data-[state=active]:text-primary transition-all duration-300 group overflow-hidden"
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 group-data-[state=active]:opacity-0 bg-gradient-to-r from-primary/20 to-blue-500/20 transition-opacity"></div>
+
+                <div className="flex items-center justify-center gap-2 z-10 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <PaintBucket className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </motion.div>
+                  <motion.span
+                    className="font-medium tracking-wide text-sm sm:text-base hidden sm:inline-block"
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    UI/UX
+                  </motion.span>
+                  <span className="font-medium tracking-wide text-sm sm:hidden">
+                    UI/UX
+                  </span>
+                </div>
+
+                {/* Active indicator dot */}
+                <motion.div
+                  className="absolute -bottom-[6px] left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-blue-500"
+                  style={{
+                    boxShadow: "0 0 10px 0 rgba(var(--primary-rgb), 0.6)",
+                  }}
+                  animate={{
+                    opacity: activeTab === "UI/UX" ? 1 : 0,
+                  }}
+                />
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="AI"
+                className="relative h-10 flex-1 px-3 sm:px-6 rounded-full data-[state=active]:text-primary transition-all duration-300 group overflow-hidden"
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 group-data-[state=active]:opacity-0 bg-gradient-to-r from-primary/20 to-blue-500/20 transition-opacity"></div>
+
+                <div className="flex items-center justify-center gap-2 z-10 relative">
+                  <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <Brain className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </motion.div>
+                  <motion.span
+                    className="font-medium tracking-wide text-sm sm:text-base hidden sm:inline-block"
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    AI
+                  </motion.span>
+                  <span className="font-medium tracking-wide text-sm sm:hidden">
+                    AI
+                  </span>
+                </div>
+
+                {/* Active indicator dot */}
+                <motion.div
+                  className="absolute -bottom-[6px] left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-blue-500"
+                  style={{
+                    boxShadow: "0 0 10px 0 rgba(var(--primary-rgb), 0.6)",
+                  }}
+                  animate={{
+                    opacity: activeTab === "AI" ? 1 : 0,
+                  }}
+                />
+              </TabsTrigger>
+            </TabsList>
+
+            <motion.div
+              className="h-1 w-28 bg-gradient-to-r from-primary/40 to-blue-500/30 rounded-full mb-6 mt-2 opacity-60"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 112, opacity: 0.6 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                boxShadow: "0 0 10px 0 rgba(var(--primary-rgb), 0.3)",
+              }}
             />
-          ))}
-        </div>
+          </div>
+
+          <TabsContent value="Web">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              {projectsData
+                .filter((project) => project.category === "Web")
+                .map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isHovering={isHovering}
+                    handleHoverStart={handleHoverStart}
+                    handleHoverEnd={handleHoverEnd}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="Mobile">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              {projectsData
+                .filter((project) => project.category === "Mobile")
+                .map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isHovering={isHovering}
+                    handleHoverStart={handleHoverStart}
+                    handleHoverEnd={handleHoverEnd}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="UI/UX">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              {projectsData
+                .filter((project) => project.category === "UI/UX")
+                .map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isHovering={isHovering}
+                    handleHoverStart={handleHoverStart}
+                    handleHoverEnd={handleHoverEnd}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="AI">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+              {projectsData
+                .filter((project) => project.category === "AI")
+                .map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isHovering={isHovering}
+                    handleHoverStart={handleHoverStart}
+                    handleHoverEnd={handleHoverEnd}
+                  />
+                ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
 
       <style jsx>{`

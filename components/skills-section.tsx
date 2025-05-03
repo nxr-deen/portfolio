@@ -328,6 +328,16 @@ const skills = {
       icon: <Lightbulb className="h-6 w-6 text-yellow-500" />,
       hoverIcon: <Award className="h-10 w-10 text-yellow-500" />,
     },
+    {
+      name: "Leadership",
+      proficiency: 90,
+      icon: <Brain className="h-6 w-6" />,
+    },
+    {
+      name: "Critical Thinking",
+      proficiency: 90,
+      icon: <Brain className="h-6 w-6" />,
+    },
   ],
   featured: [
     {
@@ -1004,11 +1014,11 @@ export default function SkillsSection() {
 
   // Color mapping for each tab
   const tabColors = {
-    all: "text-orange-500 bg-orange-500/5",
-    frontend: "text-primary bg-primary/5",
-    backend: "text-blue-500 bg-blue-500/5",
-    devops: "text-amber-400 bg-amber-400/5",
-    soft: "text-purple-500 bg-purple-500/5",
+    all: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+    frontend: "text-primary bg-primary/10 border-primary/20",
+    backend: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+    devops: "text-amber-400 bg-amber-400/10 border-amber-400/20",
+    soft: "text-purple-500 bg-purple-500/10 border-purple-500/20",
   };
 
   // Get the current category color
@@ -1130,15 +1140,15 @@ export default function SkillsSection() {
             {/* Mobile Navigation - improved with modern card-style tabs */}
             {isMobile ? (
               <div className="mb-8">
-                <TabsList className="grid grid-cols-5 w-full gap-1 rounded-xl p-1 bg-background/80 border border-border/50 shadow-inner overflow-x-auto snap-x snap-mandatory">
+                <TabsList className="grid grid-cols-5 w-full gap-1.5 rounded-xl p-1.5 bg-background/80 border border-border/50 shadow-inner overflow-x-auto snap-x snap-mandatory">
                   {tabItems.map((tab) => (
                     <TabsTrigger
                       key={tab.value}
                       value={tab.value}
-                      className={`relative px-3 py-4 snap-center
+                      className={`relative px-2 py-4 snap-center
                         flex flex-col items-center justify-center gap-2 
                         transition-all duration-300 rounded-lg
-                        data-[state=active]:bg-background data-[state=active]:shadow-sm
+                        data-[state=active]:bg-background/90 data-[state=active]:shadow-sm
                         ${
                           activeTab === tab.value
                             ? tabColors[tab.value as keyof typeof tabColors]
@@ -1167,15 +1177,15 @@ export default function SkillsSection() {
                           }`,
                         })}
                       </motion.div>
-                      <span className="text-[10px] font-medium leading-none">
+                      <span className="text-[10px] font-medium leading-none whitespace-nowrap">
                         {tab.label}
                       </span>
 
-                      {/* Active indicator dot */}
+                      {/* Active indicator dot with glow effect */}
                       {activeTab === tab.value && (
                         <motion.div
                           layoutId="mobileDot"
-                          className={`absolute -bottom-0.5 h-1 w-1 rounded-full ${
+                          className={`absolute -bottom-0.5 h-1.5 w-1.5 rounded-full ${
                             tab.value === "frontend"
                               ? "bg-primary"
                               : tab.value === "all"
@@ -1186,6 +1196,19 @@ export default function SkillsSection() {
                               ? "bg-amber-400"
                               : "bg-purple-500"
                           }`}
+                          style={{
+                            boxShadow: `0 0 4px 0 ${
+                              tab.value === "frontend"
+                                ? "rgba(var(--primary-rgb), 0.8)"
+                                : tab.value === "all"
+                                ? "rgba(249, 115, 22, 0.8)"
+                                : tab.value === "backend"
+                                ? "rgba(59, 130, 246, 0.8)"
+                                : tab.value === "devops"
+                                ? "rgba(251, 191, 36, 0.8)"
+                                : "rgba(168, 85, 247, 0.8)"
+                            }`,
+                          }}
                           transition={{
                             type: "spring",
                             stiffness: 500,
@@ -1197,7 +1220,7 @@ export default function SkillsSection() {
                   ))}
                 </TabsList>
 
-                {/* Category heading for mobile view only */}
+                {/* Category heading for mobile view only with updated animations */}
                 {showCategoryHeading && (
                   <motion.div
                     className="text-center my-4"
@@ -1206,7 +1229,7 @@ export default function SkillsSection() {
                     transition={{ duration: 0.3 }}
                   >
                     <motion.div
-                      className={`inline-block px-6 py-1 relative`}
+                      className={`inline-block px-6 py-1.5 relative`}
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       transition={{
@@ -1215,10 +1238,18 @@ export default function SkillsSection() {
                         damping: 15,
                       }}
                     >
-                      <motion.h3
+                      <motion.div
                         className={`text-base font-semibold flex items-center justify-center gap-2 ${getCategoryColor(
                           activeTab
                         )}`}
+                        animate={{
+                          scale: [1, 1.05, 1],
+                          transition: {
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            duration: 2,
+                          },
+                        }}
                       >
                         {React.cloneElement(
                           tabItems.find((tab) => tab.value === activeTab)
@@ -1237,21 +1268,21 @@ export default function SkillsSection() {
                               ?.label
                           }
                         </span>
-                      </motion.h3>
+                      </motion.div>
 
-                      {/* Underline effect instead of container border */}
+                      {/* Enhanced underline effect with gradient and animation */}
                       <motion.div
-                        className={`absolute -bottom-1 left-0 right-0 h-0.5 bg-${
+                        className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r ${
                           activeTab === "frontend"
-                            ? "primary"
+                            ? "from-primary to-blue-500"
                             : activeTab === "all"
-                            ? "orange-500"
+                            ? "from-orange-500 to-amber-400"
                             : activeTab === "backend"
-                            ? "blue-500"
+                            ? "from-blue-500 to-indigo-500"
                             : activeTab === "devops"
-                            ? "amber-400"
-                            : "purple-500"
-                        } rounded-full`}
+                            ? "from-amber-400 to-yellow-500"
+                            : "from-purple-500 to-pink-500"
+                        }`}
                         initial={{ width: "0%", left: "50%" }}
                         animate={{ width: "100%", left: "0%" }}
                         transition={{
@@ -1260,168 +1291,186 @@ export default function SkillsSection() {
                           damping: 20,
                           delay: 0.1,
                         }}
+                        style={{
+                          boxShadow: `0 0 4px 0 ${
+                            activeTab === "frontend"
+                              ? "rgba(var(--primary-rgb), 0.5)"
+                              : activeTab === "all"
+                              ? "rgba(249, 115, 22, 0.5)"
+                              : activeTab === "backend"
+                              ? "rgba(59, 130, 246, 0.5)"
+                              : activeTab === "devops"
+                              ? "rgba(251, 191, 36, 0.5)"
+                              : "rgba(168, 85, 247, 0.5)"
+                          }`,
+                        }}
                       />
                     </motion.div>
                   </motion.div>
                 )}
               </div>
             ) : (
-              // Desktop Navigation - horizontal tabs with enhanced animation
-              <TabsList className="w-full mb-8 p-1.5 rounded-xl bg-gradient-to-br from-muted/70 to-muted/50 backdrop-blur-sm border border-muted/30 shadow-inner relative overflow-hidden">
-                {/* Animated glow effect that follows active tab */}
-                <motion.div
-                  className="absolute -z-10 w-1/5 h-full opacity-70 blur-xl"
-                  animate={{
-                    x:
-                      activeTab === "all"
-                        ? "0%"
-                        : activeTab === "frontend"
-                        ? "100%"
-                        : activeTab === "backend"
-                        ? "200%"
-                        : activeTab === "devops"
-                        ? "300%"
-                        : "400%",
-                    backgroundColor:
-                      activeTab === "all"
-                        ? "rgba(249, 115, 22, 0.15)"
-                        : activeTab === "frontend"
-                        ? "rgb(var(--primary-rgb) / 0.15)"
-                        : activeTab === "backend"
-                        ? "rgba(59, 130, 246, 0.15)"
-                        : activeTab === "devops"
-                        ? "rgba(34, 197, 94, 0.15)"
-                        : "rgba(168, 85, 247, 0.15)",
-                  }}
-                  transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                />
+              // Desktop Navigation - enhanced with animated indicators and improved visual design
+              <div className="relative mb-8">
+                {/* Translucent glass effect background for desktop tabs */}
+                <div className="absolute inset-0 bg-gradient-to-br from-background/80 to-muted/30 backdrop-blur-sm rounded-xl border border-muted/30 shadow-inner" />
 
-                <div className="grid w-full grid-cols-5">
-                  {tabItems.map((tab) => (
-                    <TabsTrigger
-                      key={tab.value}
-                      value={tab.value}
-                      className={`data-[state=active]:bg-background/80 py-3 
-                      data-[state=active]:${
-                        tab.value === "frontend"
-                          ? "text-primary"
-                          : tab.value === "all"
-                          ? "text-orange-500"
-                          : tab.value === "backend"
-                          ? "text-blue-500"
-                          : tab.value === "devops"
-                          ? "text-amber-400"
-                          : "text-purple-500"
-                      } 
-                      data-[state=active]:shadow-md rounded-lg transition-all duration-500 relative overflow-hidden`}
-                    >
-                      <motion.div
-                        className="flex items-center gap-3 relative z-10"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                <TabsList className="relative z-10 w-full mb-8 p-1.5 rounded-xl bg-transparent overflow-hidden flex justify-between">
+                  {/* Animated glow effect that follows active tab */}
+                  <motion.div
+                    className="absolute -z-10 w-1/5 h-full opacity-70 blur-xl"
+                    animate={{
+                      x:
+                        activeTab === "all"
+                          ? "0%"
+                          : activeTab === "frontend"
+                          ? "100%"
+                          : activeTab === "backend"
+                          ? "200%"
+                          : activeTab === "devops"
+                          ? "300%"
+                          : "400%",
+                      backgroundColor:
+                        activeTab === "all"
+                          ? "rgba(249, 115, 22, 0.15)"
+                          : activeTab === "frontend"
+                          ? "rgb(var(--primary-rgb) / 0.15)"
+                          : activeTab === "backend"
+                          ? "rgba(59, 130, 246, 0.15)"
+                          : activeTab === "devops"
+                          ? "rgba(34, 197, 94, 0.15)"
+                          : "rgba(168, 85, 247, 0.15)",
+                    }}
+                    transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+                  />
+
+                  <div className="grid w-full grid-cols-5">
+                    {tabItems.map((tab) => (
+                      <TabsTrigger
+                        key={tab.value}
+                        value={tab.value}
+                        className={`data-[state=active]:bg-background/80 py-3
+                        data-[state=active]:${
+                          tab.value === "frontend"
+                            ? "text-primary"
+                            : tab.value === "all"
+                            ? "text-orange-500"
+                            : tab.value === "backend"
+                            ? "text-blue-500"
+                            : tab.value === "devops"
+                            ? "text-amber-400"
+                            : "text-purple-500"
+                        } 
+                        data-[state=active]:shadow-md rounded-lg transition-all duration-500 relative overflow-hidden`}
                       >
                         <motion.div
-                          whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                          animate={
-                            activeTab === tab.value
-                              ? {
-                                  scale: [1, 1.2, 1],
-                                  transition: {
-                                    repeat: Infinity,
-                                    repeatType: "reverse",
-                                    duration: 2,
-                                  },
-                                }
-                              : {}
-                          }
-                          transition={{ duration: 0.5 }}
-                          className={`${
-                            activeTab === tab.value
-                              ? tab.value === "frontend"
-                                ? "text-primary"
-                                : tab.value === "all"
-                                ? "text-orange-500"
-                                : tab.value === "backend"
-                                ? "text-blue-500"
-                                : tab.value === "devops"
-                                ? "text-amber-400"
-                                : "text-purple-500"
-                              : ""
-                          } transition-colors duration-300`}
+                          className="flex items-center gap-3 relative z-10"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          {React.cloneElement(tab.icon, {
-                            className: "h-5 w-5",
-                          })}
+                          <motion.div
+                            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                            animate={
+                              activeTab === tab.value
+                                ? {
+                                    scale: [1, 1.2, 1],
+                                    transition: {
+                                      repeat: Infinity,
+                                      repeatType: "reverse",
+                                      duration: 2,
+                                    },
+                                  }
+                                : {}
+                            }
+                            transition={{ duration: 0.5 }}
+                            className={`${
+                              activeTab === tab.value
+                                ? tab.value === "frontend"
+                                  ? "text-primary"
+                                  : tab.value === "all"
+                                  ? "text-orange-500"
+                                  : tab.value === "backend"
+                                  ? "text-blue-500"
+                                  : tab.value === "devops"
+                                  ? "text-amber-400"
+                                  : "text-purple-500"
+                                : ""
+                            } transition-colors duration-300`}
+                          >
+                            {React.cloneElement(tab.icon, {
+                              className: "h-5 w-5",
+                            })}
+                          </motion.div>
+                          <span className="font-medium">{tab.label}</span>
                         </motion.div>
-                        <span className="font-medium">{tab.label}</span>
-                      </motion.div>
 
-                      {/* Active tab indicator */}
-                      {activeTab === tab.value && (
-                        <>
-                          {/* Solid line with glow effect */}
-                          <motion.div
-                            className={`absolute bottom-0 left-0 right-0 h-[3px]`}
-                            layoutId="activeTabLine"
-                            initial={{ opacity: 1 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 1, transition: { duration: 0 } }}
-                            style={{
-                              background:
-                                tab.value === "frontend"
-                                  ? "hsl(var(--primary) / 1)"
-                                  : tab.value === "all"
-                                  ? "rgb(249, 115, 22)"
-                                  : tab.value === "backend"
-                                  ? "rgb(59, 130, 246)"
-                                  : tab.value === "devops"
-                                  ? "rgb(250, 204, 21)"
-                                  : "rgb(168, 85, 247)",
-                              boxShadow: `0 0 10px 1px ${
-                                tab.value === "frontend"
-                                  ? "hsl(var(--primary) / 0.5)"
-                                  : tab.value === "all"
-                                  ? "rgba(249, 115, 22, 0.5)"
-                                  : tab.value === "backend"
-                                  ? "rgba(59, 130, 246, 0.5)"
-                                  : tab.value === "devops"
-                                  ? "rgba(250, 204, 21, 0.5)"
-                                  : "rgba(168, 85, 247, 0.5)"
-                              }`,
-                            }}
-                            transition={{
-                              duration: 0.3,
-                              ease: "easeInOut",
-                              opacity: { duration: 0 }, // Ensure opacity transition is instant
-                            }}
-                          />
+                        {/* Active tab indicator */}
+                        {activeTab === tab.value && (
+                          <>
+                            {/* Solid line with glow effect */}
+                            <motion.div
+                              className={`absolute bottom-0 left-0 right-0 h-[3px]`}
+                              layoutId="activeTabLine"
+                              initial={{ opacity: 1 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 1, transition: { duration: 0 } }}
+                              style={{
+                                background:
+                                  tab.value === "frontend"
+                                    ? "hsl(var(--primary) / 1)"
+                                    : tab.value === "all"
+                                    ? "rgb(249, 115, 22)"
+                                    : tab.value === "backend"
+                                    ? "rgb(59, 130, 246)"
+                                    : tab.value === "devops"
+                                    ? "rgb(250, 204, 21)"
+                                    : "rgb(168, 85, 247)",
+                                boxShadow: `0 0 10px 1px ${
+                                  tab.value === "frontend"
+                                    ? "hsl(var(--primary) / 0.5)"
+                                    : tab.value === "all"
+                                    ? "rgba(249, 115, 22, 0.5)"
+                                    : tab.value === "backend"
+                                    ? "rgba(59, 130, 246, 0.5)"
+                                    : tab.value === "devops"
+                                    ? "rgba(250, 204, 21, 0.5)"
+                                    : "rgba(168, 85, 247, 0.5)"
+                                }`,
+                              }}
+                              transition={{
+                                duration: 0.3,
+                                ease: "easeInOut",
+                                opacity: { duration: 0 }, // Ensure opacity transition is instant
+                              }}
+                            />
 
-                          <motion.div
-                            className="absolute inset-0 -z-10"
-                            style={{
-                              background:
-                                tab.value === "frontend"
-                                  ? "var(--primary-rgb, rgb(0, 149, 246))"
-                                  : tab.value === "all"
-                                  ? "rgb(249, 115, 22)"
-                                  : tab.value === "backend"
-                                  ? "rgb(59, 130, 246)"
-                                  : tab.value === "devops"
-                                  ? "rgb(250, 204, 21)"
-                                  : "rgb(168, 85, 247)",
-                              opacity: 0.05,
-                            }}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 0.05, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        </>
-                      )}
-                    </TabsTrigger>
-                  ))}
-                </div>
-              </TabsList>
+                            <motion.div
+                              className="absolute inset-0 -z-10"
+                              style={{
+                                background:
+                                  tab.value === "frontend"
+                                    ? "var(--primary-rgb, rgb(0, 149, 246))"
+                                    : tab.value === "all"
+                                    ? "rgb(249, 115, 22)"
+                                    : tab.value === "backend"
+                                    ? "rgb(59, 130, 246)"
+                                    : tab.value === "devops"
+                                    ? "rgb(250, 204, 21)"
+                                    : "rgb(168, 85, 247)",
+                                opacity: 0.05,
+                              }}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 0.05, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              transition={{ duration: 0.3 }}
+                            />
+                          </>
+                        )}
+                      </TabsTrigger>
+                    ))}
+                  </div>
+                </TabsList>
+              </div>
             )}
 
             {/* Tab content with improved animations */}
@@ -1530,7 +1579,7 @@ export default function SkillsSection() {
                 <Card className="border border-border/40 bg-background/80 backdrop-blur-sm overflow-hidden rounded-xl shadow-lg">
                   <CardContent className="pt-6 pb-6">
                     <motion.div
-                      className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                      className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -1541,6 +1590,7 @@ export default function SkillsSection() {
                           key={skill.name}
                           name={skill.name}
                           proficiency={skill.proficiency}
+                          iconPath={skill.iconPath}
                           icon={skill.icon}
                           animate={activeTab === "soft" && isLoaded}
                           index={idx}
