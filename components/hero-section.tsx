@@ -210,7 +210,7 @@ export default function HeroSection() {
                   className="rounded-full"
                   onClick={() => {
                     const url = `${window.location.origin}/resume.pdf`;
-                    window.open(url, '_blank');
+                    window.open(url, "_blank");
                   }}
                 >
                   <span className="flex items-center">

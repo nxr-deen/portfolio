@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   GraduationCap,
   ArrowRight,
+  Trophy,
+  Calendar as CalendarIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +27,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 // Experience data
 const workExperience = [
@@ -80,7 +91,7 @@ const education = [
     institution: "Udemy (Angela Yu)",
     institutionUrl:
       "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
-    period: "Jan - Apr 2024",
+    period: "Jan - Apr 2025",
   },
 ];
 
@@ -88,50 +99,37 @@ const education = [
 const certifications = [
   {
     id: 1,
-    title: "AWS Certified Developer - Associate",
-    organization: "Amazon Web Services",
+    title: "Competitive Programming - Gold Medal",
+    organization: "ByteCraft",
     year: "2025",
-    image: "/placeholder-logo.svg",
-    icon: "🏆",
-    color: "green",
-    credentialId: "AWS-CDA-123456",
-    issueDate: "February 2025",
-    expiryDate: "February 2028",
-    skills: ["AWS Lambda", "DynamoDB", "API Gateway", "CloudFormation"],
+    image: "/Certificate of Participation.png", // Using the actual certificate image
+    icon: "🏅",
+    color: "purple",
+    issueDate: "May 2025",
+    credentialId: "BC-CP-2025",
+    description:
+      "Awarded for exceptional performance in the ByteCraft competitive programming competition, demonstrating advanced problem-solving skills and algorithmic thinking.",
+    skills: [
+      "Algorithms",
+      "Data Structures",
+      "Problem Solving",
+      "Competitive Programming",
+    ],
   },
   {
     id: 2,
-    title: "ByteCraft Ideathon Winner - First Place",
-    organization: "ByteCraft",
-    year: "2024",
-    image: "/placeholder-logo.svg",
-    icon: "🥇",
-    color: "gold",
-    credentialId: "BC-IDT-2024-01",
-    issueDate: "March 2024",
-    project: "Smart Campus Solution",
-  },
-  {
-    id: 3,
-    title: "Meta Frontend Developer Professional Certificate",
-    organization: "Meta (Facebook)",
-    year: "2023",
-    image: "/placeholder-logo.svg",
+    title: "The Complete Web Developer Bootcamp",
+    organization: "Udemy (Angela Yu)",
+    year: "2025",
+    image: "/placeholder.svg", // Placeholder until you add the actual certificate
     icon: "🚀",
     color: "blue",
-    credentialId: "META-FE-789123",
-    issueDate: "November 2023",
-    skills: ["React", "JavaScript", "Responsive Design"],
-  },
-  {
-    id: 4,
-    title: "Competitive Programming - Gold Medal",
-    organization: "ByteCraft",
-    year: "2023",
-    image: "/placeholder-logo.svg",
-    icon: "🏅",
-    color: "purple",
-    issueDate: "August 2023",
+    issueDate: "April 2025",
+    credentialId: "UC-eb6a8d0c-f36b-41a0-9f4d-73d789a284f2",
+    description:
+      "Comprehensive web development bootcamp covering front-end and back-end technologies. Mastered responsive design principles and modern JavaScript frameworks.",
+    skills: ["HTML", "CSS", "JavaScript", "Node.js", "MongoDB", "React"],
+    comingSoon: true, // Flag to indicate this certificate is coming soon
   },
 ];
 
@@ -172,6 +170,10 @@ function TechBadge({ tech }: { tech: string }) {
 
 export default function ExperienceSection() {
   const [activePage, setActivePage] = useState(1);
+  const [openCertId, setOpenCertId] = useState<number | null>(null);
+  // Add state to control dialog open/close
+  const [open, setOpen] = useState(false);
+  const [selectedCert, setSelectedCert] = useState<any>(null);
   const certificationsPerPage = 2;
   const totalPages = Math.ceil(certifications.length / certificationsPerPage);
 
@@ -180,6 +182,12 @@ export default function ExperienceSection() {
     const startIndex = (activePage - 1) * certificationsPerPage;
     return certifications.slice(startIndex, startIndex + certificationsPerPage);
   }, [activePage]);
+
+  // Function to handle opening a certification
+  const handleOpenCert = (cert: any) => {
+    setSelectedCert(cert);
+    setOpen(true);
+  };
 
   return (
     <section
@@ -370,60 +378,218 @@ export default function ExperienceSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <button
-                      className="w-full text-left bg-card rounded-lg p-3 border border-border hover:border-primary/50 hover:bg-card/80 transition-colors cursor-pointer"
-                      onClick={() =>
-                        window.open(
-                          cert.credentialId
-                            ? `https://www.credly.com/verify/${cert.credentialId}`
-                            : "#",
-                          "_blank"
-                        )
-                      }
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`flex items-center justify-center w-8 h-8 rounded-md ${
-                            cert.color === "gold"
-                              ? "bg-amber-500/10 text-amber-500"
-                              : cert.color === "purple"
-                              ? "bg-purple-500/10 text-purple-500"
-                              : cert.color === "green"
-                              ? "bg-green-500/10 text-green-500"
-                              : cert.color === "blue"
-                              ? "bg-blue-500/10 text-blue-500"
-                              : "bg-primary/10 text-primary"
-                          }`}
+                    <Dialog open={open} onOpenChange={setOpen}>
+                      <DialogTrigger asChild>
+                        <button
+                          className="w-full text-left bg-card rounded-lg p-3 border border-border hover:border-primary/50 hover:bg-card/80 transition-colors cursor-pointer"
+                          onClick={() => handleOpenCert(cert)}
                         >
-                          <span className="text-lg">{cert.icon}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors flex items-center">
-                            {cert.title}
-                            <ExternalLink className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </h3>
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <span>{cert.organization}</span>
-                            <span>•</span>
-                            <span
-                              className={
-                                cert.color === "purple"
-                                  ? "text-purple-500"
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`flex items-center justify-center w-8 h-8 rounded-md ${
+                                cert.color === "gold"
+                                  ? "bg-amber-500/10 text-amber-500"
+                                  : cert.color === "purple"
+                                  ? "bg-purple-500/10 text-purple-500"
                                   : cert.color === "green"
-                                  ? "text-green-500"
-                                  : cert.color === "gold"
-                                  ? "text-amber-500"
+                                  ? "bg-green-500/10 text-green-500"
                                   : cert.color === "blue"
-                                  ? "text-blue-500"
-                                  : "text-primary"
+                                  ? "bg-blue-500/10 text-blue-500"
+                                  : "bg-primary/10 text-primary"
+                              }`}
+                            >
+                              <span className="text-lg">{cert.icon}</span>
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors flex items-center">
+                                {cert.title}
+                                <ExternalLink className="h-3 w-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              </h3>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                <span>{cert.organization}</span>
+                                <span>•</span>
+                                <span
+                                  className={
+                                    cert.color === "purple"
+                                      ? "text-purple-500"
+                                      : cert.color === "green"
+                                      ? "text-green-500"
+                                      : cert.color === "gold"
+                                      ? "text-amber-500"
+                                      : cert.color === "blue"
+                                      ? "text-blue-500"
+                                      : "text-primary"
+                                  }
+                                >
+                                  {cert.year}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md md:max-w-lg">
+                        <DialogHeader>
+                          <DialogTitle className="text-xl flex items-center gap-2">
+                            <span className="text-lg">
+                              {selectedCert?.icon}
+                            </span>
+                            {selectedCert?.title}
+                          </DialogTitle>
+                          <DialogDescription className="text-sm">
+                            <div className="flex items-center gap-2 text-foreground">
+                              <span>{selectedCert?.organization}</span>
+                              <span>•</span>
+                              <span className="text-primary font-medium">
+                                Issued: {selectedCert?.issueDate}
+                              </span>
+                            </div>
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        <div className="mt-4 space-y-4">
+                          {/* Certificate Image */}
+                          <div className="relative w-full h-64 md:h-80 rounded-md overflow-hidden border border-border">
+                            {selectedCert?.comingSoon ? (
+                              <div className="absolute inset-0 flex flex-col items-center justify-center bg-muted/50">
+                                <CalendarIcon className="h-12 w-12 text-muted-foreground mb-2 opacity-50" />
+                                <p className="text-muted-foreground font-medium">
+                                  Certificate Coming Soon
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  Will be added upon course completion
+                                </p>
+                              </div>
+                            ) : (
+                              <Image
+                                src={selectedCert?.image}
+                                alt={`${selectedCert?.title} Certificate`}
+                                fill
+                                className="object-contain"
+                              />
+                            )}
+                          </div>
+
+                          {/* Certificate details */}
+                          <div>
+                            <h3 className="text-sm font-medium mb-1">
+                              About this certification:
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {selectedCert?.description}
+                            </p>
+                          </div>
+
+                          {/* Skills section */}
+                          <div>
+                            <h3 className="text-sm font-medium mb-2">
+                              Skills:
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedCert?.skills.map((skill, idx) => (
+                                <Badge
+                                  key={idx}
+                                  variant="secondary"
+                                  className={`
+                                    ${
+                                      selectedCert?.color === "purple"
+                                        ? "bg-purple-500/10 text-purple-600 dark:text-purple-400"
+                                        : selectedCert?.color === "blue"
+                                        ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                                        : "bg-primary/10 text-primary"
+                                    }
+                                  `}
+                                >
+                                  {skill}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Additional details */}
+                          {selectedCert?.details && (
+                            <div className="mt-4">
+                              <h3 className="text-sm font-medium mb-2">
+                                Additional Details:
+                              </h3>
+                              <p className="text-sm text-muted-foreground">
+                                <strong>Instructor:</strong>{" "}
+                                {selectedCert?.details.instructor}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                <strong>Duration:</strong>{" "}
+                                {selectedCert?.details.duration}
+                              </p>
+                              <div className="mt-2">
+                                <h4 className="text-sm font-medium">
+                                  Projects:
+                                </h4>
+                                <ul className="list-disc list-inside text-sm text-muted-foreground">
+                                  {selectedCert?.details.projects.map(
+                                    (project, idx) => (
+                                      <li key={idx}>{project}</li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                              <div className="mt-2">
+                                <h4 className="text-sm font-medium">
+                                  Topics Covered:
+                                </h4>
+                                <ul className="list-disc list-inside text-sm text-muted-foreground">
+                                  {selectedCert?.details.topics.map(
+                                    (topic, idx) => (
+                                      <li key={idx}>{topic}</li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        <DialogFooter className="mt-4">
+                          <Button
+                            variant="outline"
+                            className="mr-2"
+                            onClick={() => setOpen(false)}
+                          >
+                            Close
+                          </Button>
+
+                          {selectedCert?.comingSoon ? (
+                            <>
+                              <Button
+                                variant="outline"
+                                className="mr-2"
+                                onClick={() =>
+                                  window.open(
+                                    "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
+                                    "_blank"
+                                  )
+                                }
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                View Course
+                              </Button>
+                              <Button>
+                                <Trophy className="h-4 w-4 mr-2" />
+                                Get Certificate
+                              </Button>
+                            </>
+                          ) : (
+                            <Button
+                              onClick={() =>
+                                window.open(selectedCert?.image, "_blank")
                               }
                             >
-                              {cert.year}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </button>
+                              <Trophy className="h-4 w-4 mr-2" />
+                              Show Certificate
+                            </Button>
+                          )}
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </motion.div>
                 ))}
               </div>
