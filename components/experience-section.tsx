@@ -105,7 +105,7 @@ const certifications = [
     image: "/Certificate of Participation.png", // Using the actual certificate image
     icon: "🏅",
     color: "purple",
-    issueDate: "May 2025",
+    issueDate: "February 2025",
     credentialId: "BC-CP-2025",
     description:
       "Awarded for exceptional performance in the ByteCraft competitive programming competition, demonstrating advanced problem-solving skills and algorithmic thinking.",
