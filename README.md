@@ -1,111 +1,151 @@
-# Personal Portfolio Website
+# Portfolio Website Documentation
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
+This documentation provides information about the structure, technologies, and components used in this portfolio website project.
+
+## Project Overview
+
+This is a personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS. The portfolio features various sections including Hero, About, Experience, Skills, Projects, Testimonials, and Contact sections.
+
+## Technologies Used
+
+- **Framework**: [Next.js](https://nextjs.org/) 15.x
+- **Language**: [TypeScript](https://www.typescriptlang.org/) 5.x
+- **UI Library**: [React](https://reactjs.org/) 19.x
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) 3.x
+- **UI Components**: [Radix UI](https://www.radix-ui.com/) primitives
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Theme Switching**: [next-themes](https://github.com/pacocoursey/next-themes)
+- **Form Management**: [react-hook-form](https://react-hook-form.com/) with [zod](https://github.com/colinhacks/zod) for validation
+
+## Project Structure
+
+```
+portfolio/
+├── app/                # Next.js app directory
+│   ├── globals.css     # Global styles
+│   ├── layout.tsx      # Root layout component
+│   └── page.tsx        # Homepage component
+├── components/         # React components
+│   ├── ui/             # UI components (buttons, cards, etc.)
+│   └── [section].tsx   # Section components (hero, about, etc.)
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions and helpers
+├── public/             # Static assets (images, icons, etc.)
+│   └── icons/          # Icon assets
+└── styles/             # Additional style files
+```
+
+## Main Components
+
+The portfolio website consists of the following main section components:
+
+- **Navbar**: Navigation bar with links to different sections
+- **Hero Section**: Main landing section introducing yourself
+- **About Section**: Information about your background and skills
+- **Experience Section**: Work experience and education details
+- **Skills Section**: Technical skills and competencies
+- **Projects Section**: Showcase of your projects
+- **Testimonials Section**: Feedback and recommendations
+- **Contact Section**: Contact form and information
+- **Footer**: Additional links and information
+
+## UI Components
+
+This project uses a comprehensive set of UI components from Radix UI, including:
+
+- Buttons
+- Cards
+- Dialogs
+- Forms
+- Accordions
+- Dropdowns
+- Navigation menus
+- And many more
+
+These components are located in the `components/ui/` directory.
 
 ## Features
 
-- **Responsive Design**: Looks great on all devices from mobile to desktop
-- **Dark/Light Mode**: Theme toggle for user preference
-- **Interactive UI Components**: Built with shadcn/ui components
-- **SEO Optimized**: Meta tags and structured data for better search engine visibility
-- **Fast Loading**: Optimized for performance with Next.js
-- **Modern Stack**: Built with Next.js, TypeScript, and Tailwind CSS
+1. **Responsive Design**: Adapts to different screen sizes (mobile, tablet, desktop)
+2. **Dark/Light Mode**: Toggle between dark and light themes
+3. **Smooth Animations**: Page transitions and interactive elements with Framer Motion
+4. **Interactive UI**: Modern, clean UI with hover effects and transitions
+5. **Content Sections**: Well-organized content sections for different aspects of your portfolio
 
-## Sections
-
-- Hero section with introduction
-- About me section
-- Skills showcase with categorization
-- Project portfolio with filtering
-- Testimonials from clients/colleagues
-- Contact form
-- Footer with social links
-
-## Tech Stack
-
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Vercel](https://vercel.com/) (recommended)
-
-## Getting Started
+## Running the Project
 
 ### Prerequisites
 
-- Node.js 16.8.0 or later
-- npm, yarn, or pnpm
+- Node.js (v18 or newer)
+- PNPM package manager
 
-### Installation
+### Development
 
-1. Clone the repository
+1. Install dependencies:
 
-```bash
-git clone https://github.com/nxr-deen/portfolio.git
-cd portfolio
 ```
-
-2. Install dependencies
-
-```bash
-npm install
-# or
-yarn install
-# or
 pnpm install
 ```
 
-3. Run the development server
+2. Start the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+```
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+The site will be available at http://localhost:3000
 
-## Customization
+### Building for Production
 
-### Personal Information
+1. Build the project:
 
-Edit the content in the component files under the `components/` directory:
+```
+pnpm build
+```
 
-- `hero-section.tsx`: Update your name, role, and introduction
-- `about-section.tsx`: Update your bio and personal information
-- `skills-section.tsx`: Update your technical skills, tools, and soft skills
-- `projects-section.tsx`: Update your projects with descriptions, images, and links
-- `testimonials-section.tsx`: Update testimonials from clients or colleagues
-- `contact-section.tsx`: Update your contact information and form
+2. Start the production server:
 
-### Styling
+```
+pnpm start
+```
 
-The project uses Tailwind CSS for styling with a customizable theme:
+## Customization Guide
 
-- Edit `globals.css` to change global styles
-- Edit `tailwind.config.ts` to modify theme colors and other Tailwind settings
-- Components use shadcn/ui which can be customized through their respective files in `components/ui/`
+### Adding a New Project
+
+To add a new project to the Projects Section:
+
+1. Open `components/projects-section.tsx`
+2. Add a new object to the `projects` array with details of your project
+3. Include a relevant image in the `public/` directory
+
+### Updating Experience
+
+To update your work experience:
+
+1. Open `components/experience-section.tsx`
+2. Modify the `workExperience` array with your updated information
+
+### Adding a New Skill
+
+To add a new skill:
+
+1. Open `components/skills-section.tsx`
+2. Add the new skill to the appropriate category in the skills data structure
 
 ## Deployment
 
-The easiest way to deploy your portfolio is using [Vercel](https://vercel.com/), the platform created by the makers of Next.js:
+This Next.js project can be deployed to various platforms:
 
-1. Push your code to a GitHub repository
-2. Import your project to Vercel
-3. Vercel will detect Next.js automatically and use optimal build settings
+- [Vercel](https://vercel.com/) (recommended for Next.js projects)
+- [Netlify](https://www.netlify.com/)
+- [AWS Amplify](https://aws.amazon.com/amplify/)
+- Any platform supporting Node.js applications
 
-Alternatively, you can deploy to any platform that supports Node.js applications.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
+## Additional Resources
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [shadcn/ui Components](https://ui.shadcn.com/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Radix UI Documentation](https://www.radix-ui.com/docs/primitives/overview/introduction)
+- [Framer Motion Documentation](https://www.framer.com/motion/)
