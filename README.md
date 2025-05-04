@@ -42,7 +42,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/portfolio.git
+git clone https://github.com/nxr-deen/portfolio.git
 cd portfolio
 ```
 
