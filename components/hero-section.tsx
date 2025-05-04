@@ -205,17 +205,18 @@ export default function HeroSection() {
 
               <div className="hover:scale-105 transition-transform duration-300">
                 <Button
-                  asChild
                   variant="secondary"
                   size="lg"
                   className="rounded-full"
+                  onClick={() => {
+                    const url = `${window.location.origin}/resume.pdf`;
+                    window.open(url, '_blank');
+                  }}
                 >
-                  <a href="/resume.pdf" download>
-                    <span className="flex items-center">
-                      <Download className="mr-2 h-4 w-4" />
-                      Resume
-                    </span>
-                  </a>
+                  <span className="flex items-center">
+                    <Download className="mr-2 h-4 w-4" />
+                    Resume
+                  </span>
                 </Button>
               </div>
             </div>

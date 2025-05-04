@@ -117,96 +117,98 @@ const projects = [
     category: "Web",
   },
 
-  // Mobile Projects
+  // Mobile Projects - Coming Soon
   {
     id: 4,
-    title: "TaskMaster - Mobile Task Manager",
+    title: "Mobile App - Coming Soon",
     description:
-      "A cross-platform mobile application for efficient task management with features like categorization, reminders, progress tracking, and cloud sync.",
-    image: "/placeholder.jpg",
-    tags: ["React Native", "Firebase", "Redux", "Push Notifications"],
+      "A new mobile application project currently in development. Stay tuned for updates on this exciting new app!",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "Mobile",
+    comingSoon: true,
   },
 
   {
     id: 5,
-    title: "FitTrack - Fitness Companion",
+    title: "Mobile App - Coming Soon",
     description:
-      "A mobile fitness application that tracks workouts, provides personalized fitness plans, and monitors progress with detailed analytics.",
-    image: "/placeholder.jpg",
-    tags: ["Flutter", "Dart", "Firebase", "Health APIs"],
+      "Another mobile project in the planning phase. Check back later for more details on this upcoming mobile experience.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "Mobile",
+    comingSoon: true,
   },
 
-  // UI/UX Projects
+  // UI/UX Projects - Coming Soon
   {
     id: 6,
-    title: "Finance Dashboard Redesign",
+    title: "UI/UX Project - Coming Soon",
     description:
-      "A comprehensive UI/UX redesign for a financial management dashboard, focused on improving data visualization and user experience.",
-    image: "/placeholder.jpg",
-    tags: ["Figma", "UI Design", "UX Research", "Prototyping"],
+      "A user interface design project currently underway. This space will showcase innovative UI/UX work in the near future.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "UI/UX",
+    comingSoon: true,
   },
 
   {
     id: 7,
-    title: "E-Commerce UX Case Study",
+    title: "UI/UX Project - Coming Soon",
     description:
-      "An in-depth UX case study for an e-commerce platform, including user research, wireframing, prototyping, and usability testing.",
-    image: "/placeholder.jpg",
-    tags: ["Adobe XD", "User Research", "Wireframing", "Usability"],
+      "A design case study that will be featured here once completed. Check back for detailed insights into my design process.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "UI/UX",
+    comingSoon: true,
   },
 
-  // AI Projects
+  // AI Projects - Coming Soon
   {
     id: 8,
-    title: "Intelligent Document Processing System",
+    title: "AI Project - Coming Soon",
     description:
-      "An AI-powered document processing system that extracts, classifies, and analyzes text from various document formats using natural language processing and computer vision.",
-    image: "/placeholder.jpg",
-    tags: ["Python", "TensorFlow", "NLP", "OCR", "Machine Learning"],
+      "An artificial intelligence project in development. This space will soon feature innovative AI solutions and applications.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "AI",
+    comingSoon: true,
   },
 
   {
     id: 9,
-    title: "Sentiment Analysis Dashboard",
+    title: "AI Project - Coming Soon",
     description:
-      "Real-time sentiment analysis tool for social media and customer feedback, leveraging deep learning models to identify emotions, trends, and customer satisfaction levels.",
-    image: "/placeholder.jpg",
-    tags: ["PyTorch", "NLP", "BERT", "Data Visualization", "APIs"],
+      "A machine learning project currently being developed. Stay tuned for updates on this exciting AI application.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "AI",
+    comingSoon: true,
   },
 
   {
     id: 10,
-    title: "Recommendation Engine",
+    title: "AI Project - Coming Soon",
     description:
-      "A personalized recommendation system that uses collaborative filtering and deep learning to suggest products, content, and services based on user behavior and preferences.",
-    image: "/placeholder.jpg",
-    tags: [
-      "Python",
-      "Scikit-learn",
-      "Neural Networks",
-      "Collaborative Filtering",
-    ],
+      "An advanced AI tool that will be featured here once completed. Check back for updates on this innovative project.",
+    image: "/placeholder.svg",
+    tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
     category: "AI",
+    comingSoon: true,
   },
 ];
 
