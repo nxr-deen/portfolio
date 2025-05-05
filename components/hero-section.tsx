@@ -34,7 +34,7 @@ const socialLinks = {
 // Simplified text rotation component
 const AnimatedText = () => {
   const [index, setIndex] = useState(0);
-  const phrases = ["Full Stack Developer", "UI Designer", "Problem Solver"];
+  const phrases = ["Full Stack Developer", "UI UX Designer", "Problem Solver"];
 
   useEffect(() => {
     const interval = setInterval(() => {
