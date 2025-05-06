@@ -81,8 +81,7 @@ const projects = [
       "A modern business platform built with Next.js, Prisma, and PostgreSQL. Features user authentication, subscriptions, customer management, support system, and a sleek UI.",
     image: "/business.png", // Replace with a real image path
     tags: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL", "Authentication"],
-    liveUrl:
-      "https://landco-business-platform-hszu944iq-nxr-deens-projects.vercel.app", // Add your live deployment link when available
+    liveUrl: "landco-business-platform.vercel.app", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-deen/landco", // Replace with your GitHub repo URL
     category: "Web",
   },
