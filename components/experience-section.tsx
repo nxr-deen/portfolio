@@ -60,16 +60,18 @@ const workExperience = [
   },
   {
     id: 2,
-    title: "Web Development Intern",
-    company: "Exclusive Labs",
-    period: "December 2023 - February 2024",
+    title: "Algerian E-Traveling Platform",
+    company: "Higher School of Computer Science & Digital Technologies",
+    companyUrl: "https://estin.dz",
+    period: "Feb 2024 - May 2024",
     description:
-      "Assisted in the development of client websites and web applications. Gained hands-on experience with modern web development technologies and methodologies.",
+      "In my second year, I helped build Wonderlust, a modern website promoting tourism in Algeria. The project includes source code, docs, and platform features. I also joined school clubs to grow my teamwork and tech skills.",
     technologies: [
       "React",
       "Next.js",
       "TypeScript",
-      "REST APIs",
+      "Tourism Platform",
+      "Documentation",
       "Team Collaboration",
     ],
   },
@@ -91,7 +93,7 @@ const education = [
     institution: "Udemy (Angela Yu)",
     institutionUrl:
       "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
-    period: "Jan - Apr 2025",
+    period: "Jan - May 2025",
   },
 ];
 
@@ -99,7 +101,7 @@ const education = [
 const certifications = [
   {
     id: 1,
-    title: "Competitive Programming - Gold Medal",
+    title: "Competitive Programming - CodeCraft",
     organization: "ByteCraft",
     year: "2025",
     image: "/Certificate of Participation.png", // Using the actual certificate image
@@ -121,15 +123,15 @@ const certifications = [
     title: "The Complete Web Developer Bootcamp",
     organization: "Udemy (Angela Yu)",
     year: "2025",
-    image: "/placeholder.svg", // Placeholder until you add the actual certificate
+    image: "/udemy-cer.jpg", // Using the actual Udemy certificate
     icon: "🚀",
     color: "blue",
-    issueDate: "April 2025",
+    issueDate: "May 2025",
     credentialId: "UC-eb6a8d0c-f36b-41a0-9f4d-73d789a284f2",
     description:
       "Comprehensive web development bootcamp covering front-end and back-end technologies. Mastered responsive design principles and modern JavaScript frameworks.",
     skills: ["HTML", "CSS", "JavaScript", "Node.js", "MongoDB", "React"],
-    comingSoon: true, // Flag to indicate this certificate is coming soon
+    comingSoon: false, // Updated: Certificate is now available
   },
 ];
 
@@ -578,14 +580,31 @@ export default function ExperienceSection() {
                               </Button>
                             </>
                           ) : (
-                            <Button
-                              onClick={() =>
-                                window.open(selectedCert?.image, "_blank")
-                              }
-                            >
-                              <Trophy className="h-4 w-4 mr-2" />
-                              Show Certificate
-                            </Button>
+                            <>
+                              {selectedCert?.id === 2 && (
+                                <Button
+                                  variant="outline"
+                                  className="mr-2"
+                                  onClick={() =>
+                                    window.open(
+                                      "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
+                                      "_blank"
+                                    )
+                                  }
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Course
+                                </Button>
+                              )}
+                              <Button
+                                onClick={() =>
+                                  window.open(selectedCert?.image, "_blank")
+                                }
+                              >
+                                <Trophy className="h-4 w-4 mr-2" />
+                                Show Certificate
+                              </Button>
+                            </>
                           )}
                         </DialogFooter>
                       </DialogContent>
