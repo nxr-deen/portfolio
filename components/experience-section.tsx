@@ -430,23 +430,23 @@ export default function ExperienceSection() {
                           </div>
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-md md:max-w-lg">
-                        <DialogHeader>
+                      <DialogContent className="sm:max-w-md md:max-w-lg">                        <DialogHeader>
                           <DialogTitle className="text-xl flex items-center gap-2">
                             <span className="text-lg">
                               {selectedCert?.icon}
                             </span>
                             {selectedCert?.title}
                           </DialogTitle>
-                          <DialogDescription className="text-sm">
-                            <div className="flex items-center gap-2 text-foreground">
+                          {/* Using a span instead of DialogDescription to avoid p > div issue */}
+                          <div className="text-sm text-muted-foreground">
+                            <span className="flex items-center gap-2 text-foreground">
                               <span>{selectedCert?.organization}</span>
                               <span>•</span>
                               <span className="text-primary font-medium">
                                 Issued: {selectedCert?.issueDate}
                               </span>
-                            </div>
-                          </DialogDescription>
+                            </span>
+                          </div>
                         </DialogHeader>
 
                         <div className="mt-4 space-y-4">
