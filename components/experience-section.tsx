@@ -63,7 +63,7 @@ const workExperience = [
     title: "Algerian E-Traveling Platform",
     company: "Higher School of Computer Science & Digital Technologies",
     companyUrl: "https://estin.dz",
-    period: "Feb 2024 - May 2024",
+    period: "Feb - May 2024",
     description:
       "In my second year, I helped build Wonderlust, a modern website promoting tourism in Algeria. The project includes source code, docs, and platform features. I also joined school clubs to grow my teamwork and tech skills.",
     technologies: [
@@ -430,7 +430,9 @@ export default function ExperienceSection() {
                           </div>
                         </button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-md md:max-w-lg">                        <DialogHeader>
+                      <DialogContent className="sm:max-w-md md:max-w-lg">
+                        {" "}
+                        <DialogHeader>
                           <DialogTitle className="text-xl flex items-center gap-2">
                             <span className="text-lg">
                               {selectedCert?.icon}
@@ -448,7 +450,6 @@ export default function ExperienceSection() {
                             </span>
                           </div>
                         </DialogHeader>
-
                         <div className="mt-4 space-y-4">
                           {/* Certificate Image */}
                           <div className="relative w-full h-64 md:h-80 rounded-md overflow-hidden border border-border">
@@ -549,7 +550,6 @@ export default function ExperienceSection() {
                             </div>
                           )}
                         </div>
-
                         <DialogFooter className="mt-4">
                           <Button
                             variant="outline"
