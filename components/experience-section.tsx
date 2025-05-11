@@ -595,10 +595,14 @@ export default function ExperienceSection() {
                                   <ExternalLink className="h-4 w-4 mr-2" />
                                   View Course
                                 </Button>
-                              )}
-                              <Button
+                              )}                              <Button
                                 onClick={() =>
-                                  window.open(selectedCert?.image, "_blank")
+                                  window.open(
+                                    selectedCert?.id === 2 
+                                      ? "https://www.udemy.com/certificate/UC-020873d9-870c-4bfb-85fd-ec21a6e9fb50/" 
+                                      : selectedCert?.image, 
+                                    "_blank"
+                                  )
                                 }
                               >
                                 <Trophy className="h-4 w-4 mr-2" />
