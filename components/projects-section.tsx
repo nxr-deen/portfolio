@@ -82,7 +82,7 @@ const projects = [
     image: "/business.png", // Replace with a real image path
     tags: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL", "Authentication"],
     liveUrl: "https://landco-business-platform.vercel.app", // Add your live deployment link when available
-    githubUrl: "https://github.com/nxr-deen/landco", // Replace with your GitHub repo URL
+    githubUrl: "https://github.com/nxr-deen/landco-business-platform", // Replace with your GitHub repo URL
     category: "Web",
   },
 
