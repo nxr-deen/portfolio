@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import VerticalNavigation from "@/components/vertical-navigation";
+import PortfolioAlert from "@/components/portfolio-alert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
+            <PortfolioAlert />
             <Navbar />
             <main className="flex-1 relative">
               <VerticalNavigation />
