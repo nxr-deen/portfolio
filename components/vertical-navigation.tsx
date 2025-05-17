@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   User,
   Code,
@@ -124,15 +125,21 @@ export default function VerticalNavigation() {
       });
     }
   };
+  // Get current pathname to check if we're on a not-found page
+  const pathname = usePathname();
+  const isNotFoundPage =
+    pathname === "/not-found" || pathname.includes("/not-found/");
 
-  // If mobile, don't render anything
-  if (isMobile) {
+  // If mobile or on a not-found page, don't render anything
+  if (isMobile || isNotFoundPage) {
     return null;
   }
-
   // Desktop vertical navigation
   return (
-    <div className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
+    <div
+      className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block"
+      data-vertical-navigation
+    >
       <div className="relative">
         {/* Vertical line that connects all nav items */}
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/40 via-blue-400/40 to-primary/40 transform -translate-x-1/2 rounded-full" />

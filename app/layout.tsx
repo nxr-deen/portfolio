@@ -32,10 +32,7 @@ export default function RootLayout({
           <div className="flex min-h-screen flex-col">
             <PortfolioAlert />
             <Navbar />
-            <main className="flex-1 relative">
-              <VerticalNavigation />
-              {children}
-            </main>
+            <main className="flex-1 relative">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>

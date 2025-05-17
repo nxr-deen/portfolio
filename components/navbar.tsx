@@ -5,10 +5,14 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./mode-toggle";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isNotFoundPage =
+    pathname === "/not-found" || pathname.includes("/not-found/");
 
   // Track scroll position for header styling
   useEffect(() => {
@@ -19,6 +23,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Don't render navbar on 404 pages
+  if (isNotFoundPage) {
+    return null;
+  }
 
   return (
     <header

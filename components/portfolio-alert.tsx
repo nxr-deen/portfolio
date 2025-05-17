@@ -4,11 +4,15 @@ import React, { useState, useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePathname } from "next/navigation";
 
 export default function PortfolioAlert() {
   const [isVisible, setIsVisible] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const isMobile = useIsMobile();
+  const pathname = usePathname();
+  const isNotFoundPage =
+    pathname === "/not-found" || pathname.includes("/not-found/");
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -44,13 +48,12 @@ export default function PortfolioAlert() {
 
   // Don't render anything until client-side hydration is complete
   if (!isMounted) return null;
-
   // Don't render if the alert has been dismissed
   if (!isVisible) return null;
   return (
     <div
       className={`fixed ${
-        isMobile ? "top-16 px-2" : "top-24"
+        isNotFoundPage ? "top-4" : isMobile ? "top-16 px-2" : "top-24"
       } left-0 right-0 mx-auto z-50 w-11/12 max-w-md shadow-xl animate-pulse-slow`}
     >
       <Alert

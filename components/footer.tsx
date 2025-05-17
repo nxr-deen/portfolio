@@ -13,9 +13,13 @@ import {
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname();
+  const isNotFoundPage =
+    pathname === "/not-found" || pathname.includes("/not-found/");
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -23,6 +27,11 @@ export default function Footer() {
       behavior: "smooth",
     });
   };
+
+  // Don't render footer on 404 pages
+  if (isNotFoundPage) {
+    return null;
+  }
 
   return (
     <footer className="border-t bg-background py-16 relative z-10">
