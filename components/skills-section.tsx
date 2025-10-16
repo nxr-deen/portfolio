@@ -1140,12 +1140,12 @@ export default function SkillsSection() {
             {/* Mobile Navigation - improved with modern card-style tabs */}
             {isMobile ? (
               <div className="mb-8">
-                <TabsList className="grid grid-cols-5 w-full gap-1.5 rounded-xl p-1.5 bg-background/80 border border-border/50 shadow-inner overflow-x-auto snap-x snap-mandatory">
+                <TabsList className="grid grid-cols-5 w-full gap-1 rounded-xl p-1 bg-background/80 border border-border/50 shadow-inner overflow-hidden">
                   {tabItems.map((tab) => (
                     <TabsTrigger
                       key={tab.value}
                       value={tab.value}
-                      className={`relative px-2 py-4 snap-center
+                      className={`relative px-1 py-3
                         flex flex-col items-center justify-center gap-2 
                         transition-all duration-300 rounded-lg
                         data-[state=active]:bg-background/90 data-[state=active]:shadow-sm
@@ -1177,9 +1177,7 @@ export default function SkillsSection() {
                           }`,
                         })}
                       </motion.div>
-                      <span className="text-[10px] font-medium leading-none whitespace-nowrap">
-                        {tab.label}
-                      </span>
+                      <span className="sr-only">{tab.label}</span>
 
                       {/* Active indicator dot with glow effect */}
                       {activeTab === tab.value && (

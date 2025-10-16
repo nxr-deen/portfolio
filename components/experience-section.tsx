@@ -75,6 +75,66 @@ const workExperience = [
       "Team Collaboration",
     ],
   },
+  {
+    id: 3,
+    title: "Intern – ERP Integration and Customization",
+    company: "Inspectra Algerie",
+    companyUrl: "https://www.inspectra-dz.com/",
+    period: " 3 Months",
+    dates: "Sep 21, 2025 – Jan 11, 2026",
+    location: "Les Eucalyptus, Alger, Algeria",
+    theme:
+      "Integration and Customization of an ERP System under Odoo (with MySQL and Docker)",
+    description:
+      "Participated in the integration and customization of an ERP system under Odoo. Configured and personalized multiple business modules such as CRM, Sales, HR, Payroll, and Website. Managed MySQL databases, Docker deployments, and testing while collaborating on documentation and requirement analysis.",
+    technologies: [
+      "Odoo",
+      "Python",
+      "XML",
+      "MySQL",
+      "Docker",
+      "ERP Integration",
+      "Teamwork",
+      "Documentation",
+    ],
+    skillsGained: [
+      "Odoo customization & ERP integration",
+      "Python, XML, MySQL, Docker",
+      "Functional analysis & project organization",
+      "Team collaboration and documentation",
+    ],
+    attestationUrl: "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+    reportUrl: "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+  },
+  {
+    id: 4,
+    title: "Intern – Network & System Administration",
+    company: "GCB – Cosider Group",
+    companyUrl: "https://www.gcb.dz",
+    period: "15 Days",
+    dates: "Sep 3 – 18, 2025",
+    location: "Boudouaou, Boumerdès, Algeria",
+    theme:
+      "Network and System Administration under Windows Server with Integration of a Stock Management Software",
+    description:
+      "Configured and administered a Windows Server environment. Managed a local enterprise network, integrated a stock management software using SQL Server, and implemented security and backup systems.",
+    technologies: [
+      "Windows Server",
+      "SQL Server",
+      "Network Management",
+      "System Administration",
+      "Security",
+      "Backup",
+    ],
+    skillsGained: [
+      "Windows Server & network management",
+      "SQL Server database integration",
+      "Security & system administration",
+      "Technical documentation and teamwork",
+    ],
+    attestationUrl: "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+    reportUrl: "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+  },
 ];
 
 // Education data
@@ -133,6 +193,47 @@ const certifications = [
     skills: ["HTML", "CSS", "JavaScript", "Node.js", "MongoDB", "React"],
     comingSoon: false, // Updated: Certificate is now available
   },
+  {
+    id: 3,
+    title: "Internship Attestation - Inspectra Algerie",
+    organization: "Inspectra Algerie",
+    year: "2025",
+    image: "/placeholder.jpg",
+    icon: "📄",
+    color: "blue",
+    issueDate: "January 2026",
+    description:
+      "Official attestation acknowledging internship completion focused on Odoo ERP integration and customization with MySQL and Docker.",
+    skills: [
+      "Odoo",
+      "Python",
+      "MySQL",
+      "Docker",
+      "ERP Integration",
+    ],
+    externalUrl:
+      "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+  },
+  {
+    id: 4,
+    title: "Internship Attestation - GCB (Cosider Group)",
+    organization: "GCB – Cosider Group",
+    year: "2025",
+    image: "/GCB.png",
+    icon: "📄",
+    color: "green",
+    issueDate: "September 2025",
+    description:
+      "Official attestation for internship in Windows Server network and system administration with SQL Server integration.",
+    skills: [
+      "Windows Server",
+      "Network Management",
+      "SQL Server",
+      "Security",
+    ],
+    externalUrl:
+      "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+  },
 ];
 
 // Star rating component
@@ -176,8 +277,8 @@ export default function ExperienceSection() {
   // Add state to control dialog open/close
   const [open, setOpen] = useState(false);
   const [selectedCert, setSelectedCert] = useState<any>(null);
-  const certificationsPerPage = 2;
-  const totalPages = Math.ceil(certifications.length / certificationsPerPage);
+  const certificationsPerPage = certifications.length; // show all
+  const totalPages = 1;
 
   // Get current certificates based on active page
   const currentCertifications = useMemo(() => {
@@ -230,8 +331,11 @@ export default function ExperienceSection() {
               Work Experience
             </h2>
 
-            <div className="space-y-12">
-              {workExperience.map((item, index) => (
+             <div className="space-y-12">
+               {/* Render non-internship items (ids other than 3 and 4) */}
+               {workExperience
+                 .filter((item) => item.id !== 3 && item.id !== 4)
+                 .map((item) => (
                 <div key={item.id} className="relative">
                   <div className="flex items-start gap-4">
                     <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
@@ -284,7 +388,156 @@ export default function ExperienceSection() {
                     </div>
                   </div>
                 </div>
-              ))}
+               ))}
+
+               {/* Internships sub-heading */}
+               <h3 className="flex items-center text-xl font-semibold mt-6">
+                 <span className="text-primary mr-2">
+                   <Briefcase className="h-5 w-5" />
+                 </span>
+                 Internships
+               </h3>
+
+               {/* Render internship items (ids 3 and 4) */}
+               {workExperience
+                 .filter((item) => item.id === 3 || item.id === 4)
+                 .map((item) => (
+                  <div key={item.id} className="relative">
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-lg font-semibold">{item.title}</h3>
+                          <Badge
+                            variant="outline"
+                            className="bg-primary/5 text-primary border-primary/20"
+                          >
+                            {item.period}
+                          </Badge>
+                        </div>
+
+                        {item.company && (
+                          <div className="mt-1 text-primary">
+                            {item.companyUrl ? (
+                              <Link
+                                href={item.companyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline flex items-center"
+                              >
+                                {item.company}{" "}
+                                <ExternalLink className="h-3 w-3 ml-0.5" />
+                              </Link>
+                            ) : (
+                              <span>{item.company}</span>
+                            )}
+                          </div>
+                        )}
+
+                        <p className="mt-2 text-muted-foreground">{item.description}</p>
+
+                        {/* Extra details & modal trigger */}
+                        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          {item.dates && (
+                            <span className="inline-flex items-center gap-1">
+                              <Calendar className="h-3 w-3 opacity-70" />
+                              <span className="font-medium text-foreground/80">{item.dates}</span>
+                            </span>
+                          )}
+                          {item.location && (
+                            <span className="inline-flex items-center gap-1">
+                              <Calendar className="h-3 w-3 opacity-70" />
+                              <span>{item.location}</span>
+                            </span>
+                          )}
+                          {item.theme && (
+                            <span className="inline-flex items-center gap-1">
+                              <span className="opacity-70">Theme:</span>
+                              <span className="text-foreground/80">{item.theme}</span>
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="mt-4 w-full flex justify-end">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button size="sm" className="h-8 px-3">
+                                More details
+                                <ArrowRight className="h-3 w-3 ml-2" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-lg">
+                              <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                  <Briefcase className="h-4 w-4 text-primary" />
+                                  {item.title}
+                                </DialogTitle>
+                                <DialogDescription>
+                                  {item.company} • {item.dates ? item.dates : item.period}
+                                </DialogDescription>
+                              </DialogHeader>
+
+                              {item.location && (
+                                <div className="text-sm text-muted-foreground">
+                                  <span className="font-medium text-foreground">Location:</span> {item.location}
+                                </div>
+                              )}
+                              {item.theme && (
+                                <div className="text-sm text-muted-foreground mt-1">
+                                  <span className="font-medium text-foreground">Theme:</span> {item.theme}
+                                </div>
+                              )}
+
+                              <div className="mt-4">
+                                <h4 className="text-sm font-medium mb-1">Description</h4>
+                                <p className="text-sm text-muted-foreground">{item.description}</p>
+                              </div>
+
+                              {item.skillsGained && (
+                                <div className="mt-4">
+                                  <h4 className="text-sm font-medium mb-2">Skills Gained</h4>
+                                  <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                                    {item.skillsGained.map((s: string, idx: number) => (
+                                      <li key={idx}>{s}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.technologies && (
+                                <div className="mt-4">
+                                  <h4 className="text-sm font-medium mb-2">Technologies</h4>
+                                  <div className="flex flex-wrap">
+                                    {item.technologies.map((tech, idx) => (
+                                      <TechBadge key={idx} tech={tech} />
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              <DialogFooter className="mt-6 flex gap-2 justify-end">
+                                {item.attestationUrl && (
+                                  <Button variant="outline" onClick={() => window.open(item.attestationUrl as string, "_blank")}>Attestation</Button>
+                                )}
+                                {item.reportUrl && (
+                                  <Button onClick={() => window.open(item.reportUrl as string, "_blank")}>Report</Button>
+                                )}
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+
+                        {item.technologies && (
+                          <div className="mt-4 flex flex-wrap">
+                            {item.technologies.map((tech, idx) => (
+                              <TechBadge key={idx} tech={tech} />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+               ))}
             </div>
           </div>
 
@@ -332,47 +585,17 @@ export default function ExperienceSection() {
 
             {/* Certifications Section */}
             <div className="mt-12">
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center mb-4">
                 <h2 className="flex items-center text-lg font-bold">
                   <span className="text-primary mr-2">
                     <Award className="h-5 w-5" />
                   </span>
                   Certifications
                 </h2>
-
-                <div className="flex items-center gap-1 text-muted-foreground text-xs">
-                  <span>
-                    {activePage} / {totalPages}
-                  </span>
-                  <div className="flex gap-1">
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="h-6 w-6 rounded-full bg-primary/5 border-primary/20 hover:bg-primary/10 text-primary"
-                      onClick={() =>
-                        setActivePage((prev) => Math.max(1, prev - 1))
-                      }
-                      disabled={activePage === 1}
-                    >
-                      <ArrowRight className="h-3 w-3 rotate-180" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="h-6 w-6 rounded-full bg-primary/5 border-primary/20 hover:bg-primary/10 text-primary"
-                      onClick={() =>
-                        setActivePage((prev) => Math.min(totalPages, prev + 1))
-                      }
-                      disabled={activePage === totalPages}
-                    >
-                      <ArrowRight className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
               </div>
 
               <div className="space-y-3">
-                {currentCertifications.map((cert) => (
+                {certifications.map((cert) => (
                   <motion.div
                     key={cert.id}
                     className="block group"
@@ -489,7 +712,7 @@ export default function ExperienceSection() {
                               Skills:
                             </h3>
                             <div className="flex flex-wrap gap-2">
-                              {selectedCert?.skills.map((skill, idx) => (
+                               {selectedCert?.skills.map((skill: string, idx: number) => (
                                 <Badge
                                   key={idx}
                                   variant="secondary"
@@ -529,7 +752,7 @@ export default function ExperienceSection() {
                                 </h4>
                                 <ul className="list-disc list-inside text-sm text-muted-foreground">
                                   {selectedCert?.details.projects.map(
-                                    (project, idx) => (
+                                    (project: string, idx: number) => (
                                       <li key={idx}>{project}</li>
                                     )
                                   )}
@@ -541,7 +764,7 @@ export default function ExperienceSection() {
                                 </h4>
                                 <ul className="list-disc list-inside text-sm text-muted-foreground">
                                   {selectedCert?.details.topics.map(
-                                    (topic, idx) => (
+                                    (topic: string, idx: number) => (
                                       <li key={idx}>{topic}</li>
                                     )
                                   )}

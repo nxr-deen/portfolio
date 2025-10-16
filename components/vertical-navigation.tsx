@@ -11,7 +11,6 @@ import {
   MessageSquareQuote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 type NavigationItem = {
   name: string;
@@ -49,7 +48,6 @@ const navigationItems: NavigationItem[] = [
 
 export default function VerticalNavigation() {
   const [activeSection, setActiveSection] = useState<string>("");
-  const isMobile = useIsMobile();
 
   // Track scroll position to highlight active section with improved detection for last section
   useEffect(() => {
@@ -130,14 +128,14 @@ export default function VerticalNavigation() {
   const isNotFoundPage =
     pathname === "/not-found" || pathname.includes("/not-found/");
 
-  // If mobile or on a not-found page, don't render anything
-  if (isMobile || isNotFoundPage) {
+  // If on a not-found page, don't render anything
+  if (isNotFoundPage) {
     return null;
   }
   // Desktop vertical navigation
   return (
     <div
-      className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block"
+      className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden xl:block"
       data-vertical-navigation
     >
       <div className="relative">
