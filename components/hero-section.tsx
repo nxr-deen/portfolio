@@ -168,7 +168,7 @@ export default function HeroSection() {
               <AnimatedText />
             </div>
 
-            <p className="text-base md:text-lg text-white mb-6 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
               I build exceptional digital experiences that are fast, accessible,
               visually appealing, and responsive. Specialized in crafting modern
               web applications with cutting-edge technologies.
