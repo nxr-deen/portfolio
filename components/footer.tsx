@@ -52,7 +52,7 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col space-y-3">
               <a
-                href="https://github.com/nxr-deen"
+                href="https://github.com/nxr-dine"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-sm group"
@@ -177,7 +177,7 @@ export default function Footer() {
               Resume
             </h4>
             <Link
-              href="https://drive.google.com/file/d/1GCBxWuYzycogD133uXBASY9QtLoXRHXT/view?usp=sharing"
+              href="/cv.pdf"
               target="_blank"
               className="inline-flex items-center bg-gradient-to-r from-primary/90 to-blue-500/90 hover:from-primary hover:to-blue-600 text-white px-4 py-2 rounded-full text-sm transition-all"
             >

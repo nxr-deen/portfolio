@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 
 // Social media links configuration
 const socialLinks = {
-  github: "https://github.com/nxr-deen",
+  github: "https://github.com/nxr-dine",
   linkedin: "https://www.linkedin.com/in/n-bouderbala/",
   leetcode: "https://leetcode.com/u/nxr_deen/",
   instagram: "https://instagram.com/nxr.deen",
@@ -195,8 +195,7 @@ export default function HeroSection() {
                   size="lg"
                   className="rounded-full"
                   onClick={() => {
-                    const url =
-                      "https://drive.google.com/file/d/1GCBxWuYzycogD133uXBASY9QtLoXRHXT/view?usp=sharing";
+                    const url = `${window.location.origin}/cv.pdf`;
                     window.open(url, "_blank");
                   }}
                 >

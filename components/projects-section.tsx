@@ -82,7 +82,7 @@ const projects = [
     image: "/business.png", // Replace with a real image path
     tags: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL", "Authentication"],
     liveUrl: "https://landco-business-platform.vercel.app", // Add your live deployment link when available
-    githubUrl: "https://github.com/nxr-deen/landco-business-platform", // Replace with your GitHub repo URL
+    githubUrl: "https://github.com/nxr-dine/landco-business-platform", // Replace with your GitHub repo URL
     category: "Web",
   },
 
@@ -100,7 +100,7 @@ const projects = [
       "Google Fonts",
     ],
     liveUrl: "https://athar-baqi.vercel.app", // if you have a live version
-    githubUrl: "https://github.com/nxr-deen/athar-baqi",
+    githubUrl: "https://github.com/nxr-dine/athar-baqi",
     category: "Web",
   },
 
@@ -111,8 +111,8 @@ const projects = [
       "A collection of simple, includes multiplayer games like Tic Tac Toe and Rock Paper Scissors, as well as solo games like Snake and Memory Match.",
     image: "/games.png",
     tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    liveUrl: "https://nxr-deen.github.io/fun-games-hub/",
-    githubUrl: "https://github.com/nxr-deen/fun-games-hub",
+    liveUrl: "https://nxr-dine.github.io/fun-games-hub/",
+    githubUrl: "https://github.com/nxr-dine/fun-games-hub",
     category: "Web",
   },
 
