@@ -76,14 +76,31 @@ const animations = {
 const projects = [
   {
     id: 1,
-    title: "LandCo - Business Platform",
+    title: "KibbleDrop - Pet Food Subscription Platform",
     description:
-      "A modern business platform built with Next.js, Prisma, and PostgreSQL. Features user authentication, subscriptions, customer management, support system, and a sleek UI.",
-    image: "/business.png", // Replace with a real image path
-    tags: ["Next.js", "Tailwind CSS", "Prisma", "PostgreSQL", "Authentication"],
-    liveUrl: "https://landco-business-platform.vercel.app", // Add your live deployment link when available
-    githubUrl: "https://github.com/nxr-dine/landco-business-platform", // Replace with your GitHub repo URL
+      "A modern pet food subscription platform built with Next.js, Prisma, PostgreSQL, and Stripe. Features pet profiles, subscription management, payment processing, and email notifications for seamless pet care.",
+    image: "/business.png",
+    tags: [
+      "Next.js 14",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Stripe",
+      "NextAuth",
+      "Tailwind CSS",
+    ],
+    liveUrl: "#", // Add your live deployment link when available
+    githubUrl: "https://github.com/nxr-dine/kibbledrop",
     category: "Web",
+    features: [
+      "🔐 NextAuth Authentication with email/password",
+      "🐾 Pet Profiles with health information management",
+      "🛍️ Product Catalog for dog and cat food products",
+      "📦 Flexible Subscription Management (weekly, bi-weekly, monthly)",
+      "💳 Stripe Integration for recurring payments",
+      "📧 Resend Integration for email notifications",
+      "🎨 Modern UI with Tailwind CSS and shadcn/ui",
+    ],
   },
 
   {
@@ -106,19 +123,67 @@ const projects = [
 
   {
     id: 3,
-    title: "Fun Games Hub",
+    title: "Algerian Traveling Platform",
     description:
-      "A collection of simple, includes multiplayer games like Tic Tac Toe and Rock Paper Scissors, as well as solo games like Snake and Memory Match.",
-    image: "/games.png",
-    tags: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    liveUrl: "https://nxr-dine.github.io/fun-games-hub/",
-    githubUrl: "https://github.com/nxr-dine/fun-games-hub",
+      "A cutting-edge e-traveling platform designed to revolutionize the way travelers explore, plan, and book their adventures. Features travel search capabilities, booking management, secure communication channels, and AI-powered recommendations.",
+    image: "/business.png",
+    tags: [
+      "ReactJS",
+      "Node.js",
+      "MongoDB",
+      "Express.js",
+      "Material UI",
+      "Redux",
+      "Flask",
+      "AI",
+    ],
+    liveUrl: "#", // Add your live deployment link when available
+    githubUrl: "https://github.com/nxr-dine/algerian-traveling-platform",
     category: "Web",
+    features: [
+      "User Registration and Login system",
+      "Advanced Travel Search Capabilities",
+      "Comprehensive Booking Management",
+      "User Profile Management",
+      "Secure Communication Channels",
+      "Interactive Travel Content",
+      "AI-powered Recommendations",
+    ],
+  },
+
+  {
+    id: 4,
+    title: "PLUAE - University Job Platform",
+    description:
+      "A comprehensive, high-performance web platform connecting university students with career opportunities. Features multi-role authentication, real-time job applications, and SMS verification system with 80% faster loading times.",
+    image: "/business.png",
+    tags: [
+      "Next.js 15",
+      "TypeScript",
+      "PostgreSQL",
+      "NextAuth.js",
+      "Prisma",
+      "Twilio",
+      "Tailwind CSS",
+    ],
+    liveUrl: "#", // Add your live deployment link when available
+    githubUrl: "https://github.com/nxr-dine/PLUAE-",
+    category: "Web",
+    features: [
+      "🎓 Multi-role system (Students, Companies, Universities, Admins)",
+      "🔐 NextAuth.js authentication with SMS/Email verification",
+      "📱 Real Twilio SMS integration with fallback system",
+      "🏢 Complete job posting and application management",
+      "📊 Advanced analytics and progress monitoring",
+      "⚡ 80% performance optimization with sub-1 second loads",
+      "🛡️ PostgreSQL database with Prisma ORM",
+      "📋 CV upload and profile management system",
+    ],
   },
 
   // Mobile Projects - Coming Soon
   {
-    id: 4,
+    id: 5,
     title: "Mobile App - Coming Soon",
     description:
       "A new mobile application project currently in development. Stay tuned for updates on this exciting new app!",
@@ -131,7 +196,7 @@ const projects = [
   },
 
   {
-    id: 5,
+    id: 6,
     title: "Mobile App - Coming Soon",
     description:
       "Another mobile project in the planning phase. Check back later for more details on this upcoming mobile experience.",
@@ -145,7 +210,7 @@ const projects = [
 
   // UI/UX Projects - Coming Soon
   {
-    id: 6,
+    id: 7,
     title: "UI/UX Project - Coming Soon",
     description:
       "A user interface design project currently underway. This space will showcase innovative UI/UX work in the near future.",
@@ -158,7 +223,7 @@ const projects = [
   },
 
   {
-    id: 7,
+    id: 8,
     title: "UI/UX Project - Coming Soon",
     description:
       "A design case study that will be featured here once completed. Check back for detailed insights into my design process.",
@@ -172,7 +237,7 @@ const projects = [
 
   // AI Projects - Coming Soon
   {
-    id: 8,
+    id: 9,
     title: "AI Project - Coming Soon",
     description:
       "An artificial intelligence project in development. This space will soon feature innovative AI solutions and applications.",
@@ -185,7 +250,7 @@ const projects = [
   },
 
   {
-    id: 9,
+    id: 10,
     title: "AI Project - Coming Soon",
     description:
       "A machine learning project currently being developed. Stay tuned for updates on this exciting AI application.",
@@ -198,7 +263,7 @@ const projects = [
   },
 
   {
-    id: 10,
+    id: 11,
     title: "AI Project - Coming Soon",
     description:
       "An advanced AI tool that will be featured here once completed. Check back for updates on this innovative project.",
@@ -250,7 +315,7 @@ const ProjectCard = memo(
         hover:border-green-500/30"
           style={{ willChange: "transform, opacity" }}
         >
-          <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
+          <div className="relative w-full h-48 sm:h-52 md:h-56 overflow-hidden">
             <Image
               src={project.image || "/404-illustration.svg"}
               alt={project.title}
@@ -274,9 +339,9 @@ const ProjectCard = memo(
             />
           </div>
 
-          <CardHeader className="border-b border-primary/10">
+          <CardHeader className="border-b border-primary/10 p-4">
             <CardTitle
-              className="text-xl md:text-2xl group-hover:text-primary transition-colors duration-300
+              className="text-lg md:text-xl group-hover:text-primary transition-colors duration-300
             group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 
             group-hover:bg-clip-text group-hover:text-transparent"
             >
@@ -308,35 +373,18 @@ const ProjectCard = memo(
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="flex-grow">
+          <CardContent className="flex-grow p-4">
             <motion.p
-              className="text-sm md:text-base text-muted-foreground"
+              className="text-sm text-muted-foreground"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
               {project.description}
             </motion.p>
-            {project.features && (
-              <div className="mt-4">
-                <h4 className="text-sm font-medium mb-2">Key Features:</h4>
-                <ul className="text-xs md:text-sm list-disc pl-5 space-y-1 text-muted-foreground">
-                  {project.features.map((feature, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + idx * 0.1 }}
-                    >
-                      {feature}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </CardContent>
 
-          <CardFooter className="flex flex-wrap gap-3">
+          <CardFooter className="flex flex-wrap gap-2 p-4">
             <motion.div
               whileHover={{
                 scale: 1.05,
@@ -796,7 +844,7 @@ export default function ProjectsSection() {
           </div>
 
           <TabsContent value="Web">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData
                 .filter((project) => project.category === "Web")
                 .map((project, index) => (
@@ -813,7 +861,7 @@ export default function ProjectsSection() {
           </TabsContent>
 
           <TabsContent value="Mobile">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData
                 .filter((project) => project.category === "Mobile")
                 .map((project, index) => (
@@ -830,7 +878,7 @@ export default function ProjectsSection() {
           </TabsContent>
 
           <TabsContent value="UI/UX">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData
                 .filter((project) => project.category === "UI/UX")
                 .map((project, index) => (
@@ -847,7 +895,7 @@ export default function ProjectsSection() {
           </TabsContent>
 
           <TabsContent value="AI">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData
                 .filter((project) => project.category === "AI")
                 .map((project, index) => (
