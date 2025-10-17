@@ -14,7 +14,7 @@ const testimonials = [
       "Noureddine is an exceptional professional. His work on our project exceeded our expectations and was delivered on time.",
     author: "Jane Smith",
     position: "CEO, Company Name",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/404-illustration.svg",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const testimonials = [
       "Working with Noureddine was a pleasure. His attention to detail and problem-solving skills are impressive.",
     author: "John Doe",
     position: "Project Manager, Company Name",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/404-illustration.svg",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const testimonials = [
       "I highly recommend Noureddine for his expertise and professionalism. He delivered high-quality work that met all our requirements.",
     author: "Sarah Johnson",
     position: "CTO, Company Name",
-    avatar: "/placeholder.svg?height=80&width=80",
+    avatar: "/404-illustration.svg",
   },
 ];
 
@@ -103,7 +103,7 @@ export default function TestimonialsSection() {
                 <CardFooter className="flex items-center gap-4 px-6 pb-6 border-t border-primary/5">
                   <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/10 group-hover:border-primary/30 transition-colors">
                     <Image
-                      src={testimonial.avatar || "/placeholder.svg"}
+                      src={testimonial.avatar || "/404-illustration.svg"}
                       alt={testimonial.author}
                       width={48}
                       height={48}

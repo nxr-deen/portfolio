@@ -103,8 +103,10 @@ const workExperience = [
       "Functional analysis & project organization",
       "Team collaboration and documentation",
     ],
-    attestationUrl: "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
-    reportUrl: "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+    attestationUrl:
+      "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+    reportUrl:
+      "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
   },
   {
     id: 4,
@@ -132,8 +134,10 @@ const workExperience = [
       "Security & system administration",
       "Technical documentation and teamwork",
     ],
-    attestationUrl: "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
-    reportUrl: "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+    attestationUrl:
+      "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+    reportUrl:
+      "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
   },
 ];
 
@@ -198,19 +202,13 @@ const certifications = [
     title: "Internship Attestation - Inspectra Algerie",
     organization: "Inspectra Algerie",
     year: "2025",
-    image: "/placeholder.jpg",
+    image: "/GCB.png",
     icon: "📄",
     color: "blue",
     issueDate: "January 2026",
     description:
       "Official attestation acknowledging internship completion focused on Odoo ERP integration and customization with MySQL and Docker.",
-    skills: [
-      "Odoo",
-      "Python",
-      "MySQL",
-      "Docker",
-      "ERP Integration",
-    ],
+    skills: ["Odoo", "Python", "MySQL", "Docker", "ERP Integration"],
     externalUrl:
       "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
   },
@@ -225,12 +223,7 @@ const certifications = [
     issueDate: "September 2025",
     description:
       "Official attestation for internship in Windows Server network and system administration with SQL Server integration.",
-    skills: [
-      "Windows Server",
-      "Network Management",
-      "SQL Server",
-      "Security",
-    ],
+    skills: ["Windows Server", "Network Management", "SQL Server", "Security"],
     externalUrl:
       "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
   },
@@ -331,83 +324,19 @@ export default function ExperienceSection() {
               Work Experience
             </h2>
 
-             <div className="space-y-12">
-               {/* Render non-internship items (ids other than 3 and 4) */}
-               {workExperience
-                 .filter((item) => item.id !== 3 && item.id !== 4)
-                 .map((item) => (
-                <div key={item.id} className="relative">
-                  <div className="flex items-start gap-4">
-                    <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-semibold">{item.title}</h3>
-                        <Badge
-                          variant="outline"
-                          className="bg-primary/5 text-primary border-primary/20"
-                        >
-                          {item.period}
-                        </Badge>
-                      </div>
-
-                      {item.company && (
-                        <div className="mt-1 text-primary">
-                          {item.companyUrl ? (
-                            <Link
-                              href={item.companyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:underline flex items-center"
-                            >
-                              {item.company}{" "}
-                              <ExternalLink className="h-3 w-3 ml-0.5" />
-                            </Link>
-                          ) : (
-                            <span>{item.company}</span>
-                          )}
-                        </div>
-                      )}
-
-                      {item.rating && (
-                        <div className="mt-2">
-                          <StarRating rating={item.rating} />
-                        </div>
-                      )}
-
-                      <p className="mt-2 text-muted-foreground">
-                        {item.description}
-                      </p>
-
-                      {item.technologies && (
-                        <div className="mt-4 flex flex-wrap">
-                          {item.technologies.map((tech, idx) => (
-                            <TechBadge key={idx} tech={tech} />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-               ))}
-
-               {/* Internships sub-heading */}
-               <h3 className="flex items-center text-xl font-semibold mt-6">
-                 <span className="text-primary mr-2">
-                   <Briefcase className="h-5 w-5" />
-                 </span>
-                 Internships
-               </h3>
-
-               {/* Render internship items (ids 3 and 4) */}
-               {workExperience
-                 .filter((item) => item.id === 3 || item.id === 4)
-                 .map((item) => (
+            <div className="space-y-12">
+              {/* Render non-internship items (ids other than 3 and 4) */}
+              {workExperience
+                .filter((item) => item.id !== 3 && item.id !== 4)
+                .map((item) => (
                   <div key={item.id} className="relative">
                     <div className="flex items-start gap-4">
                       <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
                       <div className="flex-1">
                         <div className="flex justify-between items-center">
-                          <h3 className="text-lg font-semibold">{item.title}</h3>
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
                           <Badge
                             variant="outline"
                             className="bg-primary/5 text-primary border-primary/20"
@@ -434,14 +363,86 @@ export default function ExperienceSection() {
                           </div>
                         )}
 
-                        <p className="mt-2 text-muted-foreground">{item.description}</p>
+                        {item.rating && (
+                          <div className="mt-2">
+                            <StarRating rating={item.rating} />
+                          </div>
+                        )}
+
+                        <p className="mt-2 text-muted-foreground">
+                          {item.description}
+                        </p>
+
+                        {item.technologies && (
+                          <div className="mt-4 flex flex-wrap">
+                            {item.technologies.map((tech, idx) => (
+                              <TechBadge key={idx} tech={tech} />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+              {/* Internships sub-heading */}
+              <h3 className="flex items-center text-xl font-semibold mt-6">
+                <span className="text-primary mr-2">
+                  <Briefcase className="h-5 w-5" />
+                </span>
+                Internships
+              </h3>
+
+              {/* Render internship items (ids 3 and 4) */}
+              {workExperience
+                .filter((item) => item.id === 3 || item.id === 4)
+                .map((item) => (
+                  <div key={item.id} className="relative">
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
+                          <Badge
+                            variant="outline"
+                            className="bg-primary/5 text-primary border-primary/20"
+                          >
+                            {item.period}
+                          </Badge>
+                        </div>
+
+                        {item.company && (
+                          <div className="mt-1 text-primary">
+                            {item.companyUrl ? (
+                              <Link
+                                href={item.companyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline flex items-center"
+                              >
+                                {item.company}{" "}
+                                <ExternalLink className="h-3 w-3 ml-0.5" />
+                              </Link>
+                            ) : (
+                              <span>{item.company}</span>
+                            )}
+                          </div>
+                        )}
+
+                        <p className="mt-2 text-muted-foreground">
+                          {item.description}
+                        </p>
 
                         {/* Extra details & modal trigger */}
                         <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                           {item.dates && (
                             <span className="inline-flex items-center gap-1">
                               <Calendar className="h-3 w-3 opacity-70" />
-                              <span className="font-medium text-foreground/80">{item.dates}</span>
+                              <span className="font-medium text-foreground/80">
+                                {item.dates}
+                              </span>
                             </span>
                           )}
                           {item.location && (
@@ -453,7 +454,9 @@ export default function ExperienceSection() {
                           {item.theme && (
                             <span className="inline-flex items-center gap-1">
                               <span className="opacity-70">Theme:</span>
-                              <span className="text-foreground/80">{item.theme}</span>
+                              <span className="text-foreground/80">
+                                {item.theme}
+                              </span>
                             </span>
                           )}
                         </div>
@@ -473,40 +476,57 @@ export default function ExperienceSection() {
                                   {item.title}
                                 </DialogTitle>
                                 <DialogDescription>
-                                  {item.company} • {item.dates ? item.dates : item.period}
+                                  {item.company} •{" "}
+                                  {item.dates ? item.dates : item.period}
                                 </DialogDescription>
                               </DialogHeader>
 
                               {item.location && (
                                 <div className="text-sm text-muted-foreground">
-                                  <span className="font-medium text-foreground">Location:</span> {item.location}
+                                  <span className="font-medium text-foreground">
+                                    Location:
+                                  </span>{" "}
+                                  {item.location}
                                 </div>
                               )}
                               {item.theme && (
                                 <div className="text-sm text-muted-foreground mt-1">
-                                  <span className="font-medium text-foreground">Theme:</span> {item.theme}
+                                  <span className="font-medium text-foreground">
+                                    Theme:
+                                  </span>{" "}
+                                  {item.theme}
                                 </div>
                               )}
 
                               <div className="mt-4">
-                                <h4 className="text-sm font-medium mb-1">Description</h4>
-                                <p className="text-sm text-muted-foreground">{item.description}</p>
+                                <h4 className="text-sm font-medium mb-1">
+                                  Description
+                                </h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {item.description}
+                                </p>
                               </div>
 
                               {item.skillsGained && (
                                 <div className="mt-4">
-                                  <h4 className="text-sm font-medium mb-2">Skills Gained</h4>
+                                  <h4 className="text-sm font-medium mb-2">
+                                    Skills Gained
+                                  </h4>
                                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                                    {item.skillsGained.map((s: string, idx: number) => (
-                                      <li key={idx}>{s}</li>
-                                    ))}
+                                    {item.skillsGained.map(
+                                      (s: string, idx: number) => (
+                                        <li key={idx}>{s}</li>
+                                      )
+                                    )}
                                   </ul>
                                 </div>
                               )}
 
                               {item.technologies && (
                                 <div className="mt-4">
-                                  <h4 className="text-sm font-medium mb-2">Technologies</h4>
+                                  <h4 className="text-sm font-medium mb-2">
+                                    Technologies
+                                  </h4>
                                   <div className="flex flex-wrap">
                                     {item.technologies.map((tech, idx) => (
                                       <TechBadge key={idx} tech={tech} />
@@ -517,10 +537,29 @@ export default function ExperienceSection() {
 
                               <DialogFooter className="mt-6 flex gap-2 justify-end">
                                 {item.attestationUrl && (
-                                  <Button variant="outline" onClick={() => window.open(item.attestationUrl as string, "_blank")}>Attestation</Button>
+                                  <Button
+                                    variant="outline"
+                                    onClick={() =>
+                                      window.open(
+                                        item.attestationUrl as string,
+                                        "_blank"
+                                      )
+                                    }
+                                  >
+                                    Attestation
+                                  </Button>
                                 )}
                                 {item.reportUrl && (
-                                  <Button onClick={() => window.open(item.reportUrl as string, "_blank")}>Report</Button>
+                                  <Button
+                                    onClick={() =>
+                                      window.open(
+                                        item.reportUrl as string,
+                                        "_blank"
+                                      )
+                                    }
+                                  >
+                                    Report
+                                  </Button>
                                 )}
                               </DialogFooter>
                             </DialogContent>
@@ -537,7 +576,7 @@ export default function ExperienceSection() {
                       </div>
                     </div>
                   </div>
-               ))}
+                ))}
             </div>
           </div>
 
@@ -712,11 +751,12 @@ export default function ExperienceSection() {
                               Skills:
                             </h3>
                             <div className="flex flex-wrap gap-2">
-                               {selectedCert?.skills.map((skill: string, idx: number) => (
-                                <Badge
-                                  key={idx}
-                                  variant="secondary"
-                                  className={`
+                              {selectedCert?.skills.map(
+                                (skill: string, idx: number) => (
+                                  <Badge
+                                    key={idx}
+                                    variant="secondary"
+                                    className={`
                                     ${
                                       selectedCert?.color === "purple"
                                         ? "bg-purple-500/10 text-purple-600 dark:text-purple-400"
@@ -725,10 +765,11 @@ export default function ExperienceSection() {
                                         : "bg-primary/10 text-primary"
                                     }
                                   `}
-                                >
-                                  {skill}
-                                </Badge>
-                              ))}
+                                  >
+                                    {skill}
+                                  </Badge>
+                                )
+                              )}
                             </div>
                           </div>
 

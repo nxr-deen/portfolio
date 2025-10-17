@@ -122,7 +122,7 @@ const projects = [
     title: "Mobile App - Coming Soon",
     description:
       "A new mobile application project currently in development. Stay tuned for updates on this exciting new app!",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -135,7 +135,7 @@ const projects = [
     title: "Mobile App - Coming Soon",
     description:
       "Another mobile project in the planning phase. Check back later for more details on this upcoming mobile experience.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -149,7 +149,7 @@ const projects = [
     title: "UI/UX Project - Coming Soon",
     description:
       "A user interface design project currently underway. This space will showcase innovative UI/UX work in the near future.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -162,7 +162,7 @@ const projects = [
     title: "UI/UX Project - Coming Soon",
     description:
       "A design case study that will be featured here once completed. Check back for detailed insights into my design process.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -176,7 +176,7 @@ const projects = [
     title: "AI Project - Coming Soon",
     description:
       "An artificial intelligence project in development. This space will soon feature innovative AI solutions and applications.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -189,7 +189,7 @@ const projects = [
     title: "AI Project - Coming Soon",
     description:
       "A machine learning project currently being developed. Stay tuned for updates on this exciting AI application.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -202,7 +202,7 @@ const projects = [
     title: "AI Project - Coming Soon",
     description:
       "An advanced AI tool that will be featured here once completed. Check back for updates on this innovative project.",
-    image: "/placeholder.svg",
+    image: "/404-illustration.svg",
     tags: ["Coming Soon"],
     liveUrl: "#",
     githubUrl: "#",
@@ -252,7 +252,7 @@ const ProjectCard = memo(
         >
           <div className="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
             <Image
-              src={project.image || "/placeholder.svg"}
+              src={project.image || "/404-illustration.svg"}
               alt={project.title}
               fill
               loading={index <= 1 ? "eager" : "lazy"}
