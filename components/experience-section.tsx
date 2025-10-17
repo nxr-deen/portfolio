@@ -109,7 +109,7 @@ const workExperience = [
   {
     id: 4,
     title: "Intern – Network & System Administration",
-    company: "GCB – Cosider Group",
+    company: "GCB",
     companyUrl: "https://www.gcb.dz",
     period: "15 Days",
     dates: "Sep 3 – 18, 2025",
@@ -216,8 +216,8 @@ const certifications = [
   },
   {
     id: 4,
-    title: "Internship Attestation - GCB (Cosider Group)",
-    organization: "GCB – Cosider Group",
+    title: "Internship Attestation - GCB",
+    organization: "GCB ",
     year: "2025",
     image: "/GCB.png",
     icon: "📄",

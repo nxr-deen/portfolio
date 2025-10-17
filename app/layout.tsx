@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import VerticalNavigation from "@/components/vertical-navigation";
 import PortfolioAlert from "@/components/portfolio-alert";
 
 const inter = Inter({ subsets: ["latin"] });

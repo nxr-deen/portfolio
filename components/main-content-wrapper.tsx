@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import VerticalNavigation from "@/components/vertical-navigation";
 
 export default function MainContentWrapper({
   children,
@@ -14,7 +13,6 @@ export default function MainContentWrapper({
 
   return (
     <main className="flex-1 relative">
-      {!isNotFoundPage && <VerticalNavigation />}
       {children}
     </main>
   );

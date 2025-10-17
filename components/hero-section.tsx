@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   ArrowDown,
@@ -13,12 +12,6 @@ import {
   Mail,
   Instagram,
   ExternalLink,
-  Code,
-  Layout,
-  Server,
-  Database,
-  FileType,
-  Globe,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -68,11 +61,14 @@ const AnimatedText = () => {
 // Technology icons
 const TechStack = () => {
   const techs = [
-    { name: "React", color: "bg-blue-500/20 text-blue-600 dark:text-blue-400" },
+    {
+      name: "React",
+      color: "bg-green-500/20 text-green-600 dark:text-green-400",
+    },
     { name: "Next.js", color: "bg-black/20 text-gray-800 dark:text-gray-200" },
     {
       name: "TypeScript",
-      color: "bg-blue-700/20 text-blue-700 dark:text-blue-300",
+      color: "bg-green-700/20 text-green-700 dark:text-green-300",
     },
     {
       name: "Node.js",
@@ -104,7 +100,15 @@ const TechStack = () => {
 };
 
 // Simple social link component without animations
-const SocialLink = ({ href, ariaLabel, icon }) => {
+const SocialLink = ({
+  href,
+  ariaLabel,
+  icon,
+}: {
+  href: string;
+  ariaLabel: string;
+  icon: React.ReactNode;
+}) => {
   // Get proper classes based on social platform
   const getBgColorClass = () => {
     if (href === socialLinks.github) {
@@ -114,7 +118,7 @@ const SocialLink = ({ href, ariaLabel, icon }) => {
     } else if (href === socialLinks.leetcode) {
       return "hover:bg-[#FFA116] hover:text-white";
     } else if (href === socialLinks.instagram) {
-      return "hover:bg-gradient-to-tr hover:from-[#FD5949] hover:via-[#D6249F] hover:to-[#285AEB] hover:text-white";
+      return "hover:bg-gradient-to-tr hover:from-[#FD5949] hover:via-[#D6249F] hover:to-[#22c55e] hover:text-white";
     }
     return "";
   };
@@ -134,21 +138,21 @@ const SocialLink = ({ href, ariaLabel, icon }) => {
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen py-20 flex items-center">
+    <section className="relative min-h-screen pt-16 md:pt-32 pb-20 flex items-start justify-center">
       {/* Background effects - simplified */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/4 top-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-primary/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-        <div className="absolute right-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div className="absolute right-1/4 top-1/3 w-64 h-64 lg:w-96 lg:h-96 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="absolute left-1/3 bottom-1/4 w-64 h-64 lg:w-96 lg:h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Content */}
-          <div className="text-left">
-            <div>
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
+      <div className="container mx-auto px-4 relative z-10 mt-8">
+        <div className="flex flex-col items-center justify-start text-center max-w-4xl mx-auto">
+          {/* Centered Content */}
+          <div className="w-full">
+            <div className="flex justify-center mb-4">
+              <Badge className="bg-primary/10 text-primary border-primary/20 text-sm py-1 px-3">
                 Welcome to my portfolio
               </Badge>
             </div>
@@ -164,7 +168,7 @@ export default function HeroSection() {
               <AnimatedText />
             </div>
 
-            <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-lg">
+            <p className="text-base md:text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
               I build exceptional digital experiences that are fast, accessible,
               visually appealing, and responsive. Specialized in crafting modern
               web applications with cutting-edge technologies.
@@ -173,7 +177,7 @@ export default function HeroSection() {
             <TechStack />
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-3 mt-8">
+            <div className="flex flex-wrap gap-3 mt-8 justify-center">
               <div className="hover:scale-105 transition-transform duration-300">
                 <Button asChild size="lg" className="rounded-full">
                   <Link href="#projects">
@@ -192,7 +196,7 @@ export default function HeroSection() {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="rounded-full bg-gradient-to-r from-primary/10 to-blue-500/10 hover:from-primary/20 hover:to-blue-500/20 border-primary/20"
+                  className="rounded-full bg-gradient-to-r from-primary/10 to-green-500/10 hover:from-primary/20 hover:to-green-500/20 border-primary/20"
                 >
                   <Link href="#contact">
                     <span className="flex items-center">
@@ -222,7 +226,7 @@ export default function HeroSection() {
             </div>
 
             {/* Social links */}
-            <div className="flex items-center gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
               <span className="text-sm text-muted-foreground">Find me on</span>
               <div className="flex gap-3">
                 <SocialLink
@@ -248,47 +252,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-
-          {/* Right side - Image & Visual Elements */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Main photo with simplified effect */}
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl shadow-primary/20 z-10 transition-transform duration-300 hover:scale-[1.03]">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent z-10"></div>
-                <Image
-                  src="/placeholder.svg"
-                  alt="Noureddine Bouderbala"
-                  fill
-                  className="object-cover"
-                  priority
-                  quality={95}
-                />
-              </div>
-
-              {/* Decorative elements - simplified */}
-              <div className="absolute -left-8 -bottom-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[-5deg] transition-all duration-300">
-                <Code className="h-6 w-6 text-primary" />
-              </div>
-
-              <div className="absolute -right-8 top-1/2 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[5deg] transition-all duration-300">
-                <Layout className="h-6 w-6 text-blue-500" />
-              </div>
-
-              <div className="absolute -top-8 -right-8 p-4 bg-background rounded-xl shadow-lg border border-border z-20 hover:scale-110 hover:rotate-[-5deg] transition-all duration-300">
-                <Server className="h-6 w-6 text-green-500" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator - simplified */}
-        <div className="absolute left-1/2 bottom-10 transform -translate-x-1/2">
-          <Link href="#about" className="flex flex-col items-center">
-            <span className="text-sm text-muted-foreground mb-2">
-              Scroll down
-            </span>
-            <ArrowDown className="h-4 w-4 text-muted-foreground animate-bounce" />
-          </Link>
         </div>
       </div>
 
