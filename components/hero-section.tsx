@@ -193,27 +193,12 @@ export default function HeroSection() {
 
               <div className="hover:scale-105 transition-transform duration-300">
                 <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="rounded-full bg-gradient-to-r from-primary/10 to-green-500/10 hover:from-primary/20 hover:to-green-500/20 border-primary/20"
-                >
-                  <Link href="#contact">
-                    <span className="flex items-center">
-                      <Mail className="mr-2 h-4 w-4" />
-                      Get in Touch
-                    </span>
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="hover:scale-105 transition-transform duration-300">
-                <Button
                   variant="secondary"
                   size="lg"
                   className="rounded-full"
                   onClick={() => {
-                    const url = `${window.location.origin}/resume.pdf`;
+                    const url =
+                      "https://drive.google.com/file/d/1GCBxWuYzycogD133uXBASY9QtLoXRHXT/view?usp=sharing";
                     window.open(url, "_blank");
                   }}
                 >
