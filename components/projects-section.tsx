@@ -79,7 +79,7 @@ const projects = [
     title: "KibbleDrop - Pet Food Subscription Platform",
     description:
       "A modern pet food subscription platform built with Next.js, Prisma, PostgreSQL, and Stripe. Features pet profiles, subscription management, payment processing, and email notifications for seamless pet care.",
-    image: "/business.png",
+    image: "/kibbledrop.png",
     tags: [
       "Next.js 14",
       "TypeScript",
@@ -89,7 +89,7 @@ const projects = [
       "NextAuth",
       "Tailwind CSS",
     ],
-    liveUrl: "#", // Add your live deployment link when available
+    liveUrl: "https://kibbledrop.vercel.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/kibbledrop",
     category: "Web",
     features: [
@@ -126,7 +126,7 @@ const projects = [
     title: "Algerian Traveling Platform",
     description:
       "A cutting-edge e-traveling platform designed to revolutionize the way travelers explore, plan, and book their adventures. Features travel search capabilities, booking management, secure communication channels, and AI-powered recommendations.",
-    image: "/business.png",
+    image: "/wanderlust.png",
     tags: [
       "ReactJS",
       "Node.js",
@@ -137,7 +137,7 @@ const projects = [
       "Flask",
       "AI",
     ],
-    liveUrl: "#", // Add your live deployment link when available
+    liveUrl: "https://wanderlust-e-travelling.netlify.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/algerian-traveling-platform",
     category: "Web",
     features: [
@@ -156,7 +156,7 @@ const projects = [
     title: "PLUAE - University Job Platform",
     description:
       "A comprehensive, high-performance web platform connecting university students with career opportunities. Features multi-role authentication, real-time job applications, and SMS verification system with 80% faster loading times.",
-    image: "/business.png",
+    image: "/pluae.png",
     tags: [
       "Next.js 15",
       "TypeScript",
@@ -166,7 +166,7 @@ const projects = [
       "Twilio",
       "Tailwind CSS",
     ],
-    liveUrl: "#", // Add your live deployment link when available
+    liveUrl: "https://pluae.vercel.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/PLUAE-",
     category: "Web",
     features: [
