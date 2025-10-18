@@ -3,13 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  User,
-  Code,
-  Briefcase,
-  FolderKanban,
-  MessageSquareQuote,
-} from "lucide-react";
+import { User, Code, Briefcase, FolderKanban } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type NavigationItem = {
@@ -39,11 +33,6 @@ const navigationItems: NavigationItem[] = [
     href: "#skills",
     iconComponent: Code,
   },
-  {
-    name: "Testimonials",
-    href: "#testimonials",
-    iconComponent: MessageSquareQuote,
-  },
 ];
 
 export default function VerticalNavigation() {
@@ -58,30 +47,18 @@ export default function VerticalNavigation() {
       const scrollBottom = scrollPosition + viewportHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // Super aggressive approach for the testimonials section
-      // If we're in the last 20% of the page OR near the bottom, activate testimonials
-      if (
-        scrollPosition > documentHeight * 0.8 ||
-        documentHeight - scrollBottom < 200
-      ) {
-        setActiveSection("#testimonials");
-        return;
-      }
+      // Process all sections normally
+      const sections = navigationItems.map((item) => {
+        const element = document.querySelector(item.href);
+        if (!element) return { id: item.href, top: 0, bottom: 0 };
 
-      // Process other sections normally
-      const sections = navigationItems
-        .filter((item) => item.href !== "#testimonials") // Skip testimonials
-        .map((item) => {
-          const element = document.querySelector(item.href);
-          if (!element) return { id: item.href, top: 0, bottom: 0 };
-
-          const rect = element.getBoundingClientRect();
-          return {
-            id: item.href,
-            top: rect.top + window.scrollY,
-            bottom: rect.bottom + window.scrollY,
-          };
-        });
+        const rect = element.getBoundingClientRect();
+        return {
+          id: item.href,
+          top: rect.top + window.scrollY,
+          bottom: rect.bottom + window.scrollY,
+        };
+      });
 
       // Find active section (if any)
       let currentSection = "";

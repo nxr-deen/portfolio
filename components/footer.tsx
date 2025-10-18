@@ -123,12 +123,6 @@ export default function Footer() {
               >
                 Skills
               </Link>
-              <Link
-                href="#testimonials"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Testimonials
-              </Link>
             </nav>
           </div>
 
