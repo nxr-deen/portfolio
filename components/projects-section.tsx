@@ -80,15 +80,7 @@ const projects = [
     description:
       "A modern pet food subscription platform built with Next.js, Prisma, PostgreSQL, and Stripe. Features pet profiles, subscription management, payment processing, and email notifications for seamless pet care.",
     image: "/kibbledrop.png",
-    tags: [
-      "Next.js 14",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "Stripe",
-      "NextAuth",
-      "Tailwind CSS",
-    ],
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
     liveUrl: "https://kibbledrop.vercel.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/kibbledrop",
     category: "Web",
@@ -109,13 +101,7 @@ const projects = [
     description:
       "An Islamic educational platform providing high-quality Quranic recitations, Tajweed lessons, Islamic articles, and a modern responsive design.",
     image: "/athar.png", // Replace with your real project image
-    tags: [
-      "Next.js",
-      "TypeScript",
-      "CSS Modules",
-      "Font Awesome",
-      "Google Fonts",
-    ],
+    tags: ["Next.js", "TypeScript"],
     liveUrl: "https://athar-baqi.vercel.app", // if you have a live version
     githubUrl: "https://github.com/nxr-dine/athar-baqi",
     category: "Web",
@@ -127,16 +113,7 @@ const projects = [
     description:
       "A cutting-edge e-traveling platform designed to revolutionize the way travelers explore, plan, and book their adventures. Features travel search capabilities, booking management, secure communication channels, and AI-powered recommendations.",
     image: "/wanderlust.png",
-    tags: [
-      "ReactJS",
-      "Node.js",
-      "MongoDB",
-      "Express.js",
-      "Material UI",
-      "Redux",
-      "Flask",
-      "AI",
-    ],
+    tags: ["React", "Node.js", "MongoDB", "Express.js"],
     liveUrl: "https://wanderlust-e-travelling.netlify.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/algerian-traveling-platform",
     category: "Web",
@@ -157,15 +134,7 @@ const projects = [
     description:
       "A comprehensive, high-performance web platform connecting university students with career opportunities. Features multi-role authentication, real-time job applications, and SMS verification system with 80% faster loading times.",
     image: "/pluae.png",
-    tags: [
-      "Next.js 15",
-      "TypeScript",
-      "PostgreSQL",
-      "NextAuth.js",
-      "Prisma",
-      "Twilio",
-      "Tailwind CSS",
-    ],
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "NextAuth.js"],
     liveUrl: "https://pluae.vercel.app/", // Add your live deployment link when available
     githubUrl: "https://github.com/nxr-dine/PLUAE-",
     category: "Web",

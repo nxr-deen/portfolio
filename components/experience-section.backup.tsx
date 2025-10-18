@@ -49,14 +49,22 @@ const workExperience = [
     location: "Boudouaou, Boumerdès, Algeria",
     description:
       "Configured and administered a Windows Server and company local network. Integrated a stock management application with SQL Server. Implemented backup and security mechanisms for data reliability.",
-    technologies: ["Windows Server", "SQL Server", "Network Administration"],
+    technologies: [
+      "Windows Server",
+      "SQL Server",
+      "Network Administration",
+      "System Administration",
+      "Security",
+      "Backup Systems",
+      "Stock Management",
+    ],
     skillsGained: [
       "Windows Server configuration and administration",
       "Local network management",
       "SQL Server integration",
       "Security and backup implementation",
     ],
-    attestationUrl: "/GCB.png",
+    attestationUrl: "/Certificate of Participation.png",
   },
   {
     id: 2,
@@ -68,14 +76,24 @@ const workExperience = [
     location: "Eucalyptus, Algiers, Algeria",
     description:
       "Installed, configured, and customized Odoo ERP modules (CRM, Sales, HR, Payroll, Website, Documents, Signature). Managed and optimized MySQL databases for module integration. Deployed services using Docker for a modular, maintainable environment.",
-    technologies: ["Odoo ERP", "Python", "MySQL", "Docker"],
+    technologies: [
+      "Odoo ERP",
+      "Python",
+      "XML",
+      "MySQL",
+      "Docker",
+      "CRM",
+      "Sales Management",
+      "HR Systems",
+      "Payroll",
+    ],
     skillsGained: [
       "Odoo ERP customization and configuration",
       "MySQL database optimization",
       "Docker deployment and management",
       "Business process integration",
     ],
-    attestationUrl: "/",
+    attestationUrl: "/Certificate of Participation.png",
   },
   {
     id: 3,
@@ -87,7 +105,15 @@ const workExperience = [
     location: "Remote, Algeria",
     description:
       "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content, real-time interactions.",
-    technologies: ["Next.js", "React", "TypeScript", "Node.js"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "API Development",
+      "Real-time Features",
+      "Full-Stack Development",
+    ],
     skillsGained: [
       "Next.js full-stack development",
       "API route implementation",
@@ -105,7 +131,16 @@ const workExperience = [
     location: "Algeria",
     description:
       "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content, real-time interactions.",
-    technologies: ["Next.js", "React", "TypeScript", "MongoDB", "PostgreSQL"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "MongoDB",
+      "PostgreSQL",
+      "TailwindCSS",
+      "Project Management",
+    ],
     skillsGained: [
       "Full-stack web development",
       "Database design and management",
@@ -298,15 +333,15 @@ export default function ExperienceSection() {
               Work Experience
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-12">
               {/* Render all experience items in chronological order */}
               {workExperience
                 .sort((a, b) => {
                   // Sort by most recent first (2026 > 2025 > 2023)
-                  const getYear = (period: string) => {
-                    if (period.includes("2026")) return 2026;
-                    if (period.includes("2025")) return 2025;
-                    if (period.includes("2023")) return 2023;
+                  const getYear = (period) => {
+                    if (period.includes('2026')) return 2026;
+                    if (period.includes('2025')) return 2025;
+                    if (period.includes('2023')) return 2023;
                     return 2022;
                   };
                   return getYear(b.period) - getYear(a.period);
@@ -346,46 +381,214 @@ export default function ExperienceSection() {
                           </div>
                         )}
 
+                        {item.rating && (
+                          <div className="mt-2">
+                            <StarRating rating={item.rating} />
+                          </div>
+                        )}
+
                         <p className="mt-2 text-muted-foreground">
                           {item.description}
                         </p>
 
                         {item.technologies && (
-                          <div className="mt-4 flex flex-wrap items-center justify-between">
-                            <div className="flex flex-wrap">
-                              {item.technologies.map((tech, idx) => (
-                                <TechBadge key={idx} tech={tech} />
-                              ))}
-                            </div>
-                            {item.attestationUrl && (
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() =>
-                                  window.open(item.attestationUrl, "_blank")
-                                }
-                                className="inline-flex items-center gap-2 ml-4"
+                          <div className="mt-4 flex flex-wrap">
+                            {item.technologies.map((tech, idx) => (
+                              <TechBadge key={idx} tech={tech} />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+              {/* Internships sub-heading */}
+              <h3 className="flex items-center text-xl font-semibold mt-6">
+                <span className="text-primary mr-2">
+                  <Briefcase className="h-5 w-5" />
+                </span>
+                Internships
+              </h3>
+
+              {/* Render internship items (ids 3 and 4) */}
+              {workExperience
+                .filter((item) => item.id === 3 || item.id === 4)
+                .map((item) => (
+                  <div key={item.id} className="relative">
+                    <div className="flex items-start gap-4">
+                      <div className="w-3 h-3 rounded-full bg-primary mt-2"></div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
+                          <Badge
+                            variant="outline"
+                            className="bg-primary/5 text-primary border-primary/20"
+                          >
+                            {item.period}
+                          </Badge>
+                        </div>
+
+                        {item.company && (
+                          <div className="mt-1 text-primary">
+                            {item.companyUrl ? (
+                              <Link
+                                href={item.companyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline flex items-center"
                               >
-                                <Award className="h-4 w-4" />
-                                Attestation
-                              </Button>
+                                {item.company}{" "}
+                                <ExternalLink className="h-3 w-3 ml-0.5" />
+                              </Link>
+                            ) : (
+                              <span>{item.company}</span>
                             )}
                           </div>
                         )}
 
-                        {!item.technologies && item.attestationUrl && (
-                          <div className="mt-4 flex justify-end">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                window.open(item.attestationUrl, "_blank")
-                              }
-                              className="inline-flex items-center gap-2"
-                            >
-                              <Award className="h-4 w-4" />
-                              Attestation
-                            </Button>
+                        <p className="mt-2 text-muted-foreground">
+                          {item.description}
+                        </p>
+
+                        {/* Extra details & modal trigger */}
+                        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                          {item.dates && (
+                            <span className="inline-flex items-center gap-1">
+                              <Calendar className="h-3 w-3 opacity-70" />
+                              <span className="font-medium text-foreground/80">
+                                {item.dates}
+                              </span>
+                            </span>
+                          )}
+                          {item.location && (
+                            <span className="inline-flex items-center gap-1">
+                              <Calendar className="h-3 w-3 opacity-70" />
+                              <span>{item.location}</span>
+                            </span>
+                          )}
+                          {item.theme && (
+                            <span className="inline-flex items-center gap-1">
+                              <span className="opacity-70">Theme:</span>
+                              <span className="text-foreground/80">
+                                {item.theme}
+                              </span>
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="mt-4 w-full flex justify-end">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button size="sm" className="h-8 px-3">
+                                More details
+                                <ArrowRight className="h-3 w-3 ml-2" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-lg">
+                              <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                  <Briefcase className="h-4 w-4 text-primary" />
+                                  {item.title}
+                                </DialogTitle>
+                                <DialogDescription>
+                                  {item.company} •{" "}
+                                  {item.dates ? item.dates : item.period}
+                                </DialogDescription>
+                              </DialogHeader>
+
+                              {item.location && (
+                                <div className="text-sm text-muted-foreground">
+                                  <span className="font-medium text-foreground">
+                                    Location:
+                                  </span>{" "}
+                                  {item.location}
+                                </div>
+                              )}
+                              {item.theme && (
+                                <div className="text-sm text-muted-foreground mt-1">
+                                  <span className="font-medium text-foreground">
+                                    Theme:
+                                  </span>{" "}
+                                  {item.theme}
+                                </div>
+                              )}
+
+                              <div className="mt-4">
+                                <h4 className="text-sm font-medium mb-1">
+                                  Description
+                                </h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {item.description}
+                                </p>
+                              </div>
+
+                              {item.skillsGained && (
+                                <div className="mt-4">
+                                  <h4 className="text-sm font-medium mb-2">
+                                    Skills Gained
+                                  </h4>
+                                  <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                                    {item.skillsGained.map(
+                                      (s: string, idx: number) => (
+                                        <li key={idx}>{s}</li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.technologies && (
+                                <div className="mt-4">
+                                  <h4 className="text-sm font-medium mb-2">
+                                    Technologies
+                                  </h4>
+                                  <div className="flex flex-wrap">
+                                    {item.technologies.map((tech, idx) => (
+                                      <TechBadge key={idx} tech={tech} />
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              <DialogFooter className="mt-6 flex gap-2 justify-end">
+                                {item.attestationUrl && (
+                                  <Button
+                                    variant="outline"
+                                    onClick={() =>
+                                      window.open(
+                                        item.attestationUrl as string,
+                                        "_blank"
+                                      )
+                                    }
+                                  >
+                                    Attestation
+                                  </Button>
+                                )}
+                                {item.reportUrl && (
+                                  <Button
+                                    onClick={() =>
+                                      window.open(
+                                        item.reportUrl as string,
+                                        "_blank"
+                                      )
+                                    }
+                                  >
+                                    Report
+                                  </Button>
+                                )}
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+
+                        {item.technologies && (
+                          <div className="mt-4 flex flex-wrap">
+                            {item.technologies.map((tech, idx) => (
+                              <TechBadge key={idx} tech={tech} />
+                            ))}
                           </div>
                         )}
                       </div>
