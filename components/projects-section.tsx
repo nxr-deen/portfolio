@@ -115,7 +115,7 @@ const projects = [
     image: "/wanderlust.png",
     tags: ["React", "Node.js", "MongoDB", "Express.js"],
     liveUrl: "https://wanderlust-e-travelling.netlify.app/", // Add your live deployment link when available
-    githubUrl: "https://github.com/nxr-dine/algerian-traveling-platform",
+    githubUrl: "https://github.com/nxr-dine/Wanderlust-Traveling-Platform-",
     category: "Web",
     features: [
       "User Registration and Login system",
