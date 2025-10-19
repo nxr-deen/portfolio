@@ -173,33 +173,51 @@ const certifications = [
   },
   {
     id: 3,
-    title: "Internship Attestation - Inspectra Algerie",
-    organization: "Inspectra Algerie",
+    title: "Python Programming Bootcamp",
+    organization: "Udemy (Vitalii Shumylo)",
     year: "2025",
-    image: "/GCB.png",
-    icon: "📄",
+    image: "/Udemy - Python.jpg",
+    icon: "🐍",
     color: "blue",
-    issueDate: "January 2026",
+    issueDate: "October 2025",
     description:
-      "Official attestation acknowledging internship completion focused on Odoo ERP integration and customization with MySQL and Docker.",
-    skills: ["Odoo", "Python", "MySQL", "Docker", "ERP Integration"],
-    externalUrl:
-      "https://drive.google.com/file/d/1wlmYvLxLfXtdiPEEBmXIWuxvNQLTJsJR/view?usp=sharing",
+      "Comprehensive Python programming course covering fundamentals, data structures, object-oriented programming, and practical applications.",
+    skills: ["Python", "OOP", "Data Structures", "Algorithms", "Programming"],
+    comingSoon: false,
+    certificateUrl:
+      "https://www.udemy.com/certificate/UC-8e8c41ac-9129-4fa3-a42b-f269203c8dbd/", // Replace with your actual Udemy certificate URL
   },
   {
     id: 4,
-    title: "Internship Attestation - GCB",
-    organization: "GCB ",
+    title: "AWS Cloud Computing Course",
+    organization: "Udemy",
     year: "2025",
-    image: "/GCB.png",
-    icon: "📄",
-    color: "green",
-    issueDate: "September 2025",
+    image: "/Udemy aws.jpg",
+    icon: "☁️",
+    color: "orange",
+    issueDate: "October 2025",
     description:
-      "Official attestation for internship in Windows Server network and system administration with SQL Server integration.",
-    skills: ["Windows Server", "Network Management", "SQL Server", "Security"],
-    externalUrl:
-      "https://drive.google.com/file/d/1_aWWZH-Ib7eOugJpObNKYc-tEVlVLP_W/view?usp=sharing",
+      "Comprehensive AWS cloud computing course covering cloud services, deployment, and infrastructure management.",
+    skills: ["AWS", "Cloud Computing", "EC2", "S3", "DevOps"],
+    comingSoon: false,
+    certificateUrl:
+      "https://www.udemy.com/certificate/UC-90cadf90-8e5a-4b6f-9f62-f4af465ee273/", // Replace with your actual Udemy certificate URL
+  },
+  {
+    id: 5,
+    title: "MySQL Database Management",
+    organization: "Udemy",
+    year: "2025",
+    image: "/Udemy MySQL.jpg",
+    icon: "🗄️",
+    color: "blue",
+    issueDate: "October 2025",
+    description:
+      "Complete MySQL database course covering database design, queries, optimization, and administration.",
+    skills: ["MySQL", "Database Design", "SQL", "Database Administration"],
+    comingSoon: false,
+    certificateUrl:
+      "https://www.udemy.com/certificate/UC-13539d0f-bc3d-45a1-9aad-44954c0b9ba8/", // Replace with your actual Udemy certificate URL
   },
 ];
 
@@ -678,9 +696,10 @@ export default function ExperienceSection() {
                               <Button
                                 onClick={() =>
                                   window.open(
-                                    selectedCert?.id === 2
-                                      ? "https://www.udemy.com/certificate/UC-020873d9-870c-4bfb-85fd-ec21a6e9fb50/"
-                                      : selectedCert?.image,
+                                    selectedCert?.certificateUrl ||
+                                      (selectedCert?.id === 2
+                                        ? "https://www.udemy.com/certificate/UC-020873d9-870c-4bfb-85fd-ec21a6e9fb50/"
+                                        : selectedCert?.image),
                                     "_blank"
                                   )
                                 }
