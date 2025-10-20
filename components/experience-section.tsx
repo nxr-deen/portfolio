@@ -3,30 +3,20 @@
 import {
   Briefcase,
   Calendar,
-  ArrowUpRight,
   ExternalLink,
-  Building,
   Award,
-  CheckCircle2,
   GraduationCap,
   ArrowRight,
   Trophy,
   Calendar as CalendarIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -45,8 +35,6 @@ const workExperience = [
     company: "GCB, Boudouaou, Boumerdès, Algeria",
     companyUrl: "https://www.gcb.dz",
     period: "Sep 2025",
-    dates: "Sep 2025",
-    location: "Boudouaou, Boumerdès, Algeria",
     description:
       "Configured and administered a Windows Server and company local network. Integrated a stock management application with SQL Server. Implemented backup and security mechanisms for data reliability.",
     technologies: ["Windows Server", "SQL Server", "Network Administration"],
@@ -64,8 +52,6 @@ const workExperience = [
     company: "Inspectra, Eucalyptus, Algiers, Algeria",
     companyUrl: "https://www.inspectra-dz.com/",
     period: "Sep 2025 – Jan 2026",
-    dates: "Sep 2025 – Jan 2026",
-    location: "Eucalyptus, Algiers, Algeria",
     description:
       "Installed, configured, and customized Odoo ERP modules (CRM, Sales, HR, Payroll, Website, Documents, Signature). Managed and optimized MySQL databases for module integration. Deployed services using Docker for a modular, maintainable environment.",
     technologies: ["Odoo ERP", "Python", "MySQL", "Docker"],
@@ -83,8 +69,6 @@ const workExperience = [
     company: "Freelance (Remote, Algeria)",
     companyUrl: "#",
     period: "Jun – Aug 2025",
-    dates: "Jun – Aug 2025",
-    location: "Remote, Algeria",
     description:
       "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content, real-time interactions.",
     technologies: ["Next.js", "React", "TypeScript", "Node.js"],
@@ -101,8 +85,6 @@ const workExperience = [
     company: "Personal & Academic Projects",
     companyUrl: "#",
     period: "2023 - present",
-    dates: "2023 - present",
-    location: "Algeria",
     description:
       "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content, real-time interactions.",
     technologies: ["Next.js", "React", "TypeScript", "MongoDB", "PostgreSQL"],
@@ -146,7 +128,6 @@ const certifications = [
     icon: "🏅",
     color: "purple",
     issueDate: "February 2025",
-    credentialId: "BC-CP-2025",
     description:
       "Awarded for exceptional performance in the ByteCraft competitive programming competition, demonstrating advanced problem-solving skills and algorithmic thinking.",
     skills: [
@@ -165,7 +146,6 @@ const certifications = [
     icon: "🚀",
     color: "blue",
     issueDate: "May 2025",
-    credentialId: "UC-eb6a8d0c-f36b-41a0-9f4d-73d789a284f2",
     description:
       "Comprehensive web development bootcamp covering front-end and back-end technologies. Mastered responsive design principles and modern JavaScript frameworks.",
     skills: ["HTML", "CSS", "JavaScript", "Node.js", "MongoDB", "React"],
@@ -221,19 +201,7 @@ const certifications = [
   },
 ];
 
-// Star rating component
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <span key={star} className="text-green-500">
-          ★
-        </span>
-      ))}
-      <span className="ml-2 text-muted-foreground">{rating} on Fiverr</span>
-    </div>
-  );
-}
+
 
 // Technology badge component
 function TechBadge({ tech }: { tech: string }) {
@@ -257,19 +225,9 @@ function TechBadge({ tech }: { tech: string }) {
 }
 
 export default function ExperienceSection() {
-  const [activePage, setActivePage] = useState(1);
-  const [openCertId, setOpenCertId] = useState<number | null>(null);
   // Add state to control dialog open/close
   const [open, setOpen] = useState(false);
   const [selectedCert, setSelectedCert] = useState<any>(null);
-  const certificationsPerPage = certifications.length; // show all
-  const totalPages = 1;
-
-  // Get current certificates based on active page
-  const currentCertifications = useMemo(() => {
-    const startIndex = (activePage - 1) * certificationsPerPage;
-    return certifications.slice(startIndex, startIndex + certificationsPerPage);
-  }, [activePage]);
 
   // Function to handle opening a certification
   const handleOpenCert = (cert: any) => {
