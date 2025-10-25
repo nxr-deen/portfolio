@@ -1,0 +1,200 @@
+{
+  "name": "Noureddine Bouderbala",
+  "headline": "Full-Stack Developer · Engineering Student",
+  "summary": "I'm a full-stack developer with a passion for building innovative, user-centric applications. With expertise in both frontend and backend technologies, I create seamless digital experiences that solve real-world problems. I learn fast and enjoy solving complex problems with clean, maintainable code.",
+  "location": "Lakhdaria-Bouira, Algeria",
+  "contact": {
+    "email": "n_bouderbala@estin.dz",
+    "phone": "+213540194210",
+    "resume": "/cv.pdf"
+  },
+  "social": {
+    "github": "https://github.com/nxr-dine",
+    "linkedin": "https://www.linkedin.com/in/n-bouderbala/",
+    "leetcode": "https://leetcode.com/u/nxr_deen/"
+  },
+  "education": [
+    {
+      "degree": "Engineering Degree in Computer Science",
+      "institution": "Higher School of Computer Science and Digital Technologies (ESTIN)",
+      "institutionUrl": "https://estin.dz",
+      "period": "2022 - Present"
+    },
+    {
+      "degree": "The Complete Web Developer Bootcamp",
+      "institution": "Udemy (Angela Yu)",
+      "institutionUrl": "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
+      "period": "Jan - May 2025"
+    }
+  ],
+  "workExperience": [
+    {
+      "id": 1,
+      "title": "Network & Systems Intern",
+      "company": "GCB, Boudouaou, Boumerdès, Algeria",
+      "companyUrl": "https://www.gcb.dz",
+      "period": "Sep 2025",
+      "description": "Configured and administered a Windows Server and company local network. Integrated a stock management application with SQL Server. Implemented backup and security mechanisms for data reliability.",
+      "technologies": ["Windows Server", "SQL Server", "Network Administration"],
+      "skillsGained": [
+        "Windows Server configuration and administration",
+        "Local network management",
+        "SQL Server integration",
+        "Security and backup implementation"
+      ],
+      "attestationUrl": "/GCB.png"
+    },
+    {
+      "id": 2,
+      "title": "ERP Intern",
+      "company": "Inspectra, Eucalyptus, Algiers, Algeria",
+      "companyUrl": "https://www.inspectra-dz.com/",
+      "period": "Sep 2025 – Jan 2026",
+      "description": "Installed, configured, and customized Odoo ERP modules (CRM, Sales, HR, Payroll, Website, Documents, Signature). Managed and optimized MySQL databases for module integration. Deployed services using Docker for a modular, maintainable environment.",
+      "technologies": ["Odoo ERP", "Python", "MySQL", "Docker"],
+      "skillsGained": [
+        "Odoo ERP customization and configuration",
+        "MySQL database optimization",
+        "Docker deployment and management",
+        "Business process integration"
+      ],
+      "attestationUrl": "/"
+    },
+    {
+      "id": 3,
+      "title": "Full-Stack Developer (Freelance)",
+      "company": "Freelance (Remote, Algeria)",
+      "companyUrl": "#",
+      "period": "Jun – Aug 2025",
+      "description": "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content and real-time interactions.",
+      "technologies": ["Next.js", "React", "TypeScript", "Node.js"],
+      "skillsGained": [
+        "Next.js full-stack development",
+        "API route implementation",
+        "Real-time features",
+        "Performance optimization"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Full-Stack Developer (Personal & Academic Projects)",
+      "company": "Personal & Academic Projects",
+      "companyUrl": "#",
+      "period": "2023 - present",
+      "description": "Developed and maintained high-performance web applications using Next.js. Implemented robust backend logic within Next.js API routes to support dynamic user content, real-time interactions.",
+      "technologies": ["Next.js", "React", "TypeScript", "MongoDB", "PostgreSQL"],
+      "skillsGained": [
+        "Full-stack web development",
+        "Database design and management",
+        "Modern frontend frameworks",
+        "Project planning and execution"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "KibbleDrop - Pet Food Subscription Platform",
+      "description": "A modern pet food subscription platform built with Next.js, Prisma, PostgreSQL and Stripe. Features pet profiles, subscription management and payments.",
+      "image": "/kibbledrop.png",
+      "tags": ["Next.js","TypeScript","PostgreSQL","Stripe"],
+      "liveUrl": "https://kibbledrop.vercel.app/",
+      "githubUrl": "https://github.com/nxr-dine/kibbledrop"
+    },
+    {
+      "id": 2,
+      "title": "Athar Baqi - Quranic Recitations and Education",
+      "description": "An Islamic educational platform providing Quran recitations, Tajweed lessons and articles. Responsive design.",
+      "image": "/athar.png",
+      "tags": ["Next.js","TypeScript"],
+      "liveUrl": "https://athar-baqi.vercel.app",
+      "githubUrl": "https://github.com/nxr-dine/athar-baqi"
+    },
+    {
+      "id": 3,
+      "title": "Algerian Traveling Platform (Wanderlust)",
+      "description": "E-travel platform featuring travel search, bookings and AI recommendations.",
+      "image": "/wanderlust.png",
+      "tags": ["React","Node.js","MongoDB","Express.js"],
+      "liveUrl": "https://wanderlust-e-travelling.netlify.app/",
+      "githubUrl": "https://github.com/nxr-dine/Wanderlust-Traveling-Platform-"
+    },
+    {
+      "id": 4,
+      "title": "PLUAE - University Job Platform",
+      "description": "University job platform with multi-role authentication, Twilio SMS verification and job application management.",
+      "image": "/pluae.png",
+      "tags": ["Next.js","TypeScript","PostgreSQL","NextAuth.js"],
+      "liveUrl": "https://pluae.vercel.app/",
+      "githubUrl": "https://github.com/nxr-dine/PLUAE-"
+    }
+  ],
+  "certifications": [
+    {
+      "id": 1,
+      "title": "Competitive Programming - CodeCraft",
+      "organization": "ByteCraft",
+      "year": "2025",
+      "image": "/Certificate of Participation.png",
+      "icon": "🏅",
+      "issueDate": "February 2025",
+      "description": "Awarded for exceptional performance in the ByteCraft competitive programming competition.",
+      "skills": ["Algorithms","Data Structures","Problem Solving","Competitive Programming"]
+    },
+    {
+      "id": 2,
+      "title": "The Complete Web Developer Bootcamp",
+      "organization": "Udemy (Angela Yu)",
+      "year": "2025",
+      "image": "/udemy-cer.jpg",
+      "icon": "🚀",
+      "issueDate": "May 2025",
+      "description": "Comprehensive web development bootcamp covering front-end and back-end technologies.",
+      "skills": ["HTML","CSS","JavaScript","Node.js","MongoDB","React"],
+      "comingSoon": false,
+      "courseUrl": "https://www.udemy.com/course/the-complete-web-development-bootcamp/"
+    },
+    {
+      "id": 3,
+      "title": "Python Programming Bootcamp",
+      "organization": "Udemy (Vitalii Shumylo)",
+      "year": "2025",
+      "image": "/Udemy - Python.jpg",
+      "icon": "🐍",
+      "issueDate": "October 2025",
+      "description": "Comprehensive Python programming course.",
+      "skills": ["Python","OOP","Data Structures","Algorithms"],
+      "certificateUrl": "https://www.udemy.com/certificate/UC-8e8c41ac-9129-4fa3-a42b-f269203c8dbd/",
+      "instructor": "Vitalii Shumylo"
+    },
+    {
+      "id": 4,
+      "title": "AWS Cloud Computing Course",
+      "organization": "Udemy",
+      "year": "2025",
+      "image": "/Udemy aws.jpg",
+      "icon": "☁️",
+      "issueDate": "October 2025",
+      "description": "Comprehensive AWS cloud computing course.",
+      "skills": ["AWS","EC2","S3","DevOps"],
+      "certificateUrl": "https://www.udemy.com/certificate/UC-90cadf90-8e5a-4b6f-9f62-f4af465ee273/"
+    },
+    {
+      "id": 5,
+      "title": "MySQL Database Management",
+      "organization": "Udemy",
+      "year": "2025",
+      "image": "/Udemy MySQL.jpg",
+      "icon": "🗄️",
+      "issueDate": "October 2025",
+      "description": "Complete MySQL database course covering queries, optimization, and administration.",
+      "skills": ["MySQL","SQL","Database Administration"],
+      "certificateUrl": "https://www.udemy.com/certificate/UC-13539d0f-bc3d-45a1-9aad-44954c0b9ba8/"
+    }
+  ],
+  "skills": [
+    "Next.js","React","TypeScript","JavaScript","HTML","CSS","TailwindCSS",
+    "Node.js","Express","Prisma","PostgreSQL","MongoDB","SQL","Docker",
+    "Python","Odoo ERP","MySQL","AWS","Stripe","Authentication","APIs"
+  ]
+}
